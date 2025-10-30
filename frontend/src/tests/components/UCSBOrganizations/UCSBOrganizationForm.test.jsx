@@ -36,6 +36,12 @@ describe("UCSBOrganizationForm tests", () => {
       const header = screen.getByText(headerText);
       expect(header).toBeInTheDocument();
     });
+
+    expect(screen.getByTestId(`${testId}-submit`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-inactive`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-orgTranslation`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-orgTranslationShort`)).toBeInTheDocument();
+
   });
 
   test("renders correctly when passing in initialContents", async () => {
@@ -57,6 +63,8 @@ describe("UCSBOrganizationForm tests", () => {
     expect(await screen.findByTestId(`${testId}-id`)).toBeInTheDocument();
     expect(screen.getByText(`Id`)).toBeInTheDocument();
   });
+
+  
 
   test("that navigate(-1) is called when Cancel is clicked", async () => {
     render(
