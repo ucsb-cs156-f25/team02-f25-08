@@ -89,7 +89,7 @@ function UCSBOrganizationForm({
         </Form.Control.Feedback>
       </Form.Group>
 
-      <Form.Group className="mb-3">
+      {/* <Form.Group className="mb-3">
         <Form.Label htmlFor="inactive">Inactive</Form.Label>
         <Form.Control
           data-testid={testIdPrefix + "-inactive"}
@@ -103,21 +103,24 @@ function UCSBOrganizationForm({
         <Form.Control.Feedback type="invalid">
           {errors.inactive?.message}
         </Form.Control.Feedback>
-      </Form.Group>
+      </Form.Group> */}
 
-      {/* <Form.Group className="mb-3" controlId="inactive">
-        <Form.Check
-          type="checkbox"
-          label="Inactive"
+      <Form.Group className="mb-3" controlId="inactive">
+        <Form.Label>Inactive</Form.Label>
+        <Form.Select
+          aria-label="Inactive select"
           data-testid={testIdPrefix + "-inactive"}
-          // isInvalid={Boolean(errors.inactive)}
-          isInvalid={errors.inactive ? true : false}
-          {...register("inactive")}
-        />
+          isInvalid={!!errors?.inactive}
+          {...register("inactive", { required: "Inactive status is required" })}
+        >
+          <option value="">Select status...</option>
+          <option value="true">true</option>
+          <option value="false">false</option>
+        </Form.Select>
         <Form.Control.Feedback type="invalid">
           {errors.inactive?.message}
         </Form.Control.Feedback>
-      </Form.Group> */}
+      </Form.Group>
 
       <Button type="submit" data-testid={testIdPrefix + "-submit"}>
         {buttonLabel}
