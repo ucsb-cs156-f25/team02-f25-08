@@ -91,42 +91,42 @@ describe("UCSBOrganizationForm tests", () => {
     await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith(-1));
   });
 
-
   test("user can select inactive status", async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
           <UCSBOrganizationForm />
         </Router>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
-  
+
     const select = await screen.findByTestId(`${testId}-inactive`);
     expect(select).toBeInTheDocument();
     expect(select.value).toBe(""); // default placeholder
-  
+
     fireEvent.change(select, { target: { value: "true" } });
     expect(select.value).toBe("true");
-  
+
     fireEvent.change(select, { target: { value: "false" } });
     expect(select.value).toBe("false");
   });
-  
+
   test("shows validation error if inactive not selected", async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
           <UCSBOrganizationForm />
         </Router>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
-  
+
     const submitButton = await screen.findByText(/Create/);
     fireEvent.click(submitButton);
-  
-    expect(await screen.findByText(/Inactive status is required/)).toBeInTheDocument();
+
+    expect(
+      await screen.findByText(/Inactive status is required/),
+    ).toBeInTheDocument();
   });
-    
 
   test("that the correct validations are performed", async () => {
     render(
