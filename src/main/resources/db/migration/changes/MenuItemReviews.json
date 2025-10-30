@@ -60,7 +60,7 @@
                   {
                     "column": {
                       "name": "COMMENTS",
-                      "type": "VARCHAR(255)"
+                      "type": "TEXT"
                     }
                   }
                   
