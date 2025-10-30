@@ -73,6 +73,53 @@ function UCSBOrganizationForm({
         </Form.Control.Feedback>
       </Form.Group>
 
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="orgTranslation">OrgTranslation</Form.Label>
+        <Form.Control
+          data-testid={testIdPrefix + "-orgTranslation"}
+          id="orgTranslation"
+          type="text"
+          isInvalid={Boolean(errors.orgTranslation)}
+          {...register("orgTranslation", {
+            required: "OrgTranslation is required.",
+          })}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.orgTranslation?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+
+      {/* <Form.Group className="mb-3">
+        <Form.Label htmlFor="inactive">
+        Inactive
+        </Form.Label>
+        <Form.Control
+          data-testid={testIdPrefix + "-inactive"}
+          id="inactive"
+          type="boolean"
+          isInvalid={Boolean(errors.inactive)}
+          {...register("inactive", {
+            required: "Inactive is required.",
+          })}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.inactive?.message}
+        </Form.Control.Feedback>
+      </Form.Group> */}
+
+      <Form.Group className="mb-3" controlId="inactive">
+        <Form.Check
+          type="checkbox"
+          label="Inactive"
+          data-testid={testIdPrefix + "-inactive"}
+          isInvalid={Boolean(errors.inactive)}
+          {...register("inactive")}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.inactive?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+
       <Button type="submit" data-testid={testIdPrefix + "-submit"}>
         {buttonLabel}
       </Button>
