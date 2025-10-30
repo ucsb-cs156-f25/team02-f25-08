@@ -46,7 +46,7 @@ function UCSBOrganizationForm({
             required: "OrgCode is required.",
             maxLength: {
               value: 255,
-              message: "Max length 30 characters",
+              message: "Max length 255 characters",
             },
           })}
         />
@@ -113,7 +113,9 @@ function UCSBOrganizationForm({
           label="Inactive"
           data-testid={testIdPrefix + "-inactive"}
           isInvalid={Boolean(errors.inactive)}
-          {...register("inactive")}
+          {...register("inactive", {
+            required: "Inactive is required.",
+          })}
         />
         <Form.Control.Feedback type="invalid">
           {errors.inactive?.message}
