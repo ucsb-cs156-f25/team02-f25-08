@@ -13,7 +13,7 @@ export default function BasicLayout({ children }) {
   const doLogout = useLogout().mutate;
 
   return (
-    <div className="d-flex flex-column min-vh-50">
+    <div className="d-flex flex-column min-vh-100">
       <AppNavbar
         currentUser={currentUser}
         systemInfo={systemInfo}
