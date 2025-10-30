@@ -109,7 +109,9 @@ describe("UCSBOrganizationForm tests", () => {
       screen.getByText(/OrgTranslationShort is required/),
     ).toBeInTheDocument();
     expect(screen.getByText(/OrgTranslation is required/)).toBeInTheDocument();
-    // expect(screen.getByText(/Inactive is required/)).toBeInTheDocument();
+    expect(screen.getByText(/Inactive is required/)).toBeInTheDocument();
+    // expect(screen.getByTestId("UCSBOrganizationForm-inactive")).toBeInTheDocument();
+    // expect(screen.queryByText(/Inactive/)).toBeInTheDocument(); // ensure branch executed
 
     const OrgCodeInput = screen.getByTestId(`${testId}-orgCode`);
     fireEvent.change(OrgCodeInput, { target: { value: "a".repeat(256) } });
