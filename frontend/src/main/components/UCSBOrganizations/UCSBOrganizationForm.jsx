@@ -89,10 +89,8 @@ function UCSBOrganizationForm({
         </Form.Control.Feedback>
       </Form.Group>
 
-      {/* <Form.Group className="mb-3">
-        <Form.Label htmlFor="inactive">
-        Inactive
-        </Form.Label>
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="inactive">Inactive</Form.Label>
         <Form.Control
           data-testid={testIdPrefix + "-inactive"}
           id="inactive"
@@ -105,22 +103,21 @@ function UCSBOrganizationForm({
         <Form.Control.Feedback type="invalid">
           {errors.inactive?.message}
         </Form.Control.Feedback>
-      </Form.Group> */}
+      </Form.Group>
 
-      <Form.Group className="mb-3" controlId="inactive">
+      {/* <Form.Group className="mb-3" controlId="inactive">
         <Form.Check
           type="checkbox"
           label="Inactive"
           data-testid={testIdPrefix + "-inactive"}
-          isInvalid={Boolean(errors.inactive)}
-          // {...register("inactive", {
-          //   required: "Inactive is required.",
-          // })}
+          // isInvalid={Boolean(errors.inactive)}
+          isInvalid={errors.inactive ? true : false}
+          {...register("inactive")}
         />
         <Form.Control.Feedback type="invalid">
           {errors.inactive?.message}
         </Form.Control.Feedback>
-      </Form.Group>
+      </Form.Group> */}
 
       <Button type="submit" data-testid={testIdPrefix + "-submit"}>
         {buttonLabel}
