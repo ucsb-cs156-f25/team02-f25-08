@@ -110,7 +110,7 @@ function UCSBOrganizationForm({
         <Form.Select
           aria-label="Inactive select"
           data-testid={testIdPrefix + "-inactive"}
-          isInvalid={!!errors?.inactive}
+          isInvalid={Boolean(errors.inactive)}
           {...register("inactive", { required: "Inactive status is required" })}
         >
           <option value="">Select status...</option>
