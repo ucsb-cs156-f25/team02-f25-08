@@ -11,14 +11,14 @@ export default function UCSBOrganizationCreatePage({ storybook = false }) {
     params: {
       orgCode: ucsborganization.orgCode,
       orgTranslationShort: ucsborganization.orgTranslationShort,
-      orgTranslation: ucsborganization.orgTranslation ,
+      orgTranslation: ucsborganization.orgTranslation,
       inactive: ucsborganization.inactive === "true",
     },
   });
 
   const onSuccess = (ucsborganization) => {
     toast(
-      `New UCSB Organization Created - id: ${ucsborganization.id} name: ${ucsborganization.orgCode}`,
+      `New UCSB Organization Created - id: ${ucsborganization.id} OrgCode: ${ucsborganization.orgCode}`,
     );
   };
 

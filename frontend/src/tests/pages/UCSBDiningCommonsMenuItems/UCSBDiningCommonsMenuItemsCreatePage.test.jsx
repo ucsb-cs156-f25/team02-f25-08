@@ -2,9 +2,12 @@ import { render, screen } from "@testing-library/react";
 import UCSBDiningCommonsMenuItemsCreatePage from "main/pages/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsCreatePage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
+import { renderHook } from "@testing-library/react-hooks";
+
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
+
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import { expect } from "vitest";
@@ -12,7 +15,8 @@ import { expect } from "vitest";
 describe("UCSBDiningCommonsMenuItemsCreatePage tests", () => {
   const axiosMock = new AxiosMockAdapter(axios);
 
-  const setupUserOnly = () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
     axiosMock.reset();
     axiosMock.resetHistory();
     axiosMock
@@ -21,15 +25,10 @@ describe("UCSBDiningCommonsMenuItemsCreatePage tests", () => {
     axiosMock
       .onGet("/api/systemInfo")
       .reply(200, systemInfoFixtures.showingNeither);
-  };
+  });
 
   const queryClient = new QueryClient();
-  test("Renders expected content", async () => {
-    // arrange
-
-    setupUserOnly();
-
-    // act
+  test("renders without crashing", async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
@@ -38,11 +37,103 @@ describe("UCSBDiningCommonsMenuItemsCreatePage tests", () => {
       </QueryClientProvider>,
     );
 
-    // assert
-
-    await screen.findByText("Create page not yet implemented");
-    expect(
-      screen.getByText("Create page not yet implemented"),
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByLabelText("OrgCode")).toBeInTheDocument();
+    });
   });
+
+  test("on submit, makes request to backend, and redirects to /ucsborganizations", async () => {
+    const queryClient = new QueryClient();
+    const ucsborganization = {
+      id: 1,
+      orgCode: "ZPR",
+      orgTranslationShort: "ZETA PHI RHO",
+      orgTranslation: "ZETA PHI RHO",
+      inactive: false,
+    };
+
+    axiosMock.onPost("/api/ucsborganization/post").reply(202, ucsborganization);
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <UCSBOrganizationCreatePage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByLabelText("OrgCode")).toBeInTheDocument();
+    });
+
+    const OrgCodeInput = screen.getByLabelText("OrgCode");
+    expect(OrgCodeInput).toBeInTheDocument();
+
+    const OrgTranslationShortInput = screen.getByLabelText(
+      "OrgTranslationShort",
+    );
+    expect(OrgTranslationShortInput).toBeInTheDocument();
+
+    const OrgTranslationInput = screen.getByLabelText("OrgTranslation");
+    expect(OrgTranslationInput).toBeInTheDocument();
+
+    const InactiveInput = screen.getByLabelText("Inactive");
+    expect(InactiveInput).toBeInTheDocument();
+
+    const createButton = screen.getByText("Create");
+    expect(createButton).toBeInTheDocument();
+
+    fireEvent.change(OrgCodeInput, { target: { value: "ZPR" } });
+    fireEvent.change(OrgTranslationShortInput, {
+      target: { value: "ZETA PHI RHO" },
+    });
+    fireEvent.change(OrgTranslationInput, {
+      target: { value: "ZETA PHI RHO" },
+    });
+    fireEvent.change(InactiveInput, { target: { value: false } });
+
+    fireEvent.click(createButton);
+
+    await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
+
+    expect(axiosMock.history.post[0].params).toEqual({
+      orgCode: "ZPR",
+      orgTranslationShort: "ZETA PHI RHO",
+      orgTranslation: "ZETA PHI RHO",
+      inactive: false,
+    });
+
+    // assert - check that the toast was called with the expected message
+    expect(mockToast).toHaveBeenCalledWith(
+      "New UCSB Organization Created - id: 1 OrgCode: ZPR",
+    );
+    expect(mockNavigate).toBeCalledWith({ to: "/ucsborganizations" });
+  });
+
+  test("onSubmit sends correct inactive value (true/false)", async () => {
+    const { result } = renderHook(() =>
+      useBackendMutation(jest.fn(), { onSuccess: jest.fn() })
+    );
+  
+    const mockDataTrue = {
+      orgCode: "ABC",
+      orgTranslationShort: "Alpha",
+      orgTranslation: "Alpha Org",
+      inactive: "true",
+    };
+  
+    const mockDataFalse = {
+      orgCode: "DEF",
+      orgTranslationShort: "Delta",
+      orgTranslation: "Delta Org",
+      inactive: "false",
+    };
+  
+    const paramsTrue = result.current.mutate(mockDataTrue);
+    expect(paramsTrue.params.inactive).toBe(true);
+  
+    const paramsFalse = result.current.mutate(mockDataFalse);
+    expect(paramsFalse.params.inactive).toBe(false);
+  });
+  
 });
