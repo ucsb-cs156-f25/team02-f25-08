@@ -24,7 +24,7 @@ Create.args = {
 export const Update = Template.bind({});
 
 Update.args = {
-  initialContents: UCSBOrganizationFixtures.oneUCSBOrganization,
+  initialContents: UCSBOrganizationFixtures.oneUCSBOrganization_allstring,
   buttonLabel: "Update",
   submitAction: (data) => {
     console.log("Submit was clicked with data: ", data);
