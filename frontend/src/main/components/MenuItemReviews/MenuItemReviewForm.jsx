@@ -41,13 +41,14 @@ function MenuItemReviewForm({
       )}
 
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="itemId">Item Id</Form.Label>
+        <Form.Label htmlFor="itemId">itemId</Form.Label>
         <Form.Control
+          data-testid={testIdPrefix + "-itemId"}
           id="itemId"
           type="text"
           isInvalid={Boolean(errors.itemId)}
           {...register("itemId", {
-            required: "Item Id is required.",
+            required: "itemId is required.",
           })}
         />
         <Form.Control.Feedback type="invalid">
@@ -56,13 +57,14 @@ function MenuItemReviewForm({
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="reviewerEmail">Reviewer Email</Form.Label>
+        <Form.Label htmlFor="reviewerEmail">reviewerEmail</Form.Label>
         <Form.Control
+          data-testid={testIdPrefix + "-reviewerEmail"}
           id="reviewerEmail"
           type="text"
           isInvalid={Boolean(errors.reviewerEmail)}
           {...register("reviewerEmail", {
-            required: "Reviewer Email is required.",
+            required: "reviewerEmail is required.",
           })}
         />
         <Form.Control.Feedback type="invalid">
