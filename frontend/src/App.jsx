@@ -114,8 +114,6 @@ function App() {
           />
         </>
       )}
-<<<<<<< HEAD
-=======
       {hasRole(currentUser, "ROLE_USER") && (
         <>
           <Route
@@ -128,6 +126,11 @@ function App() {
             path="/ucsborganizations"
             element={<UCSBOrganizationIndexPage />}
           />
+          </>
+        )}
+      {hasRole(currentUser, "ROLE_USER") && (
+        <>
+          <Route exact path="/ucsborganizations" element={<UCSBOrganizationIndexPage />} />
         </>
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
@@ -144,7 +147,6 @@ function App() {
           />
         </>
       )}
->>>>>>> 24d01734 (ld- add tests for ucsb org placeholder pages create, edit, idx)
     </Routes>
   );
 }
