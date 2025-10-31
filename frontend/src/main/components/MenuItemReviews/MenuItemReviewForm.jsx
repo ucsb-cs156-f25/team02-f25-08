@@ -41,14 +41,14 @@ function MenuItemReviewForm({
       )}
 
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="itemId">itemId</Form.Label>
+        <Form.Label htmlFor="itemId">Item Id</Form.Label>
         <Form.Control
           data-testid={testIdPrefix + "-itemId"}
           id="itemId"
           type="text"
           isInvalid={Boolean(errors.itemId)}
           {...register("itemId", {
-            required: "itemId is required.",
+            required: "Item Id is required.",
           })}
         />
         <Form.Control.Feedback type="invalid">
@@ -57,14 +57,14 @@ function MenuItemReviewForm({
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="reviewerEmail">reviewerEmail</Form.Label>
+        <Form.Label htmlFor="reviewerEmail">Reviewer Email</Form.Label>
         <Form.Control
           data-testid={testIdPrefix + "-reviewerEmail"}
           id="reviewerEmail"
           type="text"
           isInvalid={Boolean(errors.reviewerEmail)}
           {...register("reviewerEmail", {
-            required: "reviewerEmail is required.",
+            required: "Reviewer Email is required.",
           })}
         />
         <Form.Control.Feedback type="invalid">
@@ -75,6 +75,7 @@ function MenuItemReviewForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="stars">Stars</Form.Label>
         <Form.Control
+          data-testid={testIdPrefix + "-stars"}
           id="stars"
           type="text"
           isInvalid={Boolean(errors.stars)}
@@ -92,6 +93,7 @@ function MenuItemReviewForm({
           Date Reviewed (iso format)
         </Form.Label>
         <Form.Control
+          data-testid={testIdPrefix + "-dateReviewed"}
           id="dateReviewed"
           type="datetime-local"
           isInvalid={Boolean(errors.dateReviewed)}
@@ -125,7 +127,9 @@ function MenuItemReviewForm({
         </Form.Control.Feedback>
       </Form.Group>
 
-      <Button type="submit">{buttonLabel}</Button>
+      <Button type="submit" data-testid={testIdPrefix + "-submit"}>
+        {buttonLabel}
+      </Button>
       <Button
         variant="Secondary"
         onClick={() => navigate(-1)}
