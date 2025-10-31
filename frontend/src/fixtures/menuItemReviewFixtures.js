@@ -13,7 +13,7 @@ const menuItemReviewFixtures = {
       itemId: 1,
       reviewerEmail: "krystellebaluyot@ucsb.edu",
       stars: 3,
-      dateReviewed: "2025-10-30T20:49:03.874",
+      dateReviewed: "2025-10-30T20:49RE:03.874",
       comments: "yummy",
     },
     {
