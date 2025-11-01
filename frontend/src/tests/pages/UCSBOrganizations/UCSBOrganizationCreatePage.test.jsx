@@ -136,14 +136,22 @@ describe("UCSBOrganizationCreatePage tests", () => {
         inactive: JSON.parse(String(ucsborganization.inactive).toLowerCase()),
       },
     });
-  
-    expect(objectToAxiosParams({ inactive: "true" }).params.inactive).toBe(true);
-    expect(objectToAxiosParams({ inactive: "false" }).params.inactive).toBe(false);
+
+    expect(objectToAxiosParams({ inactive: "true" }).params.inactive).toBe(
+      true,
+    );
+    expect(objectToAxiosParams({ inactive: "false" }).params.inactive).toBe(
+      false,
+    );
     expect(objectToAxiosParams({ inactive: true }).params.inactive).toBe(true);
-    expect(objectToAxiosParams({ inactive: false }).params.inactive).toBe(false);
-    expect(objectToAxiosParams({ inactive: "TRUE" }).params.inactive).toBe(true);
-    expect(objectToAxiosParams({ inactive: "False" }).params.inactive).toBe(false);
+    expect(objectToAxiosParams({ inactive: false }).params.inactive).toBe(
+      false,
+    );
+    expect(objectToAxiosParams({ inactive: "TRUE" }).params.inactive).toBe(
+      true,
+    );
+    expect(objectToAxiosParams({ inactive: "False" }).params.inactive).toBe(
+      false,
+    );
   });
-  
-  
 });

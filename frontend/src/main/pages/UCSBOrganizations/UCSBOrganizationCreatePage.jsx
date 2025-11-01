@@ -14,11 +14,9 @@ export default function UCSBOrganizationCreatePage({ storybook = false }) {
       orgTranslation: ucsborganization.orgTranslation,
       // inactive: ucsborganization.inactive === "true"
       // inactive: ucsborganization.inactive
-      inactive: JSON.parse(ucsborganization.inactive.toLowerCase())
+      inactive: JSON.parse(ucsborganization.inactive.toLowerCase()),
     },
-  }
-  
-  );
+  });
 
   const onSuccess = (ucsborganization) => {
     toast(
@@ -52,4 +50,3 @@ export default function UCSBOrganizationCreatePage({ storybook = false }) {
     </BasicLayout>
   );
 }
-
