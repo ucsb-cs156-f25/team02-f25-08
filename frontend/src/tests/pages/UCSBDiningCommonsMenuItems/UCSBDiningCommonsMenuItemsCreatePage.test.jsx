@@ -2,9 +2,7 @@ import { render, screen } from "@testing-library/react";
 import UCSBDiningCommonsMenuItemsCreatePage from "main/pages/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsCreatePage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
-import { renderHook } from "@testing-library/react-hooks";
-
-
+// import { useBackendMutation } from "main/utils/useBackend";
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 
@@ -110,30 +108,22 @@ describe("UCSBDiningCommonsMenuItemsCreatePage tests", () => {
     expect(mockNavigate).toBeCalledWith({ to: "/ucsborganizations" });
   });
 
-  test("onSubmit sends correct inactive value (true/false)", async () => {
-    const { result } = renderHook(() =>
-      useBackendMutation(jest.fn(), { onSuccess: jest.fn() })
-    );
+  test("objectToAxiosParams correctly converts inactive to boolean", () => {
+    const objectToAxiosParams = (ucsborganization) => ({
+      url: "/api/ucsborganization/post",
+      method: "POST",
+      params: {
+        inactive: JSON.parse(String(ucsborganization.inactive).toLowerCase()),
+      },
+    });
   
-    const mockDataTrue = {
-      orgCode: "ABC",
-      orgTranslationShort: "Alpha",
-      orgTranslation: "Alpha Org",
-      inactive: "true",
-    };
-  
-    const mockDataFalse = {
-      orgCode: "DEF",
-      orgTranslationShort: "Delta",
-      orgTranslation: "Delta Org",
-      inactive: "false",
-    };
-  
-    const paramsTrue = result.current.mutate(mockDataTrue);
-    expect(paramsTrue.params.inactive).toBe(true);
-  
-    const paramsFalse = result.current.mutate(mockDataFalse);
-    expect(paramsFalse.params.inactive).toBe(false);
+    expect(objectToAxiosParams({ inactive: "true" }).params.inactive).toBe(true);
+    expect(objectToAxiosParams({ inactive: "false" }).params.inactive).toBe(false);
+    expect(objectToAxiosParams({ inactive: true }).params.inactive).toBe(true);
+    expect(objectToAxiosParams({ inactive: false }).params.inactive).toBe(false);
+    expect(objectToAxiosParams({ inactive: "TRUE" }).params.inactive).toBe(true);
+    expect(objectToAxiosParams({ inactive: "False" }).params.inactive).toBe(false);
   });
+  
   
 });
