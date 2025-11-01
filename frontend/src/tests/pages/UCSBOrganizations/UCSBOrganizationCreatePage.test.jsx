@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor, renderHook } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import UCSBOrganizationCreatePage from "main/pages/UCSBOrganizations/UCSBOrganizationCreatePage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
