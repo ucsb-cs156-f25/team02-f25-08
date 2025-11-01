@@ -46,7 +46,9 @@ describe("UCSBOrganizationEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/ucsborganization", { params: { id: 17 } }).timeout();
+      axiosMock
+        .onGet("/api/ucsborganization", { params: { id: 17 } })
+        .timeout();
     });
 
     afterEach(() => {
@@ -68,7 +70,9 @@ describe("UCSBOrganizationEditPage tests", () => {
         </QueryClientProvider>,
       );
       await screen.findByText("Edit UCSBOrganization");
-      expect(screen.queryByTestId("UCSBOrganization-orgCode")).not.toBeInTheDocument();
+      expect(
+        screen.queryByTestId("UCSBOrganization-orgCode"),
+      ).not.toBeInTheDocument();
       restoreConsole();
     });
   });
@@ -84,13 +88,15 @@ describe("UCSBOrganizationEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/ucsborganization", { params: { id: 17 } }).reply(200, {
-        id: 17,
-        orgCode: "ZPR",
-        orgTranslationShort: "ZETA PHI RHO",
-        orgTranslation: "ZETA PHI RHO",
-        inactive: "false",
-      });
+      axiosMock
+        .onGet("/api/ucsborganization", { params: { id: 17 } })
+        .reply(200, {
+          id: 17,
+          orgCode: "ZPR",
+          orgTranslationShort: "ZETA PHI RHO",
+          orgTranslation: "ZETA PHI RHO",
+          inactive: "false",
+        });
       axiosMock.onPut("/api/ucsborganization").reply(200, {
         id: 17,
         orgCode: "ZPR1",
@@ -122,8 +128,12 @@ describe("UCSBOrganizationEditPage tests", () => {
 
       const idField = screen.getByTestId("UCSBOrganizationForm-id");
       const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
-      const orgTranslationShortField = screen.getByTestId("UCSBOrganizationForm-orgTranslationShort");
-      const orgTranslationField = screen.getByTestId("UCSBOrganizationForm-orgTranslation");
+      const orgTranslationShortField = screen.getByTestId(
+        "UCSBOrganizationForm-orgTranslationShort",
+      );
+      const orgTranslationField = screen.getByTestId(
+        "UCSBOrganizationForm-orgTranslation",
+      );
       const inactiveField = screen.getByTestId("UCSBOrganizationForm-inactive");
 
       const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
@@ -160,8 +170,6 @@ describe("UCSBOrganizationEditPage tests", () => {
       fireEvent.change(inactiveField, {
         target: { value: "true" },
       });
-
-
 
       fireEvent.click(submitButton);
 
