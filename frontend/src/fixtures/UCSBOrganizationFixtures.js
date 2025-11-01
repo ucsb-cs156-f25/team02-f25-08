@@ -6,6 +6,13 @@ const UCSBOrganizationFixtures = {
     orgTranslation: "ZETA PHI RHO",
     inactive: false,
   },
+  oneUCSBOrganization_allstring: {
+    id: 1,
+    orgCode: "ZPR",
+    orgTranslationShort: "ZETA PHI RHO",
+    orgTranslation: "ZETA PHI RHO",
+    inactive: "false",
+  },
   threeUCSBOrganizations: [
     {
       id: 1,
