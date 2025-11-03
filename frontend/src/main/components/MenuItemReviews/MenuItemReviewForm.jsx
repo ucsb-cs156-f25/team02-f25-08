@@ -43,7 +43,6 @@ function MenuItemReviewForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="itemId">Item Id</Form.Label>
         <Form.Control
-
           id="itemId"
           type="text"
           isInvalid={Boolean(errors.itemId)}
@@ -59,7 +58,6 @@ function MenuItemReviewForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="reviewerEmail">Reviewer Email</Form.Label>
         <Form.Control
-
           id="reviewerEmail"
           type="text"
           isInvalid={Boolean(errors.reviewerEmail)}
@@ -75,7 +73,6 @@ function MenuItemReviewForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="stars">Stars</Form.Label>
         <Form.Control
-
           id="stars"
           type="text"
           isInvalid={Boolean(errors.stars)}
@@ -93,7 +90,6 @@ function MenuItemReviewForm({
           Date Reviewed (iso format)
         </Form.Label>
         <Form.Control
-
           id="dateReviewed"
           type="datetime-local"
           isInvalid={Boolean(errors.dateReviewed)}
@@ -127,9 +123,7 @@ function MenuItemReviewForm({
         </Form.Control.Feedback>
       </Form.Group>
 
-      <Button type="submit" >
-        {buttonLabel}
-      </Button>
+      <Button type="submit">{buttonLabel}</Button>
       <Button
         variant="Secondary"
         onClick={() => navigate(-1)}
