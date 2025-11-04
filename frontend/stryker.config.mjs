@@ -7,8 +7,8 @@ const config = {
   reporters: ["html", "clear-text", "progress"],
   testRunner: "vitest",
   mutate: [
-    "src/main/**/*.js",
-    "src/main/**/*.jsx"
+    "frontend/src/main/**/*.js",
+    "frontend/src/main/**/*.jsx"
   ],
   testRunner_comment:
     "Take a look at https://stryker-mutator.io/docs/stryker-js/vitest-runner for information about the vitest plugin.",
