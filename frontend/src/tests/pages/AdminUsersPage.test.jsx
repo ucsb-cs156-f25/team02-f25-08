@@ -1,50 +1,46 @@
-import { render, waitFor, screen } from "@testing-library/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { MemoryRouter } from "react-router";
-import AdminUsersPage from "main/pages/AdminUsersPage";
-import usersFixtures from "fixtures/usersFixtures";
-import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
-import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-import mockConsole from "tests/testutils/mockConsole";
+import { render, waitFor, screen } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { MemoryRouter } from 'react-router';
+import AdminUsersPage from 'main/pages/AdminUsersPage';
+import usersFixtures from 'fixtures/usersFixtures';
+import { apiCurrentUserFixtures } from 'fixtures/currentUserFixtures';
+import { systemInfoFixtures } from 'fixtures/systemInfoFixtures';
+import mockConsole from 'tests/testutils/mockConsole';
 
-import axios from "axios";
-import AxiosMockAdapter from "axios-mock-adapter";
-import { expect } from "vitest";
+import axios from 'axios';
+import AxiosMockAdapter from 'axios-mock-adapter';
+import { expect } from 'vitest';
 
-describe("AdminUsersPage tests", () => {
+describe('AdminUsersPage tests', () => {
   const axiosMock = new AxiosMockAdapter(axios);
 
-  const testId = "UsersTable";
+  const testId = 'UsersTable';
 
   beforeEach(() => {
     axiosMock.reset();
     axiosMock.resetHistory();
-    axiosMock
-      .onGet("/api/currentUser")
-      .reply(200, apiCurrentUserFixtures.userOnly);
-    axiosMock
-      .onGet("/api/systemInfo")
-      .reply(200, systemInfoFixtures.showingNeither);
+    axiosMock.onGet('/api/currentUser').reply(200, apiCurrentUserFixtures.userOnly);
+    axiosMock.onGet('/api/systemInfo').reply(200, systemInfoFixtures.showingNeither);
   });
 
-  test("renders without crashing on three users", async () => {
+  test('renders without crashing on three users', async () => {
     const queryClient = new QueryClient();
-    axiosMock.onGet("/api/admin/users").reply(200, usersFixtures.threeUsers);
+    axiosMock.onGet('/api/admin/users').reply(200, usersFixtures.threeUsers);
 
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <AdminUsersPage />
         </MemoryRouter>
-      </QueryClientProvider>,
+      </QueryClientProvider>
     );
-    await screen.findByText("Users");
-    expect(screen.getByText("Users")).toBeInTheDocument();
+    await screen.findByText('Users');
+    expect(screen.getByText('Users')).toBeInTheDocument();
   });
 
-  test("renders empty table when backend unavailable", async () => {
+  test('renders empty table when backend unavailable', async () => {
     const queryClient = new QueryClient();
-    axiosMock.onGet("/api/admin/users").timeout();
+    axiosMock.onGet('/api/admin/users').timeout();
 
     const restoreConsole = mockConsole();
 
@@ -53,7 +49,7 @@ describe("AdminUsersPage tests", () => {
         <MemoryRouter>
           <AdminUsersPage />
         </MemoryRouter>
-      </QueryClientProvider>,
+      </QueryClientProvider>
     );
 
     await waitFor(() => {
@@ -61,13 +57,9 @@ describe("AdminUsersPage tests", () => {
     });
 
     const errorMessage = console.error.mock.calls[0][0];
-    expect(errorMessage).toMatch(
-      "Error communicating with backend via GET on /api/admin/users",
-    );
+    expect(errorMessage).toMatch('Error communicating with backend via GET on /api/admin/users');
     restoreConsole();
 
-    expect(
-      screen.queryByTestId(`${testId}-cell-row-0-col-id`),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
   });
 });
