@@ -13,19 +13,13 @@ export default function BasicLayout({ children }) {
   const doLogout = useLogout().mutate;
 
   return (
-<<<<<<< HEAD
-    <div className="d-flex flex-column min-vh-50">
+    <div className="d-flex flex-column min-vh-100">
       <AppNavbar
         currentUser={currentUser}
         systemInfo={systemInfo}
         doLogout={doLogout}
       />
       <Container expand="xl" className="pt-4 flex-grow-1">
-=======
-    <div className="d-flex flex-column min-vh-100">
-      <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogout={doLogout} />
-      <Container expand="xl" className="flex-grow-1 pt-4">
->>>>>>> 7cfdeae7 (vn - added tests for HelpRequestForm;)
         {children}
       </Container>
       <Footer />

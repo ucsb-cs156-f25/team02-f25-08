@@ -11,6 +11,7 @@ import RestaurantIndexPage from 'main/pages/Restaurants/RestaurantIndexPage';
 import RestaurantCreatePage from 'main/pages/Restaurants/RestaurantCreatePage';
 import RestaurantEditPage from 'main/pages/Restaurants/RestaurantEditPage';
 
+<<<<<<< HEAD
 import HelpRequestsIndexPage from 'main/pages/HelpRequests/HelpRequestsIndexPage';
 import HelpRequestsCreatePage from 'main/pages/HelpRequests/HelpRequestsCreatePage';
 import HelpRequestsEditPage from 'main/pages/HelpRequests/HelpRequestsEditPage';
@@ -22,8 +23,13 @@ import PlaceholderEditPage from 'main/pages/Placeholder/PlaceholderEditPage';
 import UCSBOrganizationIndexPage from "main/pages/UCSBOrganizations/UCSBOrganizationIndexPage";
 import UCSBOrganizationCreatePage from "main/pages/UCSBOrganizations/UCSBOrganizationCreatePage";
 import UCSBOrganizationEditPage from "main/pages/UCSBOrganizations/UCSBOrganizationEditPage";
+=======
+import PlaceholderIndexPage from 'main/pages/Placeholder/PlaceholderIndexPage';
+import PlaceholderCreatePage from 'main/pages/Placeholder/PlaceholderCreatePage';
+import PlaceholderEditPage from 'main/pages/Placeholder/PlaceholderEditPage';
+>>>>>>> 2c9c91d5 (vn - added tests for HelpRequestForm;)
 
-import { hasRole, useCurrentUser } from "main/utils/useCurrentUser";
+import { hasRole, useCurrentUser } from 'main/utils/useCurrentUser';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -61,6 +67,7 @@ function App() {
         </>
       )}
       {hasRole(currentUser, 'ROLE_USER') && (
+<<<<<<< HEAD
         <>
           <Route exact path="/helprequests" element={<HelpRequestsIndexPage />} />
         </>
@@ -72,11 +79,14 @@ function App() {
         </>
       )}
       {hasRole(currentUser, 'ROLE_USER') && (
+=======
+>>>>>>> 2c9c91d5 (vn - added tests for HelpRequestForm;)
         <>
           <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
         </>
       )}
       {hasRole(currentUser, 'ROLE_ADMIN') && (
+<<<<<<< HEAD
         <>
           <Route exact path="/placeholder/edit/:id" element={<PlaceholderEditPage />} />
           <Route exact path="/placeholder/create" element={<PlaceholderCreatePage />} />
@@ -103,6 +113,11 @@ function App() {
             path="/ucsborganizations/create"
             element={<UCSBOrganizationCreatePage />}
           />
+=======
+        <>
+          <Route exact path="/placeholder/edit/:id" element={<PlaceholderEditPage />} />
+          <Route exact path="/placeholder/create" element={<PlaceholderCreatePage />} />
+>>>>>>> 2c9c91d5 (vn - added tests for HelpRequestForm;)
         </>
       )}
     </Routes>
