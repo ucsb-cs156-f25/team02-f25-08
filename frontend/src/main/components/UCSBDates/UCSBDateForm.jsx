@@ -1,12 +1,8 @@
-import { Button, Form, Row, Col } from "react-bootstrap";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+import { Button, Form, Row, Col } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 
-function UCSBDateForm({
-  initialContents,
-  submitAction,
-  buttonLabel = "Create",
-}) {
+function UCSBDateForm({ initialContents, submitAction, buttonLabel = 'Create' }) {
   // Stryker disable all
   const {
     register,
@@ -39,7 +35,7 @@ function UCSBDateForm({
                 data-testid="UCSBDateForm-id"
                 id="id"
                 type="text"
-                {...register("id")}
+                {...register('id')}
                 value={initialContents.id}
                 disabled
               />
@@ -55,15 +51,15 @@ function UCSBDateForm({
               id="quarterYYYYQ"
               type="text"
               isInvalid={Boolean(errors.quarterYYYYQ)}
-              {...register("quarterYYYYQ", {
+              {...register('quarterYYYYQ', {
                 required: true,
                 pattern: yyyyq_regex,
               })}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.quarterYYYYQ && "QuarterYYYYQ is required. "}
-              {errors.quarterYYYYQ?.type === "pattern" &&
-                "QuarterYYYYQ must be in the format YYYYQ, e.g. 20224 for Fall 2022"}
+              {errors.quarterYYYYQ && 'QuarterYYYYQ is required. '}
+              {errors.quarterYYYYQ?.type === 'pattern' &&
+                'QuarterYYYYQ must be in the format YYYYQ, e.g. 20224 for Fall 2022'}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -75,13 +71,13 @@ function UCSBDateForm({
               id="localDateTime"
               type="datetime-local"
               isInvalid={Boolean(errors.localDateTime)}
-              {...register("localDateTime", {
+              {...register('localDateTime', {
                 required: true,
                 pattern: isodate_regex,
               })}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.localDateTime && "LocalDateTime is required. "}
+              {errors.localDateTime && 'LocalDateTime is required. '}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -96,13 +92,11 @@ function UCSBDateForm({
               id="name"
               type="text"
               isInvalid={Boolean(errors.name)}
-              {...register("name", {
-                required: "Name is required.",
+              {...register('name', {
+                required: 'Name is required.',
               })}
             />
-            <Form.Control.Feedback type="invalid">
-              {errors.name?.message}
-            </Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{errors.name?.message}</Form.Control.Feedback>
           </Form.Group>
         </Col>
       </Row>
@@ -115,8 +109,7 @@ function UCSBDateForm({
           <Button
             variant="Secondary"
             onClick={() => navigate(-1)}
-            data-testid="UCSBDateForm-cancel"
-          >
+            data-testid="UCSBDateForm-cancel">
             Cancel
           </Button>
         </Col>
