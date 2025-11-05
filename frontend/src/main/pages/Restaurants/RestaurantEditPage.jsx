@@ -1,9 +1,9 @@
-import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import { useParams } from "react-router";
-import RestaurantForm from "main/components/Restaurants/RestaurantForm";
-import { Navigate } from "react-router";
-import { useBackend, useBackendMutation } from "main/utils/useBackend";
-import { toast } from "react-toastify";
+import BasicLayout from 'main/layouts/BasicLayout/BasicLayout';
+import { useParams } from 'react-router';
+import RestaurantForm from 'main/components/Restaurants/RestaurantForm';
+import { Navigate } from 'react-router';
+import { useBackend, useBackendMutation } from 'main/utils/useBackend';
+import { toast } from 'react-toastify';
 
 export default function RestaurantEditPage({ storybook = false }) {
   let { id } = useParams();
@@ -17,17 +17,17 @@ export default function RestaurantEditPage({ storybook = false }) {
     [`/api/restaurants?id=${id}`],
     {
       // Stryker disable next-line all : GET is the default, so mutating this to "" doesn't introduce a bug
-      method: "GET",
+      method: 'GET',
       url: `/api/restaurants`,
       params: {
         id,
       },
-    },
+    }
   );
 
   const objectToAxiosPutParams = (restaurant) => ({
-    url: "/api/restaurants",
-    method: "PUT",
+    url: '/api/restaurants',
+    method: 'PUT',
     params: {
       id: restaurant.id,
     },
@@ -45,7 +45,7 @@ export default function RestaurantEditPage({ storybook = false }) {
     objectToAxiosPutParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
-    [`/api/restaurants?id=${id}`],
+    [`/api/restaurants?id=${id}`]
   );
 
   const { isSuccess } = mutation;
@@ -65,7 +65,7 @@ export default function RestaurantEditPage({ storybook = false }) {
         {restaurant && (
           <RestaurantForm
             submitAction={onSubmit}
-            buttonLabel={"Update"}
+            buttonLabel={'Update'}
             initialContents={restaurant}
           />
         )}

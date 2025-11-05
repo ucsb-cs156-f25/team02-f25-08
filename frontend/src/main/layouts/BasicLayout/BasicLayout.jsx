@@ -1,10 +1,10 @@
-import { Container } from "react-bootstrap";
-import Footer from "main/components/Nav/Footer";
-import AppNavbar from "main/components/Nav/AppNavbar";
-import { useCurrentUser } from "main/utils/useCurrentUser";
-import { useLogout } from "main/utils/useLogout";
+import { Container } from 'react-bootstrap';
+import Footer from 'main/components/Nav/Footer';
+import AppNavbar from 'main/components/Nav/AppNavbar';
+import { useCurrentUser } from 'main/utils/useCurrentUser';
+import { useLogout } from 'main/utils/useLogout';
 
-import { useSystemInfo } from "main/utils/systemInfo";
+import { useSystemInfo } from 'main/utils/systemInfo';
 
 export default function BasicLayout({ children }) {
   const currentUser = useCurrentUser();
@@ -14,12 +14,8 @@ export default function BasicLayout({ children }) {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      <AppNavbar
-        currentUser={currentUser}
-        systemInfo={systemInfo}
-        doLogout={doLogout}
-      />
-      <Container expand="xl" className="pt-4 flex-grow-1">
+      <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogout={doLogout} />
+      <Container expand="xl" className="flex-grow-1 pt-4">
         {children}
       </Container>
       <Footer />
