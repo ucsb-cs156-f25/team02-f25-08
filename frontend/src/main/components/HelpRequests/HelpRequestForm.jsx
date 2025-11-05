@@ -62,7 +62,6 @@ function HelpRequestForm({ initialContents, submitAction, buttonLabel = 'Create'
       <Form.Group className="mb-3">
         <Form.Label htmlFor="teamId">Team ID</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + '-teamId'}
           id="teamId"
           type="text"
           isInvalid={Boolean(errors.teamId)}
@@ -76,7 +75,6 @@ function HelpRequestForm({ initialContents, submitAction, buttonLabel = 'Create'
       <Form.Group className="mb-3">
         <Form.Label htmlFor="tableOrBreakoutRoom">Table or Breakout Room</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + '-tableOrBreakoutRoom'}
           id="tableOrBreakoutRoom"
           type="text"
           isInvalid={Boolean(errors.tableOrBreakoutRoom)}
@@ -92,7 +90,6 @@ function HelpRequestForm({ initialContents, submitAction, buttonLabel = 'Create'
       <Form.Group className="mb-3">
         <Form.Label htmlFor="requestTime">Request Time (in UTC)</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + '-requestTime'}
           id="requestTime"
           type="datetime-local"
           isInvalid={Boolean(errors.requestTime)}
@@ -109,7 +106,6 @@ function HelpRequestForm({ initialContents, submitAction, buttonLabel = 'Create'
       <Form.Group className="mb-3">
         <Form.Label htmlFor="explanation">Explanation</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + '-explanation'}
           id="explanation"
           type="text"
           isInvalid={Boolean(errors.explanation)}
@@ -123,9 +119,8 @@ function HelpRequestForm({ initialContents, submitAction, buttonLabel = 'Create'
       <Form.Group className="mb-3">
         <Form.Label htmlFor="solved">Solved</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + '-solved'}
           id="solved"
-          type="boolean"
+          type="checkbox"
           isInvalid={Boolean(errors.solved)}
           {...register('solved', {
             required: 'Solved is required.',
@@ -134,7 +129,7 @@ function HelpRequestForm({ initialContents, submitAction, buttonLabel = 'Create'
         <Form.Control.Feedback type="invalid">{errors.solved?.message}</Form.Control.Feedback>
       </Form.Group>
 
-      <Button type="submit" data-testid={testIdPrefix + '-submit'}>
+      <Button type="submit">
         {buttonLabel}
       </Button>
       <Button
