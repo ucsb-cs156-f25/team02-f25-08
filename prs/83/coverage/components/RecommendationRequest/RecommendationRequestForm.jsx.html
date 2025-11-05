@@ -249,7 +249,11 @@
 <a name='L184'></a><a href='#L184'>184</a>
 <a name='L185'></a><a href='#L185'>185</a>
 <a name='L186'></a><a href='#L186'>186</a>
-<a name='L187'></a><a href='#L187'>187</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -360,6 +364,8 @@
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
@@ -379,6 +385,8 @@
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
@@ -463,89 +471,91 @@ function UCSBDateForm({
   // Stryker restore Regex
 &nbsp;
   // Stryker disable next-line all
-  const yyyyq_regex = /((19)|(20))\d{2}[1-4]/i; // Accepts from 1900-2099 followed by 1-4.  Close enough.
+  //const yyyyq_regex = /((19)|(20))\d{2}[1-4]/i; // Accepts from 1900-2099 followed by 1-4.  Close enough.
 &nbsp;
   return (
     &lt;Form onSubmit={handleSubmit(submitAction)}&gt;
-        {initialContents &amp;&amp; (
-          &lt;Col&gt;
-            &lt;Form.Group className="mb-3"&gt;
-              &lt;Form.Label htmlFor="id"&gt;Id&lt;/Form.Label&gt;
-              &lt;Form.Control
-                data-testid="RecommendationRequestForm-id"
-                id="id"
-                type="text"
-                {...register("id")}
-                value={initialContents.id}
-                disabled
-              /&gt;
-            &lt;/Form.Group&gt;
-          &lt;/Col&gt;
-        )}
-        &lt;Row&gt;
-            &lt;Col&gt;
-            &lt;Form.Group className="mb-3"&gt;
-                &lt;Form.Label htmlFor="requesterEmail"&gt;Requester Email&lt;/Form.Label&gt;
-                &lt;Form.Control
-                data-testid="RecommendationRequestForm-requesterEmail"
-                id="requesterEmail"
-                type="text"
-                isInvalid={Boolean(errors.requesterEmail)}
-                {...register("requesterEmail", {
-                    required: "Requester email is required.",
-                })}
-                /&gt;
-                &lt;Form.Control.Feedback type="invalid"&gt;
-                {errors.requesterEmail?.message}
-                &lt;/Form.Control.Feedback&gt;
-            &lt;/Form.Group&gt;
-            &lt;/Col&gt;
-        &lt;/Row&gt;
-&nbsp;
-        &lt;Row&gt;
-            &lt;Col&gt;
-            &lt;Form.Group className="mb-3"&gt;
-                &lt;Form.Label htmlFor="professorEmail"&gt;Professor Email&lt;/Form.Label&gt;
-                &lt;Form.Control
-                data-testid="RecommendationRequestForm-professorEmail"
-                id="professorEmail"
-                type="text"
-                isInvalid={Boolean(errors.professorEmail)}
-                {...register("professorEmail", {
-                    required: "Professor email is required.",
-                })}
-                /&gt;
-                &lt;Form.Control.Feedback type="invalid"&gt;
-                {errors.professorEmail?.message}
-                &lt;/Form.Control.Feedback&gt;
-            &lt;/Form.Group&gt;
-            &lt;/Col&gt;
-        &lt;/Row&gt;
-&nbsp;
-        &lt;Row&gt;
-            &lt;Col&gt;
-            &lt;Form.Group className="mb-3"&gt;
-                &lt;Form.Label htmlFor="explanation"&gt;Explanation&lt;/Form.Label&gt;
-                &lt;Form.Control
-                data-testid="RecommendationRequestForm-explanation"
-                id="explanation"
-                type="text"
-                isInvalid={Boolean(errors.explanation)}
-                {...register("explanation", {
-                    required: "Explanation is required.",
-                })}
-                /&gt;
-                &lt;Form.Control.Feedback type="invalid"&gt;
-                {errors.explanation?.message}
-                &lt;/Form.Control.Feedback&gt;
-            &lt;/Form.Group&gt;
-            &lt;/Col&gt;
-        &lt;/Row&gt;
-&nbsp;
-        &lt;Row&gt;
+      {initialContents &amp;&amp; (
         &lt;Col&gt;
           &lt;Form.Group className="mb-3"&gt;
-            &lt;Form.Label htmlFor="dateRequested"&gt;Date Requested(iso format)&lt;/Form.Label&gt;
+            &lt;Form.Label htmlFor="id"&gt;Id&lt;/Form.Label&gt;
+            &lt;Form.Control
+              data-testid="RecommendationRequestForm-id"
+              id="id"
+              type="text"
+              {...register("id")}
+              value={initialContents.id}
+              disabled
+            /&gt;
+          &lt;/Form.Group&gt;
+        &lt;/Col&gt;
+      )}
+      &lt;Row&gt;
+        &lt;Col&gt;
+          &lt;Form.Group className="mb-3"&gt;
+            &lt;Form.Label htmlFor="requesterEmail"&gt;Requester Email&lt;/Form.Label&gt;
+            &lt;Form.Control
+              data-testid="RecommendationRequestForm-requesterEmail"
+              id="requesterEmail"
+              type="text"
+              isInvalid={Boolean(errors.requesterEmail)}
+              {...register("requesterEmail", {
+                required: "Requester email is required.",
+              })}
+            /&gt;
+            &lt;Form.Control.Feedback type="invalid"&gt;
+              {errors.requesterEmail?.message}
+            &lt;/Form.Control.Feedback&gt;
+          &lt;/Form.Group&gt;
+        &lt;/Col&gt;
+      &lt;/Row&gt;
+&nbsp;
+      &lt;Row&gt;
+        &lt;Col&gt;
+          &lt;Form.Group className="mb-3"&gt;
+            &lt;Form.Label htmlFor="professorEmail"&gt;Professor Email&lt;/Form.Label&gt;
+            &lt;Form.Control
+              data-testid="RecommendationRequestForm-professorEmail"
+              id="professorEmail"
+              type="text"
+              isInvalid={Boolean(errors.professorEmail)}
+              {...register("professorEmail", {
+                required: "Professor email is required.",
+              })}
+            /&gt;
+            &lt;Form.Control.Feedback type="invalid"&gt;
+              {errors.professorEmail?.message}
+            &lt;/Form.Control.Feedback&gt;
+          &lt;/Form.Group&gt;
+        &lt;/Col&gt;
+      &lt;/Row&gt;
+&nbsp;
+      &lt;Row&gt;
+        &lt;Col&gt;
+          &lt;Form.Group className="mb-3"&gt;
+            &lt;Form.Label htmlFor="explanation"&gt;Explanation&lt;/Form.Label&gt;
+            &lt;Form.Control
+              data-testid="RecommendationRequestForm-explanation"
+              id="explanation"
+              type="text"
+              isInvalid={Boolean(errors.explanation)}
+              {...register("explanation", {
+                required: "Explanation is required.",
+              })}
+            /&gt;
+            &lt;Form.Control.Feedback type="invalid"&gt;
+              {errors.explanation?.message}
+            &lt;/Form.Control.Feedback&gt;
+          &lt;/Form.Group&gt;
+        &lt;/Col&gt;
+      &lt;/Row&gt;
+&nbsp;
+      &lt;Row&gt;
+        &lt;Col&gt;
+          &lt;Form.Group className="mb-3"&gt;
+            &lt;Form.Label htmlFor="dateRequested"&gt;
+              Date Requested(iso format)
+            &lt;/Form.Label&gt;
             &lt;Form.Control
               data-testid="RecommendationRequestForm-dateRequested"
               id="dateRequested"
@@ -564,7 +574,9 @@ function UCSBDateForm({
 &nbsp;
         &lt;Col&gt;
           &lt;Form.Group className="mb-3"&gt;
-            &lt;Form.Label htmlFor="dateNeeded"&gt;Date Needed(iso format)&lt;/Form.Label&gt;
+            &lt;Form.Label htmlFor="dateNeeded"&gt;
+              Date Needed(iso format)
+            &lt;/Form.Label&gt;
             &lt;Form.Control
               data-testid="RecommendationRequestForm-dateNeeded"
               id="dateNeeded"
@@ -628,7 +640,7 @@ export default UCSBDateForm;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-11-05T00:20:38.148Z
+                at 2025-11-05T00:21:49.108Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
