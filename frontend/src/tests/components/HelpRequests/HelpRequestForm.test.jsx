@@ -64,13 +64,23 @@ describe('HelpRequestForm tests', () => {
     expect(await screen.findByTestId(`${testId}-id`)).toBeInTheDocument();
     expect(screen.getByText(`Id`)).toBeInTheDocument();
 
-    expect(screen.getByLabelText("Id")).toHaveValue(String(helpRequestsFixtures.oneHelpRequest.id));
-    expect(screen.getByLabelText("Requester Email")).toHaveValue(String(helpRequestsFixtures.oneHelpRequest.requesterEmail));
-    expect(screen.getByLabelText("Team ID")).toHaveValue(String(helpRequestsFixtures.oneHelpRequest.teamId));
-    expect(screen.getByLabelText("Table or Breakout Room")).toHaveValue(String(helpRequestsFixtures.oneHelpRequest.tableOrBreakoutRoom));
-    expect(screen.getByLabelText("Request Time (in UTC)")).toHaveValue(String(helpRequestsFixtures.oneHelpRequest.requestTime));
-    expect(screen.getByLabelText("Explanation")).toHaveValue(String(helpRequestsFixtures.oneHelpRequest.explanation));
-    expect(screen.getByLabelText("Solved")).toBeChecked();
+    expect(screen.getByLabelText('Id')).toHaveValue(String(helpRequestsFixtures.oneHelpRequest.id));
+    expect(screen.getByLabelText('Requester Email')).toHaveValue(
+      String(helpRequestsFixtures.oneHelpRequest.requesterEmail)
+    );
+    expect(screen.getByLabelText('Team ID')).toHaveValue(
+      String(helpRequestsFixtures.oneHelpRequest.teamId)
+    );
+    expect(screen.getByLabelText('Table or Breakout Room')).toHaveValue(
+      String(helpRequestsFixtures.oneHelpRequest.tableOrBreakoutRoom)
+    );
+    expect(screen.getByLabelText('Request Time (in UTC)')).toHaveValue(
+      String(helpRequestsFixtures.oneHelpRequest.requestTime)
+    );
+    expect(screen.getByLabelText('Explanation')).toHaveValue(
+      String(helpRequestsFixtures.oneHelpRequest.explanation)
+    );
+    expect(screen.getByLabelText('Solved')).toBeChecked();
   });
 
   test('that navigate(-1) is called when Cancel is clicked', async () => {
