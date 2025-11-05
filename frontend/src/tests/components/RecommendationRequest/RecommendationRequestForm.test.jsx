@@ -18,7 +18,14 @@ vi.mock("react-router", async () => {
 describe("RecommendationRequestForm tests", () => {
   const queryClient = new QueryClient();
 
-  const expectedHeaders = ["Requester Email", "Professor Email", "Explanation", "Date Requested(iso format)", "Date Needed(iso format)", "Done"];
+  const expectedHeaders = [
+    "Requester Email",
+    "Professor Email",
+    "Explanation",
+    "Date Requested(iso format)",
+    "Date Needed(iso format)",
+    "Done",
+  ];
   const testId = "RecommendationRequestForm";
 
   test("renders correctly with no initialContents", async () => {
@@ -42,7 +49,9 @@ describe("RecommendationRequestForm tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
-          <RecommendationRequestForm initialContents={recommendationRequestFixtures.oneRequest} />
+          <RecommendationRequestForm
+            initialContents={recommendationRequestFixtures.oneRequest}
+          />
         </Router>
       </QueryClientProvider>,
     );
@@ -95,7 +104,9 @@ describe("RecommendationRequestForm tests", () => {
     expect(screen.getByText(/Done is required/)).toBeInTheDocument();
 
     const requesterEmailInput = screen.getByTestId(`${testId}-requesterEmail`);
-    fireEvent.change(requesterEmailInput, { target: { value: "a".repeat(31) } });
+    fireEvent.change(requesterEmailInput, {
+      target: { value: "a".repeat(31) },
+    });
     fireEvent.click(submitButton);
   });
 });
