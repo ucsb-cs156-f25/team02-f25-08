@@ -1,7 +1,7 @@
-import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { Link } from "react-router";
-import { hasRole } from "main/utils/useCurrentUser";
-import AppNavbarLocalhost from "main/components/Nav/AppNavbarLocalhost";
+import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Link } from 'react-router';
+import { hasRole } from 'main/utils/useCurrentUser';
+import AppNavbarLocalhost from 'main/components/Nav/AppNavbarLocalhost';
 
 export default function AppNavbar({
   currentUser,
@@ -9,7 +9,7 @@ export default function AppNavbar({
   doLogout,
   currentUrl = window.location.href,
 }) {
-  var oauthLogin = systemInfo?.oauthLogin || "/oauth2/authorization/google";
+  var oauthLogin = systemInfo?.oauthLogin || '/oauth2/authorization/google';
 
   return (
     <>
@@ -18,13 +18,7 @@ export default function AppNavbar({
           <AppNavbarLocalhost url={currentUrl} />
         )}
 
-      <Navbar
-        expand="xl"
-        variant="dark"
-        bg="dark"
-        sticky="top"
-        data-testid="AppNavbar"
-      >
+      <Navbar expand="xl" variant="dark" bg="dark" sticky="top" data-testid="AppNavbar">
         <Container>
           <Navbar.Brand as={Link} to="/">
             Example
@@ -45,18 +39,15 @@ export default function AppNavbar({
             )}
           </Nav>
 
-          <>
-            {/* be sure that each NavDropdown has a unique id and data-testid  */}
-          </>
+          <>{/* be sure that each NavDropdown has a unique id and data-testid  */}</>
 
           <Navbar.Collapse className="justify-content-between">
             <Nav className="mr-auto">
-              {hasRole(currentUser, "ROLE_ADMIN") && (
+              {hasRole(currentUser, 'ROLE_ADMIN') && (
                 <NavDropdown
                   title="Admin"
                   id="appnavbar-admin-dropdown"
-                  data-testid="appnavbar-admin-dropdown"
-                >
+                  data-testid="appnavbar-admin-dropdown">
                   <NavDropdown.Item href="/admin/users">Users</NavDropdown.Item>
                 </NavDropdown>
               )}

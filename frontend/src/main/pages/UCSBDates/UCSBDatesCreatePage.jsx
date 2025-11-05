@@ -1,13 +1,13 @@
-import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import UCSBDateForm from "main/components/UCSBDates/UCSBDateForm";
-import { Navigate } from "react-router";
-import { useBackendMutation } from "main/utils/useBackend";
-import { toast } from "react-toastify";
+import BasicLayout from 'main/layouts/BasicLayout/BasicLayout';
+import UCSBDateForm from 'main/components/UCSBDates/UCSBDateForm';
+import { Navigate } from 'react-router';
+import { useBackendMutation } from 'main/utils/useBackend';
+import { toast } from 'react-toastify';
 
 export default function UCSBDatesCreatePage({ storybook = false }) {
   const objectToAxiosParams = (ucsbDate) => ({
-    url: "/api/ucsbdates/post",
-    method: "POST",
+    url: '/api/ucsbdates/post',
+    method: 'POST',
     params: {
       quarterYYYYQ: ucsbDate.quarterYYYYQ,
       name: ucsbDate.name,
@@ -23,7 +23,7 @@ export default function UCSBDatesCreatePage({ storybook = false }) {
     objectToAxiosParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
-    ["/api/ucsbdates/all"],
+    ['/api/ucsbdates/all']
   );
 
   const { isSuccess } = mutation;
