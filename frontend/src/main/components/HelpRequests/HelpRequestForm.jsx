@@ -129,9 +129,7 @@ function HelpRequestForm({ initialContents, submitAction, buttonLabel = 'Create'
         <Form.Control.Feedback type="invalid">{errors.solved?.message}</Form.Control.Feedback>
       </Form.Group>
 
-      <Button type="submit">
-        {buttonLabel}
-      </Button>
+      <Button type="submit">{buttonLabel}</Button>
       <Button
         variant="Secondary"
         onClick={() => navigate(-1)}
