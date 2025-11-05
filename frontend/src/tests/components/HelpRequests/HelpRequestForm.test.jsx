@@ -1,8 +1,8 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router';
 
-import RestaurantForm from 'main/components/Restaurants/RestaurantForm';
-import { restaurantFixtures } from 'fixtures/restaurantFixtures';
+import HelpRequestForm from 'main/components/HelpRequests/HelpRequestForm';
+import { helpRequestsFixtures } from 'fixtures/helpRequestsFixtures';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -15,17 +15,24 @@ vi.mock('react-router', async () => {
   };
 });
 
-describe('RestaurantForm tests', () => {
+describe('HelpRequestForm tests', () => {
   const queryClient = new QueryClient();
 
-  const expectedHeaders = ['Name', 'Description'];
-  const testId = 'RestaurantForm';
+  const expectedHeaders = [
+    'Requester Email',
+    'Team ID',
+    'Table or Breakout Room',
+    'Request Time (in UTC)',
+    'Explanation',
+    'Solved',
+  ];
+  const testId = 'HelpRequestForm';
 
   test('renders correctly with no initialContents', async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
-          <RestaurantForm />
+          <HelpRequestForm />
         </Router>
       </QueryClientProvider>
     );
@@ -42,7 +49,7 @@ describe('RestaurantForm tests', () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
-          <RestaurantForm initialContents={restaurantFixtures.oneRestaurant} />
+          <HelpRequestForm initialContents={helpRequestsFixtures.oneHelpRequest} />
         </Router>
       </QueryClientProvider>
     );
@@ -62,7 +69,7 @@ describe('RestaurantForm tests', () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
-          <RestaurantForm />
+          <HelpRequestForm />
         </Router>
       </QueryClientProvider>
     );
@@ -78,7 +85,7 @@ describe('RestaurantForm tests', () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
-          <RestaurantForm />
+          <HelpRequestForm />
         </Router>
       </QueryClientProvider>
     );
@@ -87,15 +94,19 @@ describe('RestaurantForm tests', () => {
     const submitButton = screen.getByText(/Create/);
     fireEvent.click(submitButton);
 
-    await screen.findByText(/Name is required/);
-    expect(screen.getByText(/Description is required/)).toBeInTheDocument();
+    await screen.findByText(/Requester Email is required/);
+    expect(screen.getByText(/Team ID is required/)).toBeInTheDocument();
+    expect(screen.getByText(/Table or Breakout Room is required/)).toBeInTheDocument();
+    expect(screen.getByText(/Request Time is required/)).toBeInTheDocument();
+    expect(screen.getByText(/Explanation is required/)).toBeInTheDocument();
+    expect(screen.getByText(/Solved is required/)).toBeInTheDocument();
 
-    const nameInput = screen.getByTestId(`${testId}-name`);
-    fireEvent.change(nameInput, { target: { value: 'a'.repeat(31) } });
+    const requesterEmailInput = screen.getByTestId(`${testId}-requesterEmail`);
+    fireEvent.change(requesterEmailInput, { target: { value: 'a'.repeat(256) } });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText(/Max length 30 characters/)).toBeInTheDocument();
+      expect(screen.getByText(/Max length 255 characters/)).toBeInTheDocument();
     });
   });
 });
