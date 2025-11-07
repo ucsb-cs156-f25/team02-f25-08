@@ -60,7 +60,7 @@ describe("MenuItemReviewsCreatePage tests", () => {
     });
   });
 
-  test("on submit, makes request to backend, and redirects to /menuitemreviews", async () => {
+  test("on submit, makes request to backend, and redirects to /menuitemreview", async () => {
     const queryClient = new QueryClient();
     const menuitemreview = {
       id: 1,
@@ -71,7 +71,7 @@ describe("MenuItemReviewsCreatePage tests", () => {
       comments: "yummy",
     };
 
-    axiosMock.onPost("/api/menuitemreviews/post").reply(202, menuitemreview);
+    axiosMock.onPost("/api/menuitemreview/post").reply(202, menuitemreview);
 
     render(
       <QueryClientProvider client={queryClient}>
