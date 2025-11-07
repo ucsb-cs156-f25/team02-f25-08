@@ -19,8 +19,24 @@ vi.mock('react-router', async () => {
 describe('HelpRequestTable tests', () => {
   const queryClient = new QueryClient();
 
-  const expectedHeaders = ['id', 'Requester Email', 'Team ID', 'Table or Breakout Room', 'Request Time (in UTC)', 'Explanation', 'Solved'];
-  const expectedFields = ['id', 'requesterEmail', 'teamId', 'tableOrBreakoutRoom', 'requestTime', 'explanation', 'solved'];
+  const expectedHeaders = [
+    'id',
+    'Requester Email',
+    'Team ID',
+    'Table or Breakout Room',
+    'Request Time (in UTC)',
+    'Explanation',
+    'Solved',
+  ];
+  const expectedFields = [
+    'id',
+    'requesterEmail',
+    'teamId',
+    'tableOrBreakoutRoom',
+    'requestTime',
+    'explanation',
+    'solved',
+  ];
   const testId = 'HelpRequestTable';
 
   test('renders empty table correctly', () => {
@@ -76,11 +92,19 @@ describe('HelpRequestTable tests', () => {
     });
 
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent('1');
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`)).toHaveTextContent('vnarasiman@ucsb.edu');
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`)).toHaveTextContent(
+      'vnarasiman@ucsb.edu'
+    );
     expect(screen.getByTestId(`${testId}-cell-row-0-col-teamId`)).toHaveTextContent('f25-08');
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-tableOrBreakoutRoom`)).toHaveTextContent('8');
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-requestTime`)).toHaveTextContent('2025-10-28T02:36');
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-explanation`)).toHaveTextContent('f25-08: please note mvn test is not working and there\'s an error with the surefire plugin.');
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-tableOrBreakoutRoom`)).toHaveTextContent(
+      '8'
+    );
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-requestTime`)).toHaveTextContent(
+      '2025-10-28T02:36'
+    );
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-explanation`)).toHaveTextContent(
+      "f25-08: please note mvn test is not working and there's an error with the surefire plugin."
+    );
     expect(screen.getByTestId(`${testId}-cell-row-0-col-solved`)).toHaveTextContent('true');
 
     const editButton = screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`);
@@ -120,11 +144,19 @@ describe('HelpRequestTable tests', () => {
     });
 
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent('1');
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`)).toHaveTextContent('vnarasiman@ucsb.edu');
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`)).toHaveTextContent(
+      'vnarasiman@ucsb.edu'
+    );
     expect(screen.getByTestId(`${testId}-cell-row-0-col-teamId`)).toHaveTextContent('f25-08');
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-tableOrBreakoutRoom`)).toHaveTextContent('8');
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-requestTime`)).toHaveTextContent('2025-10-28T02:36');
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-explanation`)).toHaveTextContent('f25-08: please note mvn test is not working and there\'s an error with the surefire plugin.');
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-tableOrBreakoutRoom`)).toHaveTextContent(
+      '8'
+    );
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-requestTime`)).toHaveTextContent(
+      '2025-10-28T02:36'
+    );
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-explanation`)).toHaveTextContent(
+      "f25-08: please note mvn test is not working and there's an error with the surefire plugin."
+    );
     expect(screen.getByTestId(`${testId}-cell-row-0-col-solved`)).toHaveTextContent('true');
 
     expect(screen.queryByText('Delete')).not.toBeInTheDocument();
