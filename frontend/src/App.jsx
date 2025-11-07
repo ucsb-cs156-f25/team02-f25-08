@@ -11,6 +11,7 @@ import RestaurantIndexPage from 'main/pages/Restaurants/RestaurantIndexPage';
 import RestaurantCreatePage from 'main/pages/Restaurants/RestaurantCreatePage';
 import RestaurantEditPage from 'main/pages/Restaurants/RestaurantEditPage';
 
+<<<<<<< HEAD
 import HelpRequestsIndexPage from 'main/pages/HelpRequests/HelpRequestsIndexPage';
 import HelpRequestsCreatePage from 'main/pages/HelpRequests/HelpRequestsCreatePage';
 import HelpRequestsEditPage from 'main/pages/HelpRequests/HelpRequestsEditPage';
@@ -21,6 +22,14 @@ import PlaceholderEditPage from 'main/pages/Placeholder/PlaceholderEditPage';
 
 import { hasRole, useCurrentUser } from 'main/utils/useCurrentUser';
 
+=======
+import PlaceholderIndexPage from 'main/pages/Placeholder/PlaceholderIndexPage';
+import PlaceholderCreatePage from 'main/pages/Placeholder/PlaceholderCreatePage';
+import PlaceholderEditPage from 'main/pages/Placeholder/PlaceholderEditPage';
+
+import { hasRole, useCurrentUser } from 'main/utils/useCurrentUser';
+
+>>>>>>> origin/vn-helprequest-form
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-toastify/dist/ReactToastify.css';
 
