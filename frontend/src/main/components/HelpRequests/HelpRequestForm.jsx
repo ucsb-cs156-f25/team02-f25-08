@@ -6,6 +6,8 @@ function HelpRequestForm({ initialContents, submitAction, buttonLabel = 'Create'
   // Stryker disable all
   const {
     register,
+    watch,
+    setValue,
     formState: { errors },
     handleSubmit,
   } = useForm({ defaultValues: initialContents || {} });
@@ -121,10 +123,9 @@ function HelpRequestForm({ initialContents, submitAction, buttonLabel = 'Create'
         <Form.Check
           id="solved"
           type="checkbox"
+          checked={watch('solved') || false}
+          onChange={(e) => setValue(e.target.checked)}
           isInvalid={Boolean(errors.solved)}
-          {...register('solved', {
-            required: 'Solved is required.',
-          })}
         />
         <Form.Control.Feedback type="invalid">{errors.solved?.message}</Form.Control.Feedback>
       </Form.Group>
