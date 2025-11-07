@@ -12,12 +12,23 @@ function MenuItemReviewForm({
   submitAction,
   buttonLabel = "Create",
 }) {
+  // Convert ISO date to datetime-local format (remove milliseconds and timezone)
+  const formatDateForInput = (isoDate) => {
+    if (!isoDate) return "";
+    return isoDate.replace(/\.\d{3}Z?$/, '');
+  };
+
   // Stryker disable all
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm({ defaultValues: initialContents || {} });
+  } = useForm({ 
+    defaultValues: initialContents ? {
+      ...initialContents,
+      dateReviewed: formatDateForInput(initialContents.dateReviewed)
+    } : {}
+  });
   // Stryker restore all
 
   const navigate = useNavigate();
