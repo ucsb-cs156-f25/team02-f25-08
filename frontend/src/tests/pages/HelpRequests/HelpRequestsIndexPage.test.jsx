@@ -3,12 +3,13 @@ import HelpRequestsIndexPage from 'main/pages/HelpRequests/HelpRequestsIndexPage
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router';
 import mockConsole from 'tests/testutils/mockConsole';
-import { restaurantFixtures } from 'fixtures/restaurantFixtures';
+import { helpRequestsFixtures } from 'fixtures/helpRequestsFixtures';
 
 import { apiCurrentUserFixtures } from 'fixtures/currentUserFixtures';
 import { systemInfoFixtures } from 'fixtures/systemInfoFixtures';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
+import { expect } from 'vitest';
 
 const mockToast = vi.fn();
 vi.mock('react-toastify', async (importOriginal) => {
@@ -22,7 +23,7 @@ vi.mock('react-toastify', async (importOriginal) => {
 describe('HelpRequestsIndexPage tests', () => {
   const axiosMock = new AxiosMockAdapter(axios);
 
-  const testId = 'RestaurantTable';
+  const testId = 'HelpRequestTable';
 
   const setupUserOnly = () => {
     axiosMock.reset();
@@ -53,16 +54,16 @@ describe('HelpRequestsIndexPage tests', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText(/Create Restaurant/)).toBeInTheDocument();
+      expect(screen.getByText(/Create Help Requests/)).toBeInTheDocument();
     });
-    const button = screen.getByText(/Create Restaurant/);
+    const button = screen.getByText(/Create Help Requests/);
     expect(button).toHaveAttribute('href', '/helprequests/create');
     expect(button).toHaveAttribute('style', 'float: right;');
   });
 
   test('renders three helprequests correctly for regular user', async () => {
     setupUserOnly();
-    axiosMock.onGet('/api/helprequests/all').reply(200, restaurantFixtures.threeHelpRequests);
+    axiosMock.onGet('/api/helprequests/all').reply(200, helpRequestsFixtures.threeHelpRequests);
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -73,26 +74,48 @@ describe('HelpRequestsIndexPage tests', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent('2');
+      expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent('1');
     });
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent('3');
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent('2');
     expect(screen.getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent('4');
 
-    const createRestaurantButton = screen.queryByText('Create Restaurant');
-    expect(createRestaurantButton).not.toBeInTheDocument();
+    const createHelpRequestButton = screen.queryByText('Create Help Requests');
+    expect(createHelpRequestButton).not.toBeInTheDocument();
 
-    const name = screen.getByText('Freebirds');
-    expect(name).toBeInTheDocument();
+    const requesterEmail = screen.getByTestId('HelpRequestTable-cell-row-0-col-requesterEmail');
+    expect(requesterEmail).toBeInTheDocument();
+    expect(requesterEmail).toHaveTextContent('vnarasiman@ucsb.edu');
 
-    const description = screen.getByText('Burrito joint, and iconic Isla Vista location');
-    expect(description).toBeInTheDocument();
+    const teamId = screen.getByTestId('HelpRequestTable-cell-row-0-col-teamId');
+    expect(teamId).toBeInTheDocument();
+    expect(teamId).toHaveTextContent('f25-08');
+
+    const tableOrBreakoutRoom = screen.getByTestId(
+      'HelpRequestTable-cell-row-0-col-tableOrBreakoutRoom'
+    );
+    expect(tableOrBreakoutRoom).toBeInTheDocument();
+    expect(tableOrBreakoutRoom).toHaveTextContent('8');
+
+    const requestTime = screen.getByTestId('HelpRequestTable-cell-row-0-col-requestTime');
+    expect(requestTime).toBeInTheDocument();
+    expect(requestTime).toHaveTextContent('2025-10-28T02:36');
+
+    const explanation = screen.getByTestId('HelpRequestTable-cell-row-0-col-explanation');
+    expect(explanation).toBeInTheDocument();
+    expect(explanation).toHaveTextContent(
+      "f25-08: please note mvn test is not working and there's an error with the surefire plugin."
+    );
+
+    const solved = screen.getByTestId('HelpRequestTable-cell-row-0-col-solved');
+    expect(solved).toBeInTheDocument();
+    expect(solved).toHaveTextContent('true');
 
     // for non-admin users, details button is visible, but the edit and delete buttons should not be visible
     expect(
-      screen.queryByTestId('RestaurantTable-cell-row-0-col-Delete-button')
+      screen.queryByTestId('HelpRequestTable-cell-row-0-col-Delete-button')
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByTestId('RestaurantTable-cell-row-0-col-Edit-button')
+      screen.queryByTestId('HelpRequestTable-cell-row-0-col-Edit-button')
     ).not.toBeInTheDocument();
   });
 
@@ -125,8 +148,8 @@ describe('HelpRequestsIndexPage tests', () => {
   test('what happens when you click delete, admin', async () => {
     setupAdminUser();
 
-    axiosMock.onGet('/api/helprequests/all').reply(200, restaurantFixtures.threeHelpRequests);
-    axiosMock.onDelete('/api/helprequests').reply(200, 'Restaurant with id 1 was deleted');
+    axiosMock.onGet('/api/helprequests/all').reply(200, helpRequestsFixtures.threeHelpRequests);
+    axiosMock.onDelete('/api/helprequests').reply(200, 'HelpRequest with id 1 was deleted');
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -140,7 +163,7 @@ describe('HelpRequestsIndexPage tests', () => {
       expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toBeInTheDocument();
     });
 
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent('2');
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent('1');
 
     const deleteButton = await screen.findByTestId(`${testId}-cell-row-0-col-Delete-button`);
     expect(deleteButton).toBeInTheDocument();
@@ -148,14 +171,13 @@ describe('HelpRequestsIndexPage tests', () => {
     fireEvent.click(deleteButton);
 
     await waitFor(() => {
-      expect(mockToast).toBeCalledWith('Restaurant with id 1 was deleted');
+      expect(mockToast).toHaveBeenCalledWith('HelpRequest with id 1 was deleted');
     });
 
     await waitFor(() => {
       expect(axiosMock.history.delete.length).toBe(1);
     });
     expect(axiosMock.history.delete[0].url).toBe('/api/helprequests');
-    expect(axiosMock.history.delete[0].url).toBe('/api/helprequests');
-    expect(axiosMock.history.delete[0].params).toEqual({ id: 2 });
+    expect(axiosMock.history.delete[0].params).toEqual({ id: 1 });
   });
 });
