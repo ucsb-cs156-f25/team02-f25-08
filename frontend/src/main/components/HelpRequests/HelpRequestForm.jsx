@@ -6,6 +6,8 @@ function HelpRequestForm({ initialContents, submitAction, buttonLabel = 'Create'
   // Stryker disable all
   const {
     register,
+    watch,
+    setValue,
     formState: { errors },
     handleSubmit,
   } = useForm({ defaultValues: initialContents || {} });
