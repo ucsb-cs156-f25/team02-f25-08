@@ -7,9 +7,13 @@ import UCSBDatesIndexPage from 'main/pages/UCSBDates/UCSBDatesIndexPage';
 import UCSBDatesCreatePage from 'main/pages/UCSBDates/UCSBDatesCreatePage';
 import UCSBDatesEditPage from 'main/pages/UCSBDates/UCSBDatesEditPage';
 
-import RestaurantIndexPage from 'main/pages/Restaurants/RestaurantIndexPage';
-import RestaurantCreatePage from 'main/pages/Restaurants/RestaurantCreatePage';
-import RestaurantEditPage from 'main/pages/Restaurants/RestaurantEditPage';
+import RestaurantIndexPage from "main/pages/Restaurants/RestaurantIndexPage";
+import RestaurantCreatePage from "main/pages/Restaurants/RestaurantCreatePage";
+import RestaurantEditPage from "main/pages/Restaurants/RestaurantEditPage";
+
+import HelpRequestsIndexPage from "main/pages/HelpRequests/HelpRequestsIndexPage";
+import HelpRequestsCreatePage from "main/pages/HelpRequests/HelpRequestsCreatePage";
+import HelpRequestsEditPage from "main/pages/HelpRequests/HelpRequestsEditPage";
 
 import PlaceholderIndexPage from 'main/pages/Placeholder/PlaceholderIndexPage';
 import PlaceholderCreatePage from 'main/pages/Placeholder/PlaceholderCreatePage';
@@ -56,7 +60,26 @@ function App() {
           <Route exact path="/restaurants/create" element={<RestaurantCreatePage />} />
         </>
       )}
-      {hasRole(currentUser, 'ROLE_USER') && (
+      {hasRole(currentUser, "ROLE_USER") && (
+        <>
+          <Route exact path="/helprequests" element={<HelpRequestsIndexPage />} />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_ADMIN") && (
+        <>
+          <Route
+            exact
+            path="/helprequests/edit/:id"
+            element={<HelpRequestsEditPage />}
+          />
+          <Route
+            exact
+            path="/helprequests/create"
+            element={<HelpRequestsCreatePage />}
+          />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_USER") && (
         <>
           <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
         </>
