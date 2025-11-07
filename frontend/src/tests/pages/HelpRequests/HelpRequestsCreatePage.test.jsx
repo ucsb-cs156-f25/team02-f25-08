@@ -52,19 +52,25 @@ describe('HelpRequestsCreatePage tests', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByLabelText('Name')).toBeInTheDocument();
+      expect(screen.getByLabelText('Requester Email')).toBeInTheDocument();
     });
   });
 
-  test('on submit, makes request to backend, and redirects to /restaurants', async () => {
+  test('on submit, makes request to backend, and redirects to /helprequests', async () => {
     const queryClient = new QueryClient();
-    const restaurant = {
-      id: 3,
-      name: 'South Coast Deli',
-      description: 'Sandwiches and Salads',
+
+    const helpRequest = {
+      id: 7,
+      requesterEmail: 'vnarasiman@ucsb.edu',
+      teamId: 'f25-08',
+      tableOrBreakoutRoom: '8',
+      requestTime: '2025-10-28T02:36',
+      explanation:
+        "f25-08: please note mvn test is not working and there's an error with the surefire plugin.",
+      solved: true,
     };
 
-    axiosMock.onPost('/api/restaurants/post').reply(202, restaurant);
+    axiosMock.onPost('/api/helprequests/post').reply(202, helpRequest);
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -75,33 +81,60 @@ describe('HelpRequestsCreatePage tests', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByLabelText('Name')).toBeInTheDocument();
+      expect(screen.getByLabelText('Requester Email')).toBeInTheDocument();
     });
 
-    const nameInput = screen.getByLabelText('Name');
-    expect(nameInput).toBeInTheDocument();
+    const requesterEmailInput = screen.getByLabelText('Requester Email');
+    expect(requesterEmailInput).toBeInTheDocument();
 
-    const descriptionInput = screen.getByLabelText('Description');
-    expect(descriptionInput).toBeInTheDocument();
+    const teamIdInput = screen.getByLabelText('Team ID');
+    expect(teamIdInput).toBeInTheDocument();
+
+    const tableOrBreakoutRoomInput = screen.getByLabelText('Table or Breakout Room');
+    expect(tableOrBreakoutRoomInput).toBeInTheDocument();
+
+    const requestTimeInput = screen.getByLabelText('Request Time (in UTC)');
+    expect(requestTimeInput).toBeInTheDocument();
+
+    const explanationInput = screen.getByLabelText('Explanation');
+    expect(explanationInput).toBeInTheDocument();
+
+    const solvedInput = screen.getByLabelText('Solved');
+    expect(solvedInput).toBeInTheDocument();
 
     const createButton = screen.getByText('Create');
     expect(createButton).toBeInTheDocument();
 
-    fireEvent.change(nameInput, { target: { value: 'South Coast Deli' } });
-    fireEvent.change(descriptionInput, {
-      target: { value: 'Sandwiches and Salads' },
+    fireEvent.change(requesterEmailInput, { target: { value: 'vnarasiman@ucsb.edu' } });
+    fireEvent.change(teamIdInput, { target: { value: 'f25-08' } });
+    fireEvent.change(tableOrBreakoutRoomInput, { target: { value: '8' } });
+    fireEvent.change(requestTimeInput, { target: { value: '2025-10-28T02:36' } });
+    fireEvent.change(explanationInput, {
+      target: {
+        value:
+          "f25-08: please note mvn test is not working and there's an error with the surefire plugin.",
+      },
     });
+    fireEvent.click(solvedInput);
+
     fireEvent.click(createButton);
 
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
 
     expect(axiosMock.history.post[0].params).toEqual({
-      name: 'South Coast Deli',
-      description: 'Sandwiches and Salads',
+      requesterEmail: 'vnarasiman@ucsb.edu',
+      teamId: 'f25-08',
+      tableOrBreakoutRoom: '8',
+      requestTime: '2025-10-28T02:36',
+      explanation:
+        "f25-08: please note mvn test is not working and there's an error with the surefire plugin.",
+      solved: true,
     });
 
     // assert - check that the toast was called with the expected message
-    expect(mockToast).toBeCalledWith('New restaurant Created - id: 3 name: South Coast Deli');
-    expect(mockNavigate).toBeCalledWith({ to: '/restaurants' });
+    expect(mockToast).toBeCalledWith(
+      'New Help Request Created - id: 7 requester email: vnarasiman@ucsb.edu'
+    );
+    expect(mockNavigate).toBeCalledWith({ to: '/helprequests' });
   });
 });
