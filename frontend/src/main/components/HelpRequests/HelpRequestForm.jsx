@@ -6,8 +6,6 @@ function HelpRequestForm({ initialContents, submitAction, buttonLabel = 'Create'
   // Stryker disable all
   const {
     register,
-    watch,
-    setValue,
     formState: { errors },
     handleSubmit,
   } = useForm({ defaultValues: initialContents || {} });
@@ -120,11 +118,15 @@ function HelpRequestForm({ initialContents, submitAction, buttonLabel = 'Create'
 
       <Form.Group className="mb-3">
         <Form.Label htmlFor="solved">Solved</Form.Label>
+<<<<<<< HEAD
         <Form.Check
           id="solved"
           type="checkbox"
           {...register('solved')}
         />
+=======
+        <Form.Check id="solved" type="checkbox" {...register('solved')} />
+>>>>>>> 1357546f (vn - updated to 100% frontend code coverage on HelpRequestForm)
       </Form.Group>
 
       <Button type="submit">{buttonLabel}</Button>
