@@ -18,7 +18,6 @@ describe("UCSBDiningCommonsMenuItemsForm tests", () => {
   const queryClient = new QueryClient();
 
   const expectedHeaders = ["Dining Commons Code", "Name", "Station"];
-  const testId = "UCSBDiningCommonsMenuItemsForm";
 
   test("renders correctly with no initialContents", async () => {
     render(
@@ -36,6 +35,27 @@ describe("UCSBDiningCommonsMenuItemsForm tests", () => {
       expect(header).toBeInTheDocument();
     });
   });
+
+  test("renders correctly when passing in initialContents", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <UCSBDiningCommonsMenuItemsForm initialContents={ucsbDiningCommonsMenuItemsFixtures.oneDiningCommonsMenuItems} />
+        </Router>
+      </QueryClientProvider>,
+    );
+
+    expect(await screen.findByText(/Create/)).toBeInTheDocument();
+
+    expectedHeaders.forEach((headerText) => {
+      const header = screen.getByText(headerText);
+      expect(header).toBeInTheDocument();
+    });
+
+    expect(screen.getByText(`Id`)).toBeInTheDocument();
+
+  });
+
 
   test("renders correctly when passing in a UCSBDiningCommonsMenuItems", async () => {
     render(

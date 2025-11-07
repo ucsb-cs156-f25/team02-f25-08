@@ -1,11 +1,11 @@
 const ucsbDiningCommonsMenuItemsFixtures = {
-  oneDate: {
+  oneDiningCommonsMenuItems: {
     id: 1,
     diningCommonsCode: "Ortega",
     name: "Pesto Pasta",
     station: "Take Out",
   },
-  threeDates: [
+  threeDiningCommonsMenuItems: [
     {
       id: 1,
       diningCommonsCode: "Portola",
