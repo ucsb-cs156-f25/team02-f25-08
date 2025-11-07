@@ -124,10 +124,9 @@ function HelpRequestForm({ initialContents, submitAction, buttonLabel = 'Create'
           id="solved"
           type="checkbox"
           checked={watch('solved') || false}
-          onChange={(e) => setValue(e.target.checked)}
-          isInvalid={Boolean(errors.solved)}
+          onChange={(e) => setValue('solved', e.target.checked)}
+          {...register('solved')}
         />
-        <Form.Control.Feedback type="invalid">{errors.solved?.message}</Form.Control.Feedback>
       </Form.Group>
 
       <Button type="submit">{buttonLabel}</Button>
