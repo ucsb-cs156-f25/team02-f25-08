@@ -66,6 +66,47 @@ describe("MenuItemReviewForm tests", () => {
     expect(screen.getByText(`Id`)).toBeInTheDocument();
   });
 
+  test("formats ISO date correctly when initialContents has dateReviewed", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <MenuItemReviewForm
+            initialContents={{
+              ...menuItemReviewFixtures.oneMenuItemReview,
+              dateReviewed: "2024-03-15T10:30:45.123Z"
+            }}
+          />
+        </Router>
+      </QueryClientProvider>,
+    );
+
+    await screen.findByText(/Create/);
+    const dateInput = screen.getByLabelText(/Date Reviewed/);
+    // Verify milliseconds and Z suffix are removed
+    expect(dateInput.value).not.toContain(".123");
+    expect(dateInput.value).not.toContain("Z");
+    expect(dateInput.value).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
+  });
+
+  test("handles null dateReviewed in initialContents", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <MenuItemReviewForm
+            initialContents={{
+              ...menuItemReviewFixtures.oneMenuItemReview,
+              dateReviewed: null
+            }}
+          />
+        </Router>
+      </QueryClientProvider>,
+    );
+
+    await screen.findByText(/Create/);
+    const dateInput = screen.getByLabelText(/Date Reviewed/);
+    expect(dateInput.value).toBe("");
+  });
+
   test("that navigate(-1) is called when Cancel is clicked", async () => {
     render(
       <QueryClientProvider client={queryClient}>
