@@ -21,7 +21,7 @@ const menuItemReviewFixtures = {
       itemId: 2,
       reviewerEmail: "krystelleb22@gmail.com",
       stars: 4,
-      dateReviewed: "2025-10-30T20:51:23",
+      dateReviewed: "2025-10-30T14:23:15",
       comments: "delicious",
     },
     {
@@ -29,7 +29,7 @@ const menuItemReviewFixtures = {
       itemId: 3,
       reviewerEmail: "krystellebaluyot22@gmail.com",
       stars: 1,
-      dateReviewed: "2025-10-30T20:51:49",
+      dateReviewed: "2025-11-15T09:37:42",
       comments: "okay",
     },
   ],
