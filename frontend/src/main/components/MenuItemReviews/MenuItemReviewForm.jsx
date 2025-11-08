@@ -12,23 +12,12 @@ function MenuItemReviewForm({
   submitAction,
   buttonLabel = "Create",
 }) {
-  // Convert ISO date to datetime-local format (remove milliseconds and timezone)
-  const formatDateForInput = (isoDate) => {
-    if (!isoDate) return "";
-    return isoDate.replace(/\.\d{3}Z?$/, '');
-  };
-
   // Stryker disable all
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm({ 
-    defaultValues: initialContents ? {
-      ...initialContents,
-      dateReviewed: formatDateForInput(initialContents.dateReviewed)
-    } : {}
-  });
+  } = useForm({ defaultValues: initialContents || {} });
   // Stryker restore all
 
   const navigate = useNavigate();
@@ -103,6 +92,7 @@ function MenuItemReviewForm({
         <Form.Control
           id="dateReviewed"
           type="datetime-local"
+          step="1"
           isInvalid={Boolean(errors.dateReviewed)}
           {...register("dateReviewed", {
             required: true,
