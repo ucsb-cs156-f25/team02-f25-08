@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 
 // Stryker disable Regex
 const isodate_regex =
-  /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
+  /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
 // Stryker restore Regex
 
 function MenuItemReviewForm({
@@ -12,23 +12,12 @@ function MenuItemReviewForm({
   submitAction,
   buttonLabel = "Create",
 }) {
-  // Convert ISO date to datetime-local format (remove milliseconds and timezone)
-  const formatDateForInput = (isoDate) => {
-    if (!isoDate) return "";
-    return isoDate.replace(/\.\d{3}Z?$/, '');
-  };
-
   // Stryker disable all
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm({ 
-    defaultValues: initialContents ? {
-      ...initialContents,
-      dateReviewed: formatDateForInput(initialContents.dateReviewed)
-    } : {}
-  });
+  } = useForm({ defaultValues: initialContents || {} });
   // Stryker restore all
 
   const navigate = useNavigate();
