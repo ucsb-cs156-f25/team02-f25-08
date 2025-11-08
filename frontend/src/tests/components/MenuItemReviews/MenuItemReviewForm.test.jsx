@@ -82,10 +82,8 @@ describe("MenuItemReviewForm tests", () => {
 
     await screen.findByText(/Create/);
     const dateInput = screen.getByLabelText(/Date Reviewed/);
-    // Verify milliseconds and Z suffix are removed
-    expect(dateInput.value).not.toContain(".123");
-    expect(dateInput.value).not.toContain("Z");
-    expect(dateInput.value).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
+    expect(dateInput.value).toMatch(/^2024-03-15T10:30:45(\.\d+)?$/);
+    expect(dateInput.value).not.toBe("Stryker was here!");
   });
 
   test("handles null dateReviewed in initialContents", async () => {
@@ -104,7 +102,50 @@ describe("MenuItemReviewForm tests", () => {
 
     await screen.findByText(/Create/);
     const dateInput = screen.getByLabelText(/Date Reviewed/);
+    // Must be exactly empty string, not "Stryker was here!" or any other value
     expect(dateInput.value).toBe("");
+    expect(dateInput.value).not.toBe("Stryker was here!");
+  });
+
+  test("formats date without Z suffix correctly", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <MenuItemReviewForm
+            initialContents={{
+              ...menuItemReviewFixtures.oneMenuItemReview,
+              dateReviewed: "2024-03-15T10:30:45.123"
+            }}
+          />
+        </Router>
+      </QueryClientProvider>,
+    );
+
+    await screen.findByText(/Create/);
+    const dateInput = screen.getByLabelText(/Date Reviewed/);
+    // Should handle dates without Z suffix
+    expect(dateInput.value).toMatch(/^2024-03-15T10:30:45(\.\d+)?$/);
+  });
+
+  test("formats date with only Z suffix correctly", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <MenuItemReviewForm
+            initialContents={{
+              ...menuItemReviewFixtures.oneMenuItemReview,
+              dateReviewed: "2024-03-15T10:30:45Z"
+            }}
+          />
+        </Router>
+      </QueryClientProvider>,
+    );
+
+    await screen.findByText(/Create/);
+    const dateInput = screen.getByLabelText(/Date Reviewed/);
+    // Should handle dates with only Z (no milliseconds)
+    expect(dateInput.value).toMatch(/^2024-03-15T10:30:45(\.\d+)?$/);
+    expect(dateInput.value).not.toContain("Z");
   });
 
   test("that navigate(-1) is called when Cancel is clicked", async () => {
