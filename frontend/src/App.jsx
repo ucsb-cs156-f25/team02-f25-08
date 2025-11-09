@@ -57,7 +57,7 @@ function App() {
         <>
           <Route
             exact
-            path="/menuitemreviews"
+            path="/menuitemreview"
             element={<MenuItemReviewsIndexPage />}
           />
         </>
@@ -66,7 +66,7 @@ function App() {
         <>
           <Route
             exact
-            path="/menuitemreviews/edit/:id"
+            path="/menuitemreview/edit/:id"
             element={<MenuItemReviewsEditPage />}
           />
           <Route
