@@ -16,26 +16,26 @@ const Template = (args) => {
 export const Empty = Template.bind({});
 
 Empty.args = {
-  UCSBDiningCommonsMenuItemss: [],
+  ucsbDiningCommonsMenuItemss: [],
   currentUser: currentUserFixtures.userOnly,
 };
 
 export const ThreeItemsOrdinaryUser = Template.bind({});
 
 ThreeItemsOrdinaryUser.args = {
-  UCSBDiningCommonsMenuItemss: ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems,
+  ucsbDiningCommonsMenuItemss: ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems,
   currentUser: currentUserFixtures.userOnly,
 };
 
 export const ThreeItemsAdminUser = Template.bind({});
 ThreeItemsAdminUser.args = {
-  UCSBDiningCommonsMenuItemss: ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems,
+  ucsbDiningCommonsMenuItemss: ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems,
   currentUser: currentUserFixtures.adminUser,
 };
 
 ThreeItemsAdminUser.parameters = {
   msw: [
-    http.delete("/api/ucsbdiningcommonsmenuitemss", () => {
+    http.delete("/api/ucsbDiningCommonsMenuItemss", () => {
       return HttpResponse.json(
         { message: "UCSBDiningCommonsMenuItem deleted successfully" },
         { status: 200 },
