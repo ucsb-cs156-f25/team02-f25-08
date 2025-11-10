@@ -5,12 +5,45 @@ import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
 export default function UCSBDiningCommonsMenuItemsCreatePage({ storybook = false }) {
-  // Stryker disable all : placeholder for future implementation
-    return (
-      <BasicLayout>
-        <div className="pt-2">
-          <h1>Create page not yet implemented</h1>
-        </div>
-      </BasicLayout>
+  const objectToAxiosParams = (ucsbdiningcommonsmenuitems) => ({
+    url: "/api/ucsbdiningcommonsmenuitems/post",
+    method: "POST",
+    params: {
+      diningCommonsCode: ucsbdiningcommonsmenuitems.diningCommonsCode,
+      name: ucsbdiningcommonsmenuitems.name,
+      station: ucsbdiningcommonsmenuitems.station,
+    },
+  });
+
+  const onSuccess = (ucsbdiningcommonsmenuitems) => {
+    toast(
+      `New ucsbdiningcommonsmenuitems Created - id: ${ucsbdiningcommonsmenuitems.id} name: ${ucsbdiningcommonsmenuitems.name}`,
     );
+  };
+
+  const mutation = useBackendMutation(
+    objectToAxiosParams,
+    { onSuccess },
+    // Stryker disable next-line all : hard to set up test for caching
+    ["/api/ucsbdiningcommonsmenuitems/all"], // mutation makes this key stale so that pages relying on it reload
+  );
+
+  const { isSuccess } = mutation;
+
+  const onSubmit = async (data) => {
+    mutation.mutate(data);
+  };
+
+  if (isSuccess && !storybook) {
+    return <Navigate to="/ucsbdiningcommonsmenuitems" />;
   }
+
+  return (
+    <BasicLayout>
+      <div className="pt-2">
+        <h1>Create New UCSBDiningCommonsMenuItems</h1>
+        <UCSBDiningCommonsMenuItemsForm submitAction={onSubmit} />
+      </div>
+    </BasicLayout>
+  );
+}
