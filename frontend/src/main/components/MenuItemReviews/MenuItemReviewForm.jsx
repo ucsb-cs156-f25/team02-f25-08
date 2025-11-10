@@ -96,7 +96,6 @@ function MenuItemReviewForm({
           data-testid={testIdPrefix + "-dateReviewed"}
           id="dateReviewed"
           type="datetime-local"
-          step="1"
           isInvalid={Boolean(errors.dateReviewed)}
           {...register("dateReviewed", {
             required: true,
