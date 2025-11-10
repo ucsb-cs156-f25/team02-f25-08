@@ -93,7 +93,7 @@ describe("MenuItemReviewEditPage tests", () => {
           itemId: 1,
           reviewerEmail: "krystellebaluyot@ucsb.edu",
           stars: 3,
-          dateReviewed: "2025-10-30T20:49:03",
+          dateReviewed: "2025-10-30T20:49",
           comments: "yummy",
         });
       axiosMock.onPut("/api/menuitemreview").reply(200, {
@@ -101,7 +101,7 @@ describe("MenuItemReviewEditPage tests", () => {
         itemId: "25",
         reviewerEmail: "krystelleb22@ucsb.edu",
         stars: "5",
-        dateReviewed: "2025-10-30T14:23:15",
+        dateReviewed: "2025-10-30T14:23",
         comments: "delicious",
       });
     });
@@ -147,7 +147,7 @@ describe("MenuItemReviewEditPage tests", () => {
       expect(starsField).toBeInTheDocument();
       expect(starsField).toHaveValue("3");
       expect(dateReviewedField).toBeInTheDocument();
-      expect(dateReviewedField).toHaveValue("2025-10-30T20:49:03.000");
+      expect(dateReviewedField).toHaveValue("2025-10-30T20:49");
       expect(commentsField).toBeInTheDocument();
       expect(commentsField).toHaveValue("yummy");
 
@@ -163,7 +163,7 @@ describe("MenuItemReviewEditPage tests", () => {
         target: { value: "5" },
       });
       fireEvent.change(dateReviewedField, {
-        target: { value: "2025-10-30T14:23:15" },
+        target: { value: "2025-10-30T14:23" },
       });
       fireEvent.change(commentsField, {
         target: { value: "delicious" },
@@ -184,7 +184,7 @@ describe("MenuItemReviewEditPage tests", () => {
           itemId: "25",
           reviewerEmail: "krystelleb22@ucsb.edu",
           stars: "5",
-          dateReviewed: "2025-10-30T14:23:15.000",
+          dateReviewed: "2025-10-30T14:23",
           comments: "delicious",
         }),
       ); // posted object
@@ -217,7 +217,7 @@ describe("MenuItemReviewEditPage tests", () => {
       expect(itemIdField).toHaveValue("1");
       expect(reviewerEmailField).toHaveValue("krystellebaluyot@ucsb.edu");
       expect(starsField).toHaveValue("3");
-      expect(dateReviewedField).toHaveValue("2025-10-30T20:49:03.000");
+      expect(dateReviewedField).toHaveValue("2025-10-30T20:49");
       expect(commentsField).toHaveValue("yummy");
 
       fireEvent.change(itemIdField, {
@@ -230,7 +230,7 @@ describe("MenuItemReviewEditPage tests", () => {
         target: { value: "5" },
       });
       fireEvent.change(dateReviewedField, {
-        target: { value: "2025-10-30T14:23:15" },
+        target: { value: "2025-10-30T14:23" },
       });
       fireEvent.change(commentsField, {
         target: { value: "delicious" },

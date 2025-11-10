@@ -103,7 +103,7 @@ describe("MenuItemReviewIndexPage tests", () => {
     expect(reviewerEmail).toBeInTheDocument();
     const stars = screen.getByText("4");
     expect(stars).toBeInTheDocument();
-    const dateReviewed = screen.getByText("2025-10-30T14:23:15");
+    const dateReviewed = screen.getByText("2025-11-30T20:52");
     expect(dateReviewed).toBeInTheDocument();
     const comments = screen.getByText("delicious");
     expect(comments).toBeInTheDocument();
