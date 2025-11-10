@@ -1,9 +1,5 @@
-<<<<<<< HEAD:frontend/src/tests/pages/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsEditPage.test.jsx
 import { render, screen } from "@testing-library/react";
 import UCSBDiningCommonsMenuItemsEditPage from "main/pages/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsEditPage";
-=======
-import { fireEvent, render, waitFor, screen } from "@testing-library/react";
->>>>>>> a3b7184f (Edit page and tests for UCSBOrganizationEditPage):frontend/src/tests/pages/UCSBOrganizations/UCSBOrganizationEditPage.test.jsx
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
 import UCSBOrganizationEditPage from "main/pages/UCSBOrganizations/UCSBOrganizationEditPage";
@@ -14,7 +10,6 @@ import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import mockConsole from "tests/testutils/mockConsole";
 
-<<<<<<< HEAD:frontend/src/tests/pages/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsEditPage.test.jsx
 describe("UCSBDiningCommonsMenuItemsEditPage tests", () => {
   const axiosMock = new AxiosMockAdapter(axios);
 
@@ -27,14 +22,6 @@ describe("UCSBDiningCommonsMenuItemsEditPage tests", () => {
     axiosMock
       .onGet("/api/systemInfo")
       .reply(200, systemInfoFixtures.showingNeither);
-=======
-const mockToast = vi.fn();
-vi.mock("react-toastify", async (importOriginal) => {
-  const originalModule = await importOriginal();
-  return {
-    ...originalModule,
-    toast: vi.fn((x) => mockToast(x)),
->>>>>>> a3b7184f (Edit page and tests for UCSBOrganizationEditPage):frontend/src/tests/pages/UCSBOrganizations/UCSBOrganizationEditPage.test.jsx
   };
 });
 
@@ -71,7 +58,6 @@ describe("UCSBOrganizationEditPage tests", () => {
         .timeout();
     });
 
-<<<<<<< HEAD:frontend/src/tests/pages/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsEditPage.test.jsx
     // act
     render(
       <QueryClientProvider client={queryClient}>
@@ -80,14 +66,6 @@ describe("UCSBOrganizationEditPage tests", () => {
         </MemoryRouter>
       </QueryClientProvider>,
     );
-=======
-    afterEach(() => {
-      mockToast.mockClear();
-      mockNavigate.mockClear();
-      axiosMock.restore();
-      axiosMock.resetHistory();
-    });
->>>>>>> a3b7184f (Edit page and tests for UCSBOrganizationEditPage):frontend/src/tests/pages/UCSBOrganizations/UCSBOrganizationEditPage.test.jsx
 
     const queryClient = new QueryClient();
     test("renders header but table is not present", async () => {
