@@ -19,10 +19,6 @@ import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
 import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
 import PlaceholderEditPage from "main/pages/Placeholder/PlaceholderEditPage";
 
-import UCSBOrganizationIndexPage from "main/pages/UCSBOrganizations/UCSBOrganizationIndexPage";
-import UCSBOrganizationCreatePage from "main/pages/UCSBOrganizations/UCSBOrganizationCreatePage";
-import UCSBOrganizationEditPage from "main/pages/UCSBOrganizations/UCSBOrganizationEditPage";
-
 import { hasRole, useCurrentUser } from "main/utils/useCurrentUser";
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -78,19 +74,19 @@ function App() {
       )}
       {hasRole(currentUser, "ROLE_USER") && (
         <>
-          <Route exact path="/ucsbDiningCommonsMenuItems" element={<UCSBDiningCommonsMenuItemsIndexPage />} />
+          <Route exact path="/ucsbdiningcommonsmenuitems" element={<UCSBDiningCommonsMenuItemsIndexPage />} />
         </>
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
           <Route
             exact
-            path="/ucsbDiningCommonsMenuItems/edit/:id"
+            path="/ucsbdiningcommonsmenuitems/edit/:id"
             element={<UCSBDiningCommonsMenuItemsEditPage />}
           />
           <Route
             exact
-            path="/ucsbDiningCommonsMenuItems/create"
+            path="/ucsbdiningcommonsmenuitems/create"
             element={<UCSBDiningCommonsMenuItemsCreatePage />}
           />
         </>
@@ -114,40 +110,7 @@ function App() {
           />
         </>
       )}
-      {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route
-            exact
-            path="/ucsborganizations"
-            element={<UCSBOrganizationIndexPage />}
-          />
-          <Route
-            exact
-            path="/ucsborganizations"
-            element={<UCSBOrganizationIndexPage />}
-          />
-          </>
-        )}
-      {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route exact path="/ucsborganizations" element={<UCSBOrganizationIndexPage />} />
-        </>
-      )}
-      {hasRole(currentUser, "ROLE_ADMIN") && (
-        <>
-          <Route
-            exact
-            path="/ucsborganizations/edit/:id"
-            element={<UCSBOrganizationEditPage />}
-          />
-          <Route
-            exact
-            path="/ucsborganizations/create"
-            element={<UCSBOrganizationCreatePage />}
-          />
-        </>
-      )}
-    </Routes>
+      </Routes>
   );
 }
 
