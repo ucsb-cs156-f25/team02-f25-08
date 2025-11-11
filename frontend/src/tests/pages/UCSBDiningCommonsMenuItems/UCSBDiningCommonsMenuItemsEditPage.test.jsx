@@ -1,3 +1,4 @@
+import { fireEvent, render, waitFor, screen } from "@testing-library/react";
 import { render, screen } from "@testing-library/react";
 import UCSBDiningCommonsMenuItemsEditPage from "main/pages/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsEditPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -10,197 +11,209 @@ import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import mockConsole from "tests/testutils/mockConsole";
 
-// describe("UCSBDiningCommonsMenuItemsEditPage tests", () => {
-//   const axiosMock = new AxiosMockAdapter(axios);
+const mockToast = vi.fn();
+vi.mock("react-toastify", async (importOriginal) => {
+    const originalModule = await importOriginal();
+    return {
+        ...originalModule,
+        toast: vi.fn((x) => mockToast(x)),
+    };
+});
 
-//   const setupUserOnly = () => {
-//     axiosMock.reset();
-//     axiosMock.resetHistory();
-//     axiosMock
-//       .onGet("/api/currentUser")
-//       .reply(200, apiCurrentUserFixtures.userOnly);
-//     axiosMock
-//       .onGet("/api/systemInfo")
-//       .reply(200, systemInfoFixtures.showingNeither);
-//   };
-// });
+const mockNavigate = vi.fn();
+vi.mock("react-router", async (importOriginal) => {
+    const originalModule = await importOriginal();
+    return {
+        ...originalModule,
+        useParams: vi.fn(() => ({
+        id: 17,
+        })),
+        Navigate: vi.fn((x) => {
+        mockNavigate(x);
+        return null;
+        }),
+    };
+});
 
-// const mockNavigate = vi.fn();
-// vi.mock("react-router", async (importOriginal) => {
-//   const originalModule = await importOriginal();
-//   return {
-//     ...originalModule,
-//     useParams: vi.fn(() => ({
-//       id: 17,
-//     })),
-//     Navigate: vi.fn((x) => {
-//       mockNavigate(x);
-//       return null;
-//     }),
-//   };
-// });
+let axiosMock;
+describe("UCSBDiningCommonsMenuItemsEditPage tests", () => {
+    describe("when the backend doesn't return data", () => {
+        beforeEach(() => {
+        axiosMock = new AxiosMockAdapter(axios);
+        axiosMock.reset();
+        axiosMock.resetHistory();
+        axiosMock
+            .onGet("/api/currentUser")
+            .reply(200, apiCurrentUserFixtures.userOnly);
+        axiosMock
+            .onGet("/api/systemInfo")
+            .reply(200, systemInfoFixtures.showingNeither);
+        axiosMock.onGet("/api/ucsbdiningcommonsmenuitems", { params: { id: 17 } }).timeout();
+        });
 
-// let axiosMock;
-// describe("UCSBOrganizationEditPage tests", () => {
-//   describe("when the backend doesn't return data", () => {
-//     beforeEach(() => {
-//       axiosMock = new AxiosMockAdapter(axios);
-//       axiosMock.reset();
-//       axiosMock.resetHistory();
-//       axiosMock
-//         .onGet("/api/currentUser")
-//         .reply(200, apiCurrentUserFixtures.userOnly);
-//       axiosMock
-//         .onGet("/api/systemInfo")
-//         .reply(200, systemInfoFixtures.showingNeither);
-//       axiosMock
-//         .onGet("/api/ucsborganization", { params: { id: 17 } })
-//         .timeout();
-//     });
+        afterEach(() => {
+            mockToast.mockClear();
+            mockNavigate.mockClear();
+            axiosMock.restore();
+            axiosMock.resetHistory();
+        });
 
-//     // act
-//     render(
-//       <QueryClientProvider client={queryClient}>
-//         <MemoryRouter>
-//           <UCSBDiningCommonsMenuItemsEditPage />
-//         </MemoryRouter>
-//       </QueryClientProvider>,
-//     );
+    const queryClient = new QueryClient();
+    test("renders header but table is not present", async () => {
+        const restoreConsole = mockConsole();
 
-//     const queryClient = new QueryClient();
-//     test("renders header but table is not present", async () => {
-//       const restoreConsole = mockConsole();
+        render(
+            <QueryClientProvider client={queryClient}>
+            <MemoryRouter>
+                <UCSBDiningCommonsMenuItemsEditPage />
+            </MemoryRouter>
+            </QueryClientProvider>,
+        );
+        await screen.findByText("Edit UCSBDiningCommonsMenuItem");
+        expect(screen.queryByTestId("UCSBDiningCommonsMenuItems-diningCommonsCode")).not.toBeInTheDocument();
+        restoreConsole();
+        });
+    });
 
-//       render(
-//         <QueryClientProvider client={queryClient}>
-//           <MemoryRouter>
-//             <UCSBOrganizationEditPage />
-//           </MemoryRouter>
-//         </QueryClientProvider>,
-//       );
-//       await screen.findByText("Edit UCSBOrganization");
-//       expect(
-//         screen.queryByTestId("UCSBOrganization-orgCode"),
-//       ).not.toBeInTheDocument();
-//       restoreConsole();
-//     });
-//   });
+    describe("tests where backend is working normally", () => {
+        beforeEach(() => {
+        axiosMock = new AxiosMockAdapter(axios);
+        axiosMock.reset();
+        axiosMock.resetHistory();
+        axiosMock
+            .onGet("/api/currentUser")
+            .reply(200, apiCurrentUserFixtures.userOnly);
+        axiosMock.onGet("/api/systemInfo")
+            .reply(200, systemInfoFixtures.showingNeither);
+        axiosMock.onGet("/api/ucsbdiningcommonsmenuitems", { params: { id: 17 } }).reply(200, {
+            id: 17,
+            diningCommonsCode: "Carillo",
+            name: "Pizza",
+            station: "Western",
+        });
+        axiosMock.onPut("/api/ucsbdiningcommonsmenuitems").reply(200, {
+            id: "17",
+            diningCommonsCode: "Ortega",
+            name: "Pasta",
+            station: "Take Out",
+        });
+    });
 
-//   describe("tests where backend is working normally", () => {
-//     beforeEach(() => {
-//       axiosMock = new AxiosMockAdapter(axios);
-//       axiosMock.reset();
-//       axiosMock.resetHistory();
-//       axiosMock
-//         .onGet("/api/currentUser")
-//         .reply(200, apiCurrentUserFixtures.userOnly);
-//       axiosMock
-//         .onGet("/api/systemInfo")
-//         .reply(200, systemInfoFixtures.showingNeither);
-//       axiosMock
-//         .onGet("/api/ucsborganization", { params: { id: 17 } })
-//         .reply(200, {
-//           id: 17,
-//           orgCode: "ZPR",
-//           orgTranslationShort: "ZETA PHI RHO",
-//           orgTranslation: "ZETA PHI RHO",
-//           inactive: "false",
-//         });
-//       axiosMock.onPut("/api/ucsborganization").reply(200, {
-//         id: 17,
-//         orgCode: "ZPR1",
-//         orgTranslationShort: "ZETA PHI RHO11",
-//         orgTranslation: "ZETA PHI RHO11",
-//         inactive: "true",
-//       });
-//     });
+    afterEach(() => {
+        mockToast.mockClear();
+        mockNavigate.mockClear();
+        axiosMock.restore();
+        axiosMock.resetHistory();
+    });
 
-//     afterEach(() => {
-//       mockToast.mockClear();
-//       mockNavigate.mockClear();
-//       axiosMock.restore();
-//       axiosMock.resetHistory();
-//     });
+    const queryClient = new QueryClient();
 
-//     const queryClient = new QueryClient();
+    test("Is populated with the data provided, and changes when data is changed", async () => {
+        render(
+            <QueryClientProvider client={queryClient}>
+            <MemoryRouter>
+                <UCSBDiningCommonsMenuItemsEditPage />
+            </MemoryRouter>
+            </QueryClientProvider>,
+        );
 
-//     test("Is populated with the data provided, and changes when data is changed", async () => {
-//       render(
-//         <QueryClientProvider client={queryClient}>
-//           <MemoryRouter>
-//             <UCSBOrganizationEditPage />
-//           </MemoryRouter>
-//         </QueryClientProvider>,
-//       );
+        await screen.findByTestId("UCSBDiningCommonsMenuItemsForm-id");
 
-//       await screen.findByTestId("UCSBOrganizationForm-id");
+        const idField = screen.getByTestId("UCSBDiningCommonsMenuItemsForm-id");
+        const diningCommonsCodeField = screen.getByTestId("UCSBDiningCommonsMenuItemsForm-diningCommonsCode");
+        const nameField = screen.getByTestId("UCSBDiningCommonsMenuItemsForm-name");
+        const stationField = screen.getByTestId("UCSBDiningCommonsMenuItemsForm-station");
+        const submitButton = screen.getByTestId("UCSBDiningCommonsMenuItemsForm-submit");
 
-//       const idField = screen.getByTestId("UCSBOrganizationForm-id");
-//       const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
-//       const orgTranslationShortField = screen.getByTestId(
-//         "UCSBOrganizationForm-orgTranslationShort",
-//       );
-//       const orgTranslationField = screen.getByTestId(
-//         "UCSBOrganizationForm-orgTranslation",
-//       );
-//       const inactiveField = screen.getByTestId("UCSBOrganizationForm-inactive");
+        expect(idField).toBeInTheDocument();
+        expect(idField).toHaveValue("17");
 
-//       const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
+        expect(diningCommonsCodeField).toBeInTheDocument();
+        expect(diningCommonsCodeField).toHaveValue("Carillo");
 
-//       expect(idField).toBeInTheDocument();
-//       expect(idField).toHaveValue("17");
+        expect(nameField).toBeInTheDocument();
+        expect(nameField).toHaveValue("Pizza");
 
-//       expect(orgCodeField).toBeInTheDocument();
-//       expect(orgCodeField).toHaveValue("ZPR");
+        expect(stationField).toBeInTheDocument();
+        expect(stationField).toHaveValue("Western");
 
-//       expect(orgTranslationShortField).toBeInTheDocument();
-//       expect(orgTranslationShortField).toHaveValue("ZETA PHI RHO");
+        expect(submitButton).toHaveTextContent("Update");
 
-//       expect(orgTranslationField).toBeInTheDocument();
-//       expect(orgTranslationField).toHaveValue("ZETA PHI RHO");
+        fireEvent.change(diningCommonsCodeField, {
+            target: { value: "Ortega" },
+        });
 
-//       expect(inactiveField).toBeInTheDocument();
-//       expect(inactiveField).toHaveValue("false");
+        fireEvent.change(nameField, {
+            target: { value: "Pasta" },
+        });
 
-//       expect(submitButton).toHaveTextContent("Update");
+        fireEvent.change(stationField, {
+            target: { value: "Take Out" },
+        });
 
-//       fireEvent.change(orgCodeField, {
-//         target: { value: "ZPR1" },
-//       });
+        fireEvent.click(submitButton);
 
-//       fireEvent.change(orgTranslationShortField, {
-//         target: { value: "ZETA PHI RHO11" },
-//       });
+        await waitFor(() => expect(mockToast).toBeCalled());
+        expect(mockToast).toHaveBeenCalledWith(
+            "DiningCommonsMenuItem Updated - id: 17 name: Pasta",
+        );
 
-//       fireEvent.change(orgTranslationField, {
-//         target: { value: "ZETA PHI RHO11" },
-//       });
+        expect(mockNavigate).toHaveBeenCalledWith({ to: "/ucsbdiningcommonsmenuitems" });
 
-//       fireEvent.change(inactiveField, {
-//         target: { value: "true" },
-//       });
+        expect(axiosMock.history.put.length).toBe(1); // times called
+        expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
+        expect(axiosMock.history.put[0].data).toBe(
+            JSON.stringify({
+                // id: 17,
+                diningCommonsCode: "Ortega",
+                name: "Pasta",
+                station: "Take Out",
+            }),
+        ); // posted object
+    });
 
-//       fireEvent.click(submitButton);
+    test("Changes when you click Update", async () => {
+        render(
+        <QueryClientProvider client={queryClient}>
+            <MemoryRouter>
+            <UCSBDiningCommonsMenuItemsEditPage />
+            </MemoryRouter>
+        </QueryClientProvider>,
+        );
 
-//       await waitFor(() => expect(mockToast).toBeCalled());
-//       expect(mockToast).toHaveBeenCalledWith(
-//         "UCSBOrganization Updated - id: 17 orgCode: ZPR1",
-//       );
+        await screen.findByTestId("UCSBDiningCommonsMenuItemsForm-id");
 
-//       expect(mockNavigate).toHaveBeenCalledWith({ to: "/ucsborganizations" });
+        const idField = screen.getByTestId("UCSBDiningCommonsMenuItemsForm-id");
+        const diningCommonsCodeField = screen.getByTestId("UCSBDiningCommonsMenuItemsForm-diningCommonsCode");
+        const nameField = screen.getByTestId("UCSBDiningCommonsMenuItemsForm-name");
+        const stationField = screen.getByTestId("UCSBDiningCommonsMenuItemsForm-station");
+        const submitButton = screen.getByTestId("UCSBDiningCommonsMenuItemsForm-submit");
 
-//       expect(axiosMock.history.put.length).toBe(1); // times called
-//       expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
-//       expect(axiosMock.history.put[0].data).toBe(
-//         JSON.stringify({
-//           // id: 17,
-//           orgCode: "ZPR1",
-//           orgTranslationShort: "ZETA PHI RHO11",
-//           orgTranslation: "ZETA PHI RHO11",
-//           inactive: "true",
-//         }),
-//       ); // posted object
-//       expect(mockNavigate).toHaveBeenCalledWith({ to: "/ucsborganizations" });
-//     });
-//   });
-// });
+        expect(idField).toHaveValue("17");
+        expect(diningCommonsCodeField).toHaveValue("Carillo");
+        expect(nameField).toHaveValue("Pizza");
+        expect(stationField).toHaveValue("Western");
+        expect(submitButton).toBeInTheDocument();
+
+        fireEvent.change(diningCommonsCodeField, {
+            target: { value: "Ortega" },
+        });
+
+        fireEvent.change(nameField, {
+            target: { value: "Pasta" },
+        });
+
+        fireEvent.change(stationField, {
+            target: { value: "Take Out" },
+        });
+
+        fireEvent.click(submitButton);
+
+        await waitFor(() => expect(mockToast).toBeCalled());
+        expect(mockToast).toBeCalledWith(
+        "DiningCommonsMenuItem Updated - id: 17 name: Pasta",
+        );
+        expect(mockNavigate).toBeCalledWith({ to: "/ucsbdiningcommonsmenuitems" });
+    });
+    });
+});
