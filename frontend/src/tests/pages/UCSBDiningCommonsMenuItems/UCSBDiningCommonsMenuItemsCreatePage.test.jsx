@@ -66,7 +66,7 @@ describe("UCSBDiningCommonsMenuItemsCreatePage tests", () => {
       id: 1,
       diningCommonsCode: "Ortega",
       name: "pasta",
-      description: "take out",
+      station: "take out",
     };
 
     axiosMock.onPost("/api/ucsbdiningcommonsmenuitems/post").reply(202, ucsbdiningcommonsmenuitems);
@@ -105,12 +105,12 @@ describe("UCSBDiningCommonsMenuItemsCreatePage tests", () => {
     expect(axiosMock.history.post[0].params).toEqual({
       diningCommonsCode: "Ortega",
       name: "pasta",
-      description: "take out",
+      station: "take out",
     });
 
     // assert - check that the toast was called with the expected message
     expect(mockToast).toBeCalledWith(
-      "New Dining commons menu item Created - id: 1 diningCommonsCode: Ortega",
+      "New ucsbdiningcommonsmenuitems Created - id: 1 name: pasta",
     );
     expect(mockNavigate).toBeCalledWith({ to: "/ucsbdiningcommonsmenuitems" });
   });
