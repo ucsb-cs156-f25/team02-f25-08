@@ -1,32 +1,32 @@
-import { Routes, Route } from 'react-router';
-import HomePage from 'main/pages/HomePage';
-import ProfilePage from 'main/pages/ProfilePage';
-import AdminUsersPage from 'main/pages/AdminUsersPage';
+import { Routes, Route } from "react-router";
+import HomePage from "main/pages/HomePage";
+import ProfilePage from "main/pages/ProfilePage";
+import AdminUsersPage from "main/pages/AdminUsersPage";
 
-import UCSBDatesIndexPage from 'main/pages/UCSBDates/UCSBDatesIndexPage';
-import UCSBDatesCreatePage from 'main/pages/UCSBDates/UCSBDatesCreatePage';
-import UCSBDatesEditPage from 'main/pages/UCSBDates/UCSBDatesEditPage';
+import UCSBDatesIndexPage from "main/pages/UCSBDates/UCSBDatesIndexPage";
+import UCSBDatesCreatePage from "main/pages/UCSBDates/UCSBDatesCreatePage";
+import UCSBDatesEditPage from "main/pages/UCSBDates/UCSBDatesEditPage";
 
-import RestaurantIndexPage from 'main/pages/Restaurants/RestaurantIndexPage';
-import RestaurantCreatePage from 'main/pages/Restaurants/RestaurantCreatePage';
-import RestaurantEditPage from 'main/pages/Restaurants/RestaurantEditPage';
+import RestaurantIndexPage from "main/pages/Restaurants/RestaurantIndexPage";
+import RestaurantCreatePage from "main/pages/Restaurants/RestaurantCreatePage";
+import RestaurantEditPage from "main/pages/Restaurants/RestaurantEditPage";
 
-import HelpRequestsIndexPage from 'main/pages/HelpRequests/HelpRequestsIndexPage';
-import HelpRequestsCreatePage from 'main/pages/HelpRequests/HelpRequestsCreatePage';
-import HelpRequestsEditPage from 'main/pages/HelpRequests/HelpRequestsEditPage';
+import HelpRequestsIndexPage from "main/pages/HelpRequests/HelpRequestsIndexPage";
+import HelpRequestsCreatePage from "main/pages/HelpRequests/HelpRequestsCreatePage";
+import HelpRequestsEditPage from "main/pages/HelpRequests/HelpRequestsEditPage";
 
-import PlaceholderIndexPage from 'main/pages/Placeholder/PlaceholderIndexPage';
-import PlaceholderCreatePage from 'main/pages/Placeholder/PlaceholderCreatePage';
-import PlaceholderEditPage from 'main/pages/Placeholder/PlaceholderEditPage';
+import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
+import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
+import PlaceholderEditPage from "main/pages/Placeholder/PlaceholderEditPage";
 
 import UCSBOrganizationIndexPage from "main/pages/UCSBOrganizations/UCSBOrganizationIndexPage";
 import UCSBOrganizationCreatePage from "main/pages/UCSBOrganizations/UCSBOrganizationCreatePage";
 import UCSBOrganizationEditPage from "main/pages/UCSBOrganizations/UCSBOrganizationEditPage";
 
-import { hasRole, useCurrentUser } from 'main/utils/useCurrentUser';
+import { hasRole, useCurrentUser } from "main/utils/useCurrentUser";
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'react-toastify/dist/ReactToastify.css';
+import "bootstrap/dist/css/bootstrap.css";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -35,51 +35,87 @@ function App() {
     <Routes>
       <Route exact path="/" element={<HomePage />} />
       <Route exact path="/profile" element={<ProfilePage />} />
-      {hasRole(currentUser, 'ROLE_ADMIN') && (
+      {hasRole(currentUser, "ROLE_ADMIN") && (
         <Route exact path="/admin/users" element={<AdminUsersPage />} />
       )}
-      {hasRole(currentUser, 'ROLE_USER') && (
+      {hasRole(currentUser, "ROLE_USER") && (
         <>
           <Route exact path="/ucsbdates" element={<UCSBDatesIndexPage />} />
         </>
       )}
-      {hasRole(currentUser, 'ROLE_ADMIN') && (
+      {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
-          <Route exact path="/ucsbdates/edit/:id" element={<UCSBDatesEditPage />} />
-          <Route exact path="/ucsbdates/create" element={<UCSBDatesCreatePage />} />
+          <Route
+            exact
+            path="/ucsbdates/edit/:id"
+            element={<UCSBDatesEditPage />}
+          />
+          <Route
+            exact
+            path="/ucsbdates/create"
+            element={<UCSBDatesCreatePage />}
+          />
         </>
       )}
-      {hasRole(currentUser, 'ROLE_USER') && (
+      {hasRole(currentUser, "ROLE_USER") && (
         <>
           <Route exact path="/restaurants" element={<RestaurantIndexPage />} />
         </>
       )}
-      {hasRole(currentUser, 'ROLE_ADMIN') && (
+      {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
-          <Route exact path="/restaurants/edit/:id" element={<RestaurantEditPage />} />
-          <Route exact path="/restaurants/create" element={<RestaurantCreatePage />} />
+          <Route
+            exact
+            path="/restaurants/edit/:id"
+            element={<RestaurantEditPage />}
+          />
+          <Route
+            exact
+            path="/restaurants/create"
+            element={<RestaurantCreatePage />}
+          />
         </>
       )}
-      {hasRole(currentUser, 'ROLE_USER') && (
+      {hasRole(currentUser, "ROLE_USER") && (
         <>
-          <Route exact path="/helprequests" element={<HelpRequestsIndexPage />} />
+          <Route
+            exact
+            path="/helprequests"
+            element={<HelpRequestsIndexPage />}
+          />
         </>
       )}
-      {hasRole(currentUser, 'ROLE_ADMIN') && (
+      {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
-          <Route exact path="/helprequests/edit/:id" element={<HelpRequestsEditPage />} />
-          <Route exact path="/helprequests/create" element={<HelpRequestsCreatePage />} />
+          <Route
+            exact
+            path="/helprequests/edit/:id"
+            element={<HelpRequestsEditPage />}
+          />
+          <Route
+            exact
+            path="/helprequests/create"
+            element={<HelpRequestsCreatePage />}
+          />
         </>
       )}
-      {hasRole(currentUser, 'ROLE_USER') && (
+      {hasRole(currentUser, "ROLE_USER") && (
         <>
           <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
         </>
       )}
-      {hasRole(currentUser, 'ROLE_ADMIN') && (
+      {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
-          <Route exact path="/placeholder/edit/:id" element={<PlaceholderEditPage />} />
-          <Route exact path="/placeholder/create" element={<PlaceholderCreatePage />} />
+          <Route
+            exact
+            path="/placeholder/edit/:id"
+            element={<PlaceholderEditPage />}
+          />
+          <Route
+            exact
+            path="/placeholder/create"
+            element={<PlaceholderCreatePage />}
+          />
         </>
       )}
       {hasRole(currentUser, "ROLE_USER") && (

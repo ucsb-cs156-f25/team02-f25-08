@@ -1,11 +1,11 @@
-import React from 'react';
-import RestaurantTable from 'main/components/Restaurants/RestaurantTable';
-import { restaurantFixtures } from 'fixtures/restaurantFixtures';
-import { currentUserFixtures } from 'fixtures/currentUserFixtures';
-import { http, HttpResponse } from 'msw';
+import React from "react";
+import RestaurantTable from "main/components/Restaurants/RestaurantTable";
+import { restaurantFixtures } from "fixtures/restaurantFixtures";
+import { currentUserFixtures } from "fixtures/currentUserFixtures";
+import { http, HttpResponse } from "msw";
 
 export default {
-  title: 'components/Restaurants/RestaurantTable',
+  title: "components/Restaurants/RestaurantTable",
   component: RestaurantTable,
 };
 
@@ -35,8 +35,11 @@ ThreeItemsAdminUser.args = {
 
 ThreeItemsAdminUser.parameters = {
   msw: [
-    http.delete('/api/restaurants', () => {
-      return HttpResponse.json({ message: 'Restaurant deleted successfully' }, { status: 200 });
+    http.delete("/api/restaurants", () => {
+      return HttpResponse.json(
+        { message: "Restaurant deleted successfully" },
+        { status: 200 },
+      );
     }),
   ],
 };

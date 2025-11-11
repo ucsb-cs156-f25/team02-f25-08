@@ -1,15 +1,18 @@
-import React from 'react';
-import OurTable, { ButtonColumn } from 'main/components/OurTable';
+import React from "react";
+import OurTable, { ButtonColumn } from "main/components/OurTable";
 
-import { useBackendMutation } from 'main/utils/useBackend';
-import { cellToAxiosParamsDelete, onDeleteSuccess } from 'main/utils/helpRequestUtils';
-import { useNavigate } from 'react-router';
-import { hasRole } from 'main/utils/useCurrentUser';
+import { useBackendMutation } from "main/utils/useBackend";
+import {
+  cellToAxiosParamsDelete,
+  onDeleteSuccess,
+} from "main/utils/helpRequestUtils";
+import { useNavigate } from "react-router";
+import { hasRole } from "main/utils/useCurrentUser";
 
 export default function HelpRequestTable({
   helpRequests,
   currentUser,
-  testIdPrefix = 'HelpRequestTable',
+  testIdPrefix = "HelpRequestTable",
 }) {
   const navigate = useNavigate();
 
@@ -22,7 +25,7 @@ export default function HelpRequestTable({
   const deleteMutation = useBackendMutation(
     cellToAxiosParamsDelete,
     { onSuccess: onDeleteSuccess },
-    ['/api/helprequests/all']
+    ["/api/helprequests/all"],
   );
   // Stryker restore all
 
@@ -33,39 +36,43 @@ export default function HelpRequestTable({
 
   const columns = [
     {
-      header: 'id',
-      accessorKey: 'id', // accessor is the "key" in the data
+      header: "id",
+      accessorKey: "id", // accessor is the "key" in the data
     },
     {
-      header: 'Requester Email',
-      accessorKey: 'requesterEmail',
+      header: "Requester Email",
+      accessorKey: "requesterEmail",
     },
     {
-      header: 'Team ID',
-      accessorKey: 'teamId',
+      header: "Team ID",
+      accessorKey: "teamId",
     },
     {
-      header: 'Table or Breakout Room',
-      accessorKey: 'tableOrBreakoutRoom',
+      header: "Table or Breakout Room",
+      accessorKey: "tableOrBreakoutRoom",
     },
     {
-      header: 'Request Time (in UTC)',
-      accessorKey: 'requestTime',
+      header: "Request Time (in UTC)",
+      accessorKey: "requestTime",
     },
     {
-      header: 'Explanation',
-      accessorKey: 'explanation',
+      header: "Explanation",
+      accessorKey: "explanation",
     },
     {
-      header: 'Solved',
-      accessorKey: 'solved',
+      header: "Solved",
+      accessorKey: "solved",
     },
   ];
 
-  if (hasRole(currentUser, 'ROLE_ADMIN')) {
-    columns.push(ButtonColumn('Edit', 'primary', editCallback, testIdPrefix));
-    columns.push(ButtonColumn('Delete', 'danger', deleteCallback, testIdPrefix));
+  if (hasRole(currentUser, "ROLE_ADMIN")) {
+    columns.push(ButtonColumn("Edit", "primary", editCallback, testIdPrefix));
+    columns.push(
+      ButtonColumn("Delete", "danger", deleteCallback, testIdPrefix),
+    );
   }
 
-  return <OurTable data={helpRequests} columns={columns} testid={testIdPrefix} />;
+  return (
+    <OurTable data={helpRequests} columns={columns} testid={testIdPrefix} />
+  );
 }

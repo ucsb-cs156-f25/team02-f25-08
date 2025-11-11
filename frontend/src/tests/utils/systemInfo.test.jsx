@@ -1,26 +1,28 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useSystemInfo } from 'main/utils/systemInfo';
-import { renderHook } from '@testing-library/react';
-import mockConsole from 'tests/testutils/mockConsole';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useSystemInfo } from "main/utils/systemInfo";
+import { renderHook } from "@testing-library/react";
+import mockConsole from "tests/testutils/mockConsole";
 
-import { waitFor } from '@testing-library/react';
+import { waitFor } from "@testing-library/react";
 
-import axios from 'axios';
-import AxiosMockAdapter from 'axios-mock-adapter';
-import { systemInfoFixtures } from 'fixtures/systemInfoFixtures';
+import axios from "axios";
+import AxiosMockAdapter from "axios-mock-adapter";
+import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 
-vi.mock('react-router');
+vi.mock("react-router");
 
-describe('utils/systemInfo tests', () => {
-  describe('useSystemInfo tests', () => {
-    test('useSystemInfo retrieves initial data', async () => {
+describe("utils/systemInfo tests", () => {
+  describe("useSystemInfo tests", () => {
+    test("useSystemInfo retrieves initial data", async () => {
       const queryClient = new QueryClient();
       const wrapper = ({ children }) => (
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
       );
 
       const axiosMock = new AxiosMockAdapter(axios);
-      axiosMock.onGet('/api/systemInfo').timeout();
+      axiosMock.onGet("/api/systemInfo").timeout();
 
       const restoreConsole = mockConsole();
 
@@ -29,7 +31,7 @@ describe('utils/systemInfo tests', () => {
 
       expect(result.current.data).toEqual(systemInfoFixtures.initialData);
 
-      const queryState = queryClient.getQueryState(['systemInfo']);
+      const queryState = queryClient.getQueryState(["systemInfo"]);
       expect(queryState).toBeDefined();
 
       queryClient.clear();
@@ -40,31 +42,39 @@ describe('utils/systemInfo tests', () => {
       restoreConsole();
     });
 
-    test('useSystemInfo retrieves data from API', async () => {
+    test("useSystemInfo retrieves data from API", async () => {
       const queryClient = new QueryClient();
       const wrapper = ({ children }) => (
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
       );
 
       const axiosMock = new AxiosMockAdapter(axios);
-      axiosMock.onGet('/api/systemInfo').reply(200, systemInfoFixtures.showingBoth);
+      axiosMock
+        .onGet("/api/systemInfo")
+        .reply(200, systemInfoFixtures.showingBoth);
 
       const { result } = renderHook(() => useSystemInfo(), { wrapper });
 
-      await waitFor(() => expect(result.current.isFetchedAfterMount).toBe(true));
+      await waitFor(() =>
+        expect(result.current.isFetchedAfterMount).toBe(true),
+      );
 
       expect(result.current.data).toEqual(systemInfoFixtures.showingBoth);
       queryClient.clear();
     });
 
-    test('systemInfo when API unreachable', async () => {
+    test("systemInfo when API unreachable", async () => {
       const queryClient = new QueryClient();
       const wrapper = ({ children }) => (
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
       );
 
       const axiosMock = new AxiosMockAdapter(axios);
-      axiosMock.onGet('/api/systemInfo').reply(404);
+      axiosMock.onGet("/api/systemInfo").reply(404);
 
       const restoreConsole = mockConsole();
       const { result } = renderHook(() => useSystemInfo(), { wrapper });

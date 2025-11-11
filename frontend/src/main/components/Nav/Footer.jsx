@@ -1,5 +1,5 @@
-import { Container } from 'react-bootstrap';
-import { useSystemInfo } from 'main/utils/systemInfo';
+import { Container } from "react-bootstrap";
+import { useSystemInfo } from "main/utils/systemInfo";
 
 export default function Footer() {
   const { data: systemInfo } = useSystemInfo();
@@ -10,9 +10,13 @@ export default function Footer() {
           This is a sample webapp using React with a Spring Boot backend.
           {systemInfo.sourceRepo ? (
             <span data-testid="footer-see-source-code">
-              {' '}
-              See the source code on{' '}
-              <a href={`${systemInfo.sourceRepo}`} target="_blank" rel="noopener noreferrer">
+              {" "}
+              See the source code on{" "}
+              <a
+                href={`${systemInfo.sourceRepo}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Github.
               </a>
             </span>
