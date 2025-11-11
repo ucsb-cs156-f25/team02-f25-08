@@ -94,7 +94,7 @@ describe("UCSBDiningCommonsMenuItemsIndexPage tests", () => {
       "3",
     );
 
-    const createUCSBDiningCommonsMenuItemsButton = screen.queryByText("Create UCSBDiningCommonsMenuItems");
+    const createUCSBDiningCommonsMenuItemsButton = screen.queryByText("Create UCSBDiningCommonsMenuItem");
     expect(createUCSBDiningCommonsMenuItemsButton).not.toBeInTheDocument();
 
     const diningCommonsCode = screen.getByText("Portola");
