@@ -1,6 +1,6 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 
-export default function UCSBDiningCommonsMenuItemsEditPage({ storybook = false }) {
+export default function UCSBDiningCommonsMenuItemsEditPage() {
   // Stryker disable all : placeholder for future implementation
     return (
       <BasicLayout>
