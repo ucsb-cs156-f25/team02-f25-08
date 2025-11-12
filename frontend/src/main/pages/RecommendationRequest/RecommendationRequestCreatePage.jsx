@@ -4,7 +4,7 @@ import { Navigate } from "react-router";
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
-export default function RecommendationRequestCreatePage({storybook = false}) {
+export default function RecommendationRequestCreatePage({ storybook = false }) {
   // Stryker disable all : placeholder for future implementation
   const objectToAxiosParams = (recommendationRequest) => ({
     url: "/api/recommendationrequest/post",
@@ -15,7 +15,7 @@ export default function RecommendationRequestCreatePage({storybook = false}) {
       explanation: recommendationRequest.explanation,
       dateRequested: recommendationRequest.dateRequested,
       dateNeeded: recommendationRequest.dateNeeded,
-      done: recommendationRequest.done
+      done: recommendationRequest.done,
     },
   });
 
