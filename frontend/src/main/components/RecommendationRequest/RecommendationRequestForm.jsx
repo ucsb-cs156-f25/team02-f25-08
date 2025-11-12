@@ -2,7 +2,7 @@ import { Button, Form, Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
-function UCSBDateForm({
+function RecommendationRequestForm({
   initialContents,
   submitAction,
   buttonLabel = "Create",
@@ -187,4 +187,4 @@ function UCSBDateForm({
   );
 }
 
-export default UCSBDateForm;
+export default RecommendationRequestForm;
