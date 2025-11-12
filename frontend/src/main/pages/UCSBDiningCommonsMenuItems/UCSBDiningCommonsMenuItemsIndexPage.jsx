@@ -1,10 +1,6 @@
 import React from "react";
-import { useBackend } from "main/utils/useBackend";
 
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import UCSBDiningCommonsMenuItemsTable from "main/components/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsTable";
-import { useCurrentUser, hasRole } from "main/utils/useCurrentUser";
-import { Button } from "react-bootstrap";
 
 export default function UCSBDiningCommonsMenuItemsIndexPage() {
   // Stryker disable all : placeholder for future implementation
