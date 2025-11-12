@@ -10,6 +10,15 @@ import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 
+const mockToast = vi.fn();
+vi.mock("react-toastify", async (importOriginal) => {
+  const originalModule = await importOriginal();
+  return {
+    ...originalModule,
+    toast: vi.fn((x) => mockToast(x)),
+  };
+});
+
 describe("UCSBDiningCommonsMenuItemsIndexPage tests", () => {
   const axiosMock = new AxiosMockAdapter(axios);
 

@@ -105,7 +105,7 @@ describe("MenuItemReviewTable tests", () => {
     ).toHaveTextContent("3");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-dateReviewed`),
-    ).toHaveTextContent("2025-10-30T20:49RE:03.874");
+    ).toHaveTextContent("2025-10-30T20:49");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-comments`),
     ).toHaveTextContent("yummy");
@@ -164,7 +164,7 @@ describe("MenuItemReviewTable tests", () => {
     ).toHaveTextContent("3");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-dateReviewed`),
-    ).toHaveTextContent("2025-10-30T20:49RE:03.874");
+    ).toHaveTextContent("2025-10-30T20:49");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-comments`),
     ).toHaveTextContent("yummy");
@@ -204,7 +204,7 @@ describe("MenuItemReviewTable tests", () => {
     ).toHaveTextContent("3");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-dateReviewed`),
-    ).toHaveTextContent("2025-10-30T20:49RE:03.874");
+    ).toHaveTextContent("2025-10-30T20:49");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-comments`),
     ).toHaveTextContent("yummy");
@@ -219,7 +219,7 @@ describe("MenuItemReviewTable tests", () => {
 
     // assert - check that the navigate function was called with the expected path
     await waitFor(() =>
-      expect(mockedNavigate).toHaveBeenCalledWith("/menuitemreviews/edit/1"),
+      expect(mockedNavigate).toHaveBeenCalledWith("/menuitemreview/edit/1"),
     );
   });
 
@@ -229,7 +229,7 @@ describe("MenuItemReviewTable tests", () => {
 
     const axiosMock = new AxiosMockAdapter(axios);
     axiosMock
-      .onDelete("/api/menuitemreviews")
+      .onDelete("/api/menuitemreview")
       .reply(200, { message: "Menu Item Review deleted" });
 
     // act - render the component
@@ -259,7 +259,7 @@ describe("MenuItemReviewTable tests", () => {
     ).toHaveTextContent("3");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-dateReviewed`),
-    ).toHaveTextContent("2025-10-30T20:49RE:03.874");
+    ).toHaveTextContent("2025-10-30T20:49");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-comments`),
     ).toHaveTextContent("yummy");

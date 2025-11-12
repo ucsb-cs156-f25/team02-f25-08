@@ -1,8 +1,7 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import UCSBDiningCommonsMenuItemsEditPage from "main/pages/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsEditPage";
+import { fireEvent, render, waitFor, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
-import UCSBOrganizationEditPage from "main/pages/UCSBOrganizations/UCSBOrganizationEditPage";
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
@@ -10,18 +9,12 @@ import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import mockConsole from "tests/testutils/mockConsole";
 
-describe("UCSBDiningCommonsMenuItemsEditPage tests", () => {
-  const axiosMock = new AxiosMockAdapter(axios);
-
-  const setupUserOnly = () => {
-    axiosMock.reset();
-    axiosMock.resetHistory();
-    axiosMock
-      .onGet("/api/currentUser")
-      .reply(200, apiCurrentUserFixtures.userOnly);
-    axiosMock
-      .onGet("/api/systemInfo")
-      .reply(200, systemInfoFixtures.showingNeither);
+const mockToast = vi.fn();
+vi.mock("react-toastify", async (importOriginal) => {
+  const originalModule = await importOriginal();
+  return {
+    ...originalModule,
+    toast: vi.fn((x) => mockToast(x)),
   };
 });
 
@@ -37,6 +30,21 @@ vi.mock("react-router", async (importOriginal) => {
       mockNavigate(x);
       return null;
     }),
+  };
+});
+
+describe("UCSBDiningCommonsMenuItemsEditPage tests", () => {
+  const axiosMock = new AxiosMockAdapter(axios);
+
+  const setupUserOnly = () => {
+    axiosMock.reset();
+    axiosMock.resetHistory();
+    axiosMock
+      .onGet("/api/currentUser")
+      .reply(200, apiCurrentUserFixtures.userOnly);
+    axiosMock
+      .onGet("/api/systemInfo")
+      .reply(200, systemInfoFixtures.showingNeither);
   };
 });
 
