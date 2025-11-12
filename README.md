@@ -4,10 +4,9 @@ Instructions: <https://ucsb-cs156.github.io/f25/lab/team02.html>
 
 Deployments:
 
-* Prod: <https://team02-08.dokku-08.cs.ucsb.edu>
-* QA: <https://team02-08-qa.dokku-08.cs.ucsb.edu>
+* Prod: <https://team02-f25-08.dokku-08.cs.ucsb.edu>
+* QA: <https://team02-f25-08-qa.dokku-08.cs.ucsb.edu>
 
-TODO: Fill in this table with correct information. 
 
 ```
 | Table                       | Team Member  | Github Id     |
