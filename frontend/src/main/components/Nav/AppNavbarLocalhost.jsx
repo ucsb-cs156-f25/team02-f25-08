@@ -1,9 +1,14 @@
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Container, Nav, Navbar } from "react-bootstrap";
 
 export default function AppNavbarLocalhost({ url }) {
   return (
     <>
-      <Navbar expand="sm" bg="warning" sticky="top" data-testid="AppNavbarLocalhost">
+      <Navbar
+        expand="sm"
+        bg="warning"
+        sticky="top"
+        data-testid="AppNavbarLocalhost"
+      >
         <Container>
           <Navbar.Brand href="http://localhost:8080">Warning</Navbar.Brand>
 
@@ -16,7 +21,8 @@ export default function AppNavbarLocalhost({ url }) {
                   Running on <code>{url}</code> with no backend.
                 </p>
                 <p data-testid="AppNavbarLocalhost-message2">
-                  You probably want <a href="http://localhost:8080">http://localhost:8080</a>{' '}
+                  You probably want{" "}
+                  <a href="http://localhost:8080">http://localhost:8080</a>{" "}
                   instead.
                 </p>
               </Nav.Item>
