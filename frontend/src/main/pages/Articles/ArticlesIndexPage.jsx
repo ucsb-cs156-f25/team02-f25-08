@@ -7,6 +7,7 @@ import { useCurrentUser, hasRole } from "main/utils/useCurrentUser";
 import { Button } from "react-bootstrap";
 
 export default function ArticlesIndexPage() {
+<<<<<<< HEAD
     const currentUser = useCurrentUser();
 
     const {
@@ -44,4 +45,20 @@ export default function ArticlesIndexPage() {
             </div>
         </BasicLayout>
     );
+=======
+  // Stryker disable all : placeholder for future implementation
+  return (
+    <BasicLayout>
+      <div className="pt-2">
+        <h1>Index page not yet implemented</h1>
+        <p>
+          <a href="/placeholder/create">Create</a>
+        </p>
+        <p>
+          <a href="/placeholder/edit/1">Edit</a>
+        </p>
+      </div>
+    </BasicLayout>
+  );
+>>>>>>> 22bf6b486 (vn - fixed solved formatting in form)
 }

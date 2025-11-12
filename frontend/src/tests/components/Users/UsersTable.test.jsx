@@ -1,25 +1,25 @@
-import { render, screen } from '@testing-library/react';
-import usersFixtures from 'fixtures/usersFixtures';
-import UsersTable from 'main/components/Users/UsersTable';
-import { expect } from 'vitest';
+import { render, screen } from "@testing-library/react";
+import usersFixtures from "fixtures/usersFixtures";
+import UsersTable from "main/components/Users/UsersTable";
+import { expect } from "vitest";
 
-describe('UserTable tests', () => {
-  test('renders without crashing for empty table', () => {
+describe("UserTable tests", () => {
+  test("renders without crashing for empty table", () => {
     render(<UsersTable users={[]} />);
-    expect(screen.getByTestId('UsersTable')).toBeInTheDocument();
+    expect(screen.getByTestId("UsersTable")).toBeInTheDocument();
   });
 
-  test('renders without crashing for three users', () => {
+  test("renders without crashing for three users", () => {
     render(<UsersTable users={usersFixtures.threeUsers} />);
-    expect(screen.getByTestId('UsersTable')).toBeInTheDocument();
+    expect(screen.getByTestId("UsersTable")).toBeInTheDocument();
   });
 
-  test('Has the expected colum headers and content', () => {
+  test("Has the expected colum headers and content", () => {
     render(<UsersTable users={usersFixtures.threeUsers} />);
 
-    const expectedHeaders = ['id', 'First Name', 'Last Name', 'Email', 'Admin'];
-    const expectedFields = ['id', 'givenName', 'familyName', 'email', 'admin'];
-    const testId = 'UsersTable';
+    const expectedHeaders = ["id", "First Name", "Last Name", "Email", "Admin"];
+    const expectedFields = ["id", "givenName", "familyName", "email", "admin"];
+    const testId = "UsersTable";
 
     expectedHeaders.forEach((headerText) => {
       const header = screen.getByText(headerText);
@@ -31,9 +31,17 @@ describe('UserTable tests', () => {
       expect(header).toBeInTheDocument();
     });
 
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent('1');
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-admin`)).toHaveTextContent('true');
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent('2');
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-admin`)).toHaveTextContent('false');
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-admin`),
+    ).toHaveTextContent("true");
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
+      "2",
+    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-1-col-admin`),
+    ).toHaveTextContent("false");
   });
 });

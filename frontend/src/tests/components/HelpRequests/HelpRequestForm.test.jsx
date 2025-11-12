@@ -1,40 +1,40 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { BrowserRouter as Router } from 'react-router';
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { BrowserRouter as Router } from "react-router";
 
-import HelpRequestForm from 'main/components/HelpRequests/HelpRequestForm';
-import { helpRequestsFixtures } from 'fixtures/helpRequestsFixtures';
+import HelpRequestForm from "main/components/HelpRequests/HelpRequestForm";
+import { helpRequestsFixtures } from "fixtures/helpRequestsFixtures";
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const mockedNavigate = vi.fn();
-vi.mock('react-router', async () => {
-  const originalModule = await vi.importActual('react-router');
+vi.mock("react-router", async () => {
+  const originalModule = await vi.importActual("react-router");
   return {
     ...originalModule,
     useNavigate: () => mockedNavigate,
   };
 });
 
-describe('HelpRequestForm tests', () => {
+describe("HelpRequestForm tests", () => {
   const queryClient = new QueryClient();
 
   const expectedHeaders = [
-    'Requester Email',
-    'Team ID',
-    'Table or Breakout Room',
-    'Request Time (in UTC)',
-    'Explanation',
-    'Solved',
+    "Requester Email",
+    "Team ID",
+    "Table or Breakout Room",
+    "Request Time (in UTC)",
+    "Explanation",
+    "Solved",
   ];
-  const testId = 'HelpRequestForm';
+  const testId = "HelpRequestForm";
 
-  test('renders correctly with no initialContents', async () => {
+  test("renders correctly with no initialContents", async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
           <HelpRequestForm />
         </Router>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     expect(await screen.findByText(/Create/)).toBeInTheDocument();
@@ -45,13 +45,15 @@ describe('HelpRequestForm tests', () => {
     });
   });
 
-  test('renders correctly when passing in initialContents', async () => {
+  test("renders correctly when passing in initialContents", async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
-          <HelpRequestForm initialContents={helpRequestsFixtures.oneHelpRequest} />
+          <HelpRequestForm
+            initialContents={helpRequestsFixtures.oneHelpRequest}
+          />
         </Router>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     expect(await screen.findByText(/Create/)).toBeInTheDocument();
@@ -64,32 +66,34 @@ describe('HelpRequestForm tests', () => {
     expect(await screen.findByTestId(`${testId}-id`)).toBeInTheDocument();
     expect(screen.getByText(`Id`)).toBeInTheDocument();
 
-    expect(screen.getByLabelText('Id')).toHaveValue(String(helpRequestsFixtures.oneHelpRequest.id));
-    expect(screen.getByLabelText('Requester Email')).toHaveValue(
-      String(helpRequestsFixtures.oneHelpRequest.requesterEmail)
+    expect(screen.getByLabelText("Id")).toHaveValue(
+      String(helpRequestsFixtures.oneHelpRequest.id),
     );
-    expect(screen.getByLabelText('Team ID')).toHaveValue(
-      String(helpRequestsFixtures.oneHelpRequest.teamId)
+    expect(screen.getByLabelText("Requester Email")).toHaveValue(
+      String(helpRequestsFixtures.oneHelpRequest.requesterEmail),
     );
-    expect(screen.getByLabelText('Table or Breakout Room')).toHaveValue(
-      String(helpRequestsFixtures.oneHelpRequest.tableOrBreakoutRoom)
+    expect(screen.getByLabelText("Team ID")).toHaveValue(
+      String(helpRequestsFixtures.oneHelpRequest.teamId),
     );
-    expect(screen.getByLabelText('Request Time (in UTC)')).toHaveValue(
-      String(helpRequestsFixtures.oneHelpRequest.requestTime)
+    expect(screen.getByLabelText("Table or Breakout Room")).toHaveValue(
+      String(helpRequestsFixtures.oneHelpRequest.tableOrBreakoutRoom),
     );
-    expect(screen.getByLabelText('Explanation')).toHaveValue(
-      String(helpRequestsFixtures.oneHelpRequest.explanation)
+    expect(screen.getByLabelText("Request Time (in UTC)")).toHaveValue(
+      String(helpRequestsFixtures.oneHelpRequest.requestTime),
     );
-    expect(screen.getByLabelText('Solved')).toBeChecked();
+    expect(screen.getByLabelText("Explanation")).toHaveValue(
+      String(helpRequestsFixtures.oneHelpRequest.explanation),
+    );
+    expect(screen.getByLabelText("Solved")).toBeChecked();
   });
 
-  test('that navigate(-1) is called when Cancel is clicked', async () => {
+  test("that navigate(-1) is called when Cancel is clicked", async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
           <HelpRequestForm />
         </Router>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
     expect(await screen.findByTestId(`${testId}-cancel`)).toBeInTheDocument();
     const cancelButton = screen.getByTestId(`${testId}-cancel`);
@@ -99,13 +103,13 @@ describe('HelpRequestForm tests', () => {
     await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith(-1));
   });
 
-  test('that the correct validations are performed', async () => {
+  test("that the correct validations are performed", async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
           <HelpRequestForm />
         </Router>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     expect(await screen.findByText(/Create/)).toBeInTheDocument();
@@ -114,13 +118,16 @@ describe('HelpRequestForm tests', () => {
 
     await screen.findByText(/Requester Email is required/);
     expect(screen.getByText(/Team ID is required/)).toBeInTheDocument();
-    expect(screen.getByText(/Table or Breakout Room is required/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Table or Breakout Room is required/),
+    ).toBeInTheDocument();
     expect(screen.getByText(/Request Time is required/)).toBeInTheDocument();
     expect(screen.getByText(/Explanation is required/)).toBeInTheDocument();
-    expect(screen.getByText(/Solved is required/)).toBeInTheDocument();
 
     const requesterEmailInput = screen.getByTestId(`${testId}-requesterEmail`);
-    fireEvent.change(requesterEmailInput, { target: { value: 'a'.repeat(256) } });
+    fireEvent.change(requesterEmailInput, {
+      target: { value: "a".repeat(256) },
+    });
     fireEvent.click(submitButton);
 
     await waitFor(() => {

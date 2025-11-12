@@ -20,8 +20,9 @@ vi.mock("react-toastify", async (importOriginal) => {
 });
 
 describe("ArticlesIndexPage tests", () => {
-    const axiosMock = new AxiosMockAdapter(axios);
+  const axiosMock = new AxiosMockAdapter(axios);
 
+<<<<<<< HEAD
     const testId = "ArticlesTable";
 
     const setupUserOnly = () => {
@@ -51,15 +52,36 @@ describe("ArticlesIndexPage tests", () => {
     test("Renders with Create Button for admin user", async () => {
         setupAdminUser();
         axiosMock.onGet("/api/articles/all").reply(200, []);
+=======
+  const setupUserOnly = () => {
+    axiosMock.reset();
+    axiosMock.resetHistory();
+    axiosMock
+      .onGet("/api/currentUser")
+      .reply(200, apiCurrentUserFixtures.userOnly);
+    axiosMock
+      .onGet("/api/systemInfo")
+      .reply(200, systemInfoFixtures.showingNeither);
+  };
 
-        render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <ArticlesIndexPage />
-                </MemoryRouter>
-            </QueryClientProvider>,
-        );
+  const queryClient = new QueryClient();
+  test("Renders expected content", async () => {
+    // arrange
 
+    setupUserOnly();
+
+    // act
+>>>>>>> 22bf6b486 (vn - fixed solved formatting in form)
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <ArticlesIndexPage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+<<<<<<< HEAD
         await waitFor(() => {
             expect(screen.getByText(/Create Article/)).toBeInTheDocument();
         });
@@ -195,4 +217,15 @@ describe("ArticlesIndexPage tests", () => {
         // expect(axiosMock.history.delete[0].url).toBe("/api/articles");
         // expect(axiosMock.history.delete[0].params).toEqual({ id: 2 });
     });
+=======
+    await screen.findByText("Index page not yet implemented");
+
+    // assert
+    expect(
+      screen.getByText("Index page not yet implemented"),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Create")).toBeInTheDocument();
+    expect(screen.getByText("Edit")).toBeInTheDocument();
+  });
+>>>>>>> 22bf6b486 (vn - fixed solved formatting in form)
 });
