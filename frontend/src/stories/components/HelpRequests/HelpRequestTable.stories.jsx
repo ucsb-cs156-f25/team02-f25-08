@@ -1,11 +1,11 @@
-import React from "react";
-import HelpRequestTable from "main/components/HelpRequests/HelpRequestTable";
-import { helpRequestsFixtures } from "fixtures/helpRequestsFixtures";
-import { currentUserFixtures } from "fixtures/currentUserFixtures";
-import { http, HttpResponse } from "msw";
+import React from 'react';
+import HelpRequestTable from 'main/components/HelpRequests/HelpRequestTable';
+import { helpRequestsFixtures } from 'fixtures/helpRequestsFixtures';
+import { currentUserFixtures } from 'fixtures/currentUserFixtures';
+import { http, HttpResponse } from 'msw';
 
 export default {
-  title: "components/HelpRequests/HelpRequestTable",
+  title: 'components/HelpRequests/HelpRequestTable',
   component: HelpRequestTable,
 };
 
@@ -35,11 +35,8 @@ ThreeItemsAdminUser.args = {
 
 ThreeItemsAdminUser.parameters = {
   msw: [
-    http.delete("/api/helprequests", () => {
-      return HttpResponse.json(
-        { message: "Help Request deleted successfully" },
-        { status: 200 },
-      );
+    http.delete('/api/helprequests', () => {
+      return HttpResponse.json({ message: 'Help Request deleted successfully' }, { status: 200 });
     }),
   ],
 };
