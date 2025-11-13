@@ -3,14 +3,15 @@ import { apiCurrentUserFixtures } from 'fixtures/currentUserFixtures';
 import { systemInfoFixtures } from 'fixtures/systemInfoFixtures';
 import { http, HttpResponse } from 'msw';
 
-import RestaurantCreatePage from 'main/pages/Restaurants/RestaurantCreatePage';
+import { helpRequestsFixtures } from 'fixtures/helpRequestsFixtures';
+import HelpRequestsCreatePage from 'main/pages/HelpRequests/HelpRequestsCreatePage';
 
 export default {
-  title: 'pages/Restaurants/RestaurantCreatePage',
-  component: RestaurantCreatePage,
+  title: 'pages/HelpRequests/HelpRequestsCreatePage',
+  component: HelpRequestsCreatePage,
 };
 
-const Template = () => <RestaurantCreatePage storybook={true} />;
+const Template = () => <HelpRequestsCreatePage storybook={true} />;
 
 export const Default = Template.bind({});
 Default.parameters = {
@@ -25,8 +26,8 @@ Default.parameters = {
         status: 200,
       });
     }),
-    http.post('/api/restaurants/post', () => {
-      return HttpResponse.json({}, { status: 200 });
+    http.post('/api/helprequests/post', () => {
+      return HttpResponse.json(helpRequestsFixtures.oneHelpRequest, { status: 200 });
     }),
   ],
 };

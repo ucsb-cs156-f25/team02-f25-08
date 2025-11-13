@@ -1,15 +1,15 @@
-import React, { useMemo } from "react";
+import React, { useMemo } from 'react';
 import {
   useReactTable,
   getCoreRowModel,
   flexRender,
   createColumnHelper, // Optional, but good practice for defining columns
   getSortedRowModel,
-} from "@tanstack/react-table";
-import { Button } from "react-bootstrap";
-import SortCaret from "main/components/Common/SortCaret";
+} from '@tanstack/react-table';
+import { Button } from 'react-bootstrap';
+import SortCaret from 'main/components/Common/SortCaret';
 
-function OurTable({ data, columns, testid = "testid" }) {
+function OurTable({ data, columns, testid = 'testid' }) {
   const memoizedData = useMemo(() => data, [data]);
   const memoizedColumns = useMemo(() => columns, [columns]);
 
@@ -27,27 +27,21 @@ function OurTable({ data, columns, testid = "testid" }) {
           <tr
             data-testid={`${testid}-header-group-${i}`}
             // Stryker disable next-line StringLiteral : React key property not exposed in dom
-            key={`${testid}-header-group-${i}`}
-          >
+            key={`${testid}-header-group-${i}`}>
             {headerGroup.headers.map((header) => (
               <th
                 data-testid={`${testid}-header-${header.column.id}`}
                 key={`${testid}-header-${header.column.id}`}
-                colSpan={header.colSpan}
-              >
+                colSpan={header.colSpan}>
                 {header.isPlaceholder ? null : (
                   <div
                     // Add onClick handler for sorting if the column is sortable
                     {...(header.column.getCanSort() && {
                       onClick: header.column.getToggleSortingHandler(),
-                      style: { cursor: "pointer" }, // Add cursor style for visual cue
+                      style: { cursor: 'pointer' }, // Add cursor style for visual cue
                     })}
-                    data-testid={`${testid}-header-${header.column.id}-sort-header`}
-                  >
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext(),
-                    )}
+                    data-testid={`${testid}-header-${header.column.id}-sort-header`}>
+                    {flexRender(header.column.columnDef.header, header.getContext())}
                     <SortCaret header={header} testId={testid} />
                   </div>
                 )}
@@ -63,16 +57,14 @@ function OurTable({ data, columns, testid = "testid" }) {
             <tr
               data-testid={rowTestId}
               // Stryker disable next-line StringLiteral : React key property not exposed in dom
-              key={rowTestId}
-            >
+              key={rowTestId}>
               {row.getVisibleCells().map((cell) => {
                 const testId = `${testid}-cell-row-${cell.row.index}-col-${cell.column.id}`;
                 return (
                   <td
                     data-testid={testId}
                     // Stryker disable next-line StringLiteral : React key property not exposed in dom
-                    key={testId}
-                  >
+                    key={testId}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 );
@@ -97,8 +89,7 @@ export function ButtonColumn(label, variant, callback, testid) {
       <Button
         variant={variant}
         onClick={() => callback(cell)}
-        data-testid={`${testid}-cell-row-${cell.row.index}-col-${cell.column.id}-button`}
-      >
+        data-testid={`${testid}-cell-row-${cell.row.index}-col-${cell.column.id}-button`}>
         {label}
       </Button>
     ),

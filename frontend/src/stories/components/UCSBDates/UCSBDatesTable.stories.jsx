@@ -1,11 +1,11 @@
-import React from "react";
-import UCSBDatesTable from "main/components/UCSBDates/UCSBDatesTable";
-import { ucsbDatesFixtures } from "fixtures/ucsbDatesFixtures";
-import { currentUserFixtures } from "fixtures/currentUserFixtures";
-import { http, HttpResponse } from "msw";
+import React from 'react';
+import UCSBDatesTable from 'main/components/UCSBDates/UCSBDatesTable';
+import { ucsbDatesFixtures } from 'fixtures/ucsbDatesFixtures';
+import { currentUserFixtures } from 'fixtures/currentUserFixtures';
+import { http, HttpResponse } from 'msw';
 
 export default {
-  title: "components/UCSBDates/UCSBDatesTable",
+  title: 'components/UCSBDates/UCSBDatesTable',
   component: UCSBDatesTable,
 };
 
@@ -34,7 +34,7 @@ ThreeItemsAdminUser.args = {
 
 ThreeItemsAdminUser.parameters = {
   msw: [
-    http.delete("/api/ucsbdates", () => {
+    http.delete('/api/ucsbdates', () => {
       return HttpResponse.json({}, { status: 200 });
     }),
   ],
