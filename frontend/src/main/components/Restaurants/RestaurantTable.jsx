@@ -1,18 +1,15 @@
-import React from "react";
-import OurTable, { ButtonColumn } from "main/components/OurTable";
+import React from 'react';
+import OurTable, { ButtonColumn } from 'main/components/OurTable';
 
-import { useBackendMutation } from "main/utils/useBackend";
-import {
-  cellToAxiosParamsDelete,
-  onDeleteSuccess,
-} from "main/utils/restaurantUtils";
-import { useNavigate } from "react-router";
-import { hasRole } from "main/utils/useCurrentUser";
+import { useBackendMutation } from 'main/utils/useBackend';
+import { cellToAxiosParamsDelete, onDeleteSuccess } from 'main/utils/restaurantUtils';
+import { useNavigate } from 'react-router';
+import { hasRole } from 'main/utils/useCurrentUser';
 
 export default function RestaurantTable({
   restaurants,
   currentUser,
-  testIdPrefix = "RestaurantTable",
+  testIdPrefix = 'RestaurantTable',
 }) {
   const navigate = useNavigate();
 
@@ -25,7 +22,7 @@ export default function RestaurantTable({
   const deleteMutation = useBackendMutation(
     cellToAxiosParamsDelete,
     { onSuccess: onDeleteSuccess },
-    ["/api/restaurants/all"],
+    ['/api/restaurants/all']
   );
   // Stryker restore all
 
@@ -36,28 +33,24 @@ export default function RestaurantTable({
 
   const columns = [
     {
-      header: "id",
-      accessorKey: "id", // accessor is the "key" in the data
+      header: 'id',
+      accessorKey: 'id', // accessor is the "key" in the data
     },
 
     {
-      header: "Name",
-      accessorKey: "name",
+      header: 'Name',
+      accessorKey: 'name',
     },
     {
-      header: "Description",
-      accessorKey: "description",
+      header: 'Description',
+      accessorKey: 'description',
     },
   ];
 
-  if (hasRole(currentUser, "ROLE_ADMIN")) {
-    columns.push(ButtonColumn("Edit", "primary", editCallback, testIdPrefix));
-    columns.push(
-      ButtonColumn("Delete", "danger", deleteCallback, testIdPrefix),
-    );
+  if (hasRole(currentUser, 'ROLE_ADMIN')) {
+    columns.push(ButtonColumn('Edit', 'primary', editCallback, testIdPrefix));
+    columns.push(ButtonColumn('Delete', 'danger', deleteCallback, testIdPrefix));
   }
 
-  return (
-    <OurTable data={restaurants} columns={columns} testid={testIdPrefix} />
-  );
+  return <OurTable data={restaurants} columns={columns} testid={testIdPrefix} />;
 }
