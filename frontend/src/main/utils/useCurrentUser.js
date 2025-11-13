@@ -1,16 +1,16 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 export function useCurrentUser() {
   const queryResults = useQuery({
-    queryKey: ['current user'],
+    queryKey: ["current user"],
     queryFn: async () => {
       try {
-        const response = await axios.get('/api/currentUser');
+        const response = await axios.get("/api/currentUser");
         if (response.data == null) {
           return { loggedIn: false, root: {} };
         }
-        if (!(response.data instanceof Object) || !('roles' in response.data)) {
+        if (!(response.data instanceof Object) || !("roles" in response.data)) {
           return { loggedIn: false, root: response.data };
         }
         let rolesList = response.data.roles.map((r) => r.authority);
@@ -20,7 +20,7 @@ export function useCurrentUser() {
         if (e.status === 403) {
           return { loggedIn: false, root: {} };
         } else {
-          console.error('Error invoking axios.get: ', e);
+          console.error("Error invoking axios.get: ", e);
           throw e;
         }
       }

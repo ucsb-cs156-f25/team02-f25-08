@@ -1,9 +1,9 @@
-import React from 'react';
-import UCSBDateForm from 'main/components/UCSBDates/UCSBDateForm';
-import { ucsbDatesFixtures } from 'fixtures/ucsbDatesFixtures';
+import React from "react";
+import UCSBDateForm from "main/components/UCSBDates/UCSBDateForm";
+import { ucsbDatesFixtures } from "fixtures/ucsbDatesFixtures";
 
 export default {
-  title: 'components/UCSBDates/UCSBDateForm',
+  title: "components/UCSBDates/UCSBDateForm",
   component: UCSBDateForm,
 };
 
@@ -14,10 +14,10 @@ const Template = (args) => {
 export const Create = Template.bind({});
 
 Create.args = {
-  buttonLabel: 'Create',
+  buttonLabel: "Create",
   submitAction: (data) => {
-    console.log('Submit was clicked with data: ', data);
-    window.alert('Submit was clicked with data: ' + JSON.stringify(data));
+    console.log("Submit was clicked with data: ", data);
+    window.alert("Submit was clicked with data: " + JSON.stringify(data));
   },
 };
 
@@ -25,9 +25,9 @@ export const Update = Template.bind({});
 
 Update.args = {
   initialContents: ucsbDatesFixtures.oneDate,
-  buttonLabel: 'Update',
+  buttonLabel: "Update",
   submitAction: (data) => {
-    console.log('Submit was clicked with data: ', data);
-    window.alert('Submit was clicked with data: ' + JSON.stringify(data));
+    console.log("Submit was clicked with data: ", data);
+    window.alert("Submit was clicked with data: " + JSON.stringify(data));
   },
 };

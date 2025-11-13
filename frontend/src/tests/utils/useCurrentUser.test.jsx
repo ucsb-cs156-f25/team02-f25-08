@@ -1,14 +1,14 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useCurrentUser, hasRole } from 'main/utils/useCurrentUser';
-import { renderHook, waitFor } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useCurrentUser, hasRole } from "main/utils/useCurrentUser";
+import { renderHook, waitFor } from "@testing-library/react";
 
-import axios from 'axios';
-import AxiosMockAdapter from 'axios-mock-adapter';
-import { vi } from 'vitest';
+import axios from "axios";
+import AxiosMockAdapter from "axios-mock-adapter";
+import { vi } from "vitest";
 
 // The mock MUST be at the top level of the file
 const navigateSpy = vi.fn();
-vi.mock('react-router', async (importOriginal) => {
+vi.mock("react-router", async (importOriginal) => {
   const actual = await importOriginal();
   return {
     ...actual,
@@ -16,11 +16,13 @@ vi.mock('react-router', async (importOriginal) => {
   };
 });
 
-describe('utils/currentUser tests', () => {
-  describe('useCurrentUser', () => {
+describe("utils/currentUser tests", () => {
+  describe("useCurrentUser", () => {
     let queryClient;
     let axiosMock;
-    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const consoleErrorSpy = vi
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
 
     beforeEach(() => {
       queryClient = new QueryClient({
@@ -44,8 +46,8 @@ describe('utils/currentUser tests', () => {
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     );
 
-    test('should return loggedIn: false when API returns null', async () => {
-      axiosMock.onGet('/api/currentUser').reply(200, null);
+    test("should return loggedIn: false when API returns null", async () => {
+      axiosMock.onGet("/api/currentUser").reply(200, null);
 
       const { result } = renderHook(() => useCurrentUser(), { wrapper });
 
@@ -55,12 +57,12 @@ describe('utils/currentUser tests', () => {
       });
     });
 
-    test('should return loggedIn: true with rolesList for a logged-in user', async () => {
+    test("should return loggedIn: true with rolesList for a logged-in user", async () => {
       const mockUser = {
-        email: 'test@example.com',
-        roles: [{ authority: 'ROLE_USER' }, { authority: 'ROLE_ADMIN' }],
+        email: "test@example.com",
+        roles: [{ authority: "ROLE_USER" }, { authority: "ROLE_ADMIN" }],
       };
-      axiosMock.onGet('/api/currentUser').reply(200, mockUser);
+      axiosMock.onGet("/api/currentUser").reply(200, mockUser);
 
       const { result } = renderHook(() => useCurrentUser(), { wrapper });
 
@@ -68,13 +70,13 @@ describe('utils/currentUser tests', () => {
 
       expect(result.current.root).toEqual({
         ...mockUser,
-        rolesList: ['ROLE_USER', 'ROLE_ADMIN'],
+        rolesList: ["ROLE_USER", "ROLE_ADMIN"],
       });
     });
 
-    test('should return loggedIn: false when API returns an object without roles', async () => {
-      const mockData = { some: 'data' };
-      axiosMock.onGet('/api/currentUser').reply(200, mockData);
+    test("should return loggedIn: false when API returns an object without roles", async () => {
+      const mockData = { some: "data" };
+      axiosMock.onGet("/api/currentUser").reply(200, mockData);
 
       const { result } = renderHook(() => useCurrentUser(), { wrapper });
 
@@ -86,8 +88,8 @@ describe('utils/currentUser tests', () => {
       });
     });
 
-    test('should return loggedIn: false on a 403 error', async () => {
-      axiosMock.onGet('/api/currentUser').reply(403);
+    test("should return loggedIn: false on a 403 error", async () => {
+      axiosMock.onGet("/api/currentUser").reply(403);
 
       const { result } = renderHook(() => useCurrentUser(), { wrapper });
 
@@ -101,9 +103,9 @@ describe('utils/currentUser tests', () => {
       expect(consoleErrorSpy).not.toHaveBeenCalled();
     });
 
-    test('should log an error and re-throw on a non-403 error', async () => {
+    test("should log an error and re-throw on a non-403 error", async () => {
       // Create a mock error that doesn't have a status property, like a network error
-      axiosMock.onGet('/api/currentUser').networkError();
+      axiosMock.onGet("/api/currentUser").networkError();
 
       const { result } = renderHook(() => useCurrentUser(), { wrapper });
 
@@ -112,8 +114,8 @@ describe('utils/currentUser tests', () => {
       // The console.error spy is the key indicator for this test.
       await waitFor(() => {
         expect(consoleErrorSpy).toHaveBeenCalledWith(
-          'Error invoking axios.get: ',
-          expect.any(Error)
+          "Error invoking axios.get: ",
+          expect.any(Error),
         );
       });
 
@@ -121,38 +123,56 @@ describe('utils/currentUser tests', () => {
       expect(result.current.loggedIn).toBe(false);
       expect(result.current.root).toBe(null);
       expect(result.current.initialData).toBe(true);
-      expect(queryClient.getQueryData(['current user'])).toBeTruthy();
+      expect(queryClient.getQueryData(["current user"])).toBeTruthy();
     });
   });
 
-  describe('hasRole tests', () => {
+  describe("hasRole tests", () => {
     test('hasRole(x,"ROLE_ADMIN") return falsy when currentUser ill-defined', async () => {
-      expect(hasRole(null, 'ROLE_ADMIN')).toBeFalsy();
-      expect(hasRole({}, 'ROLE_ADMIN')).toBeFalsy();
-      expect(hasRole({ loggedIn: null }, 'ROLE_ADMIN')).toBeFalsy();
-      expect(hasRole({ loggedIn: true }, 'ROLE_ADMIN')).toBeFalsy();
-      expect(hasRole({ loggedIn: true, root: null }, 'ROLE_ADMIN')).toBeFalsy();
-      expect(hasRole({ loggedIn: true, root: {} }, 'ROLE_ADMIN')).toBeFalsy();
-      expect(hasRole({ loggedIn: true, root: { rolesList: null } }, 'ROLE_ADMIN')).toBeFalsy();
+      expect(hasRole(null, "ROLE_ADMIN")).toBeFalsy();
+      expect(hasRole({}, "ROLE_ADMIN")).toBeFalsy();
+      expect(hasRole({ loggedIn: null }, "ROLE_ADMIN")).toBeFalsy();
+      expect(hasRole({ loggedIn: true }, "ROLE_ADMIN")).toBeFalsy();
+      expect(hasRole({ loggedIn: true, root: null }, "ROLE_ADMIN")).toBeFalsy();
+      expect(hasRole({ loggedIn: true, root: {} }, "ROLE_ADMIN")).toBeFalsy();
+      expect(
+        hasRole({ loggedIn: true, root: { rolesList: null } }, "ROLE_ADMIN"),
+      ).toBeFalsy();
     });
 
     test('hasRole(x,"ROLE_ADMIN") returns correct values when currentUser properly defined', async () => {
-      expect(hasRole({ loggedIn: true, root: { rolesList: [] } }, 'ROLE_ADMIN')).toBeFalsy();
       expect(
-        hasRole({ loggedIn: true, root: { rolesList: ['ROLE_USER'] } }, 'ROLE_ADMIN')
+        hasRole({ loggedIn: true, root: { rolesList: [] } }, "ROLE_ADMIN"),
       ).toBeFalsy();
       expect(
-        hasRole({ loggedIn: true, root: { rolesList: ['ROLE_USER', 'ROLE_ADMIN'] } }, 'ROLE_ADMIN')
+        hasRole(
+          { loggedIn: true, root: { rolesList: ["ROLE_USER"] } },
+          "ROLE_ADMIN",
+        ),
+      ).toBeFalsy();
+      expect(
+        hasRole(
+          { loggedIn: true, root: { rolesList: ["ROLE_USER", "ROLE_ADMIN"] } },
+          "ROLE_ADMIN",
+        ),
       ).toBeTruthy();
     });
 
     test('hasRole(x,"ROLE_USER") returns correct values when currentUser properly defined', async () => {
-      expect(hasRole({ loggedIn: true, root: { rolesList: [] } }, 'ROLE_USER')).toBeFalsy();
       expect(
-        hasRole({ loggedIn: true, root: { rolesList: ['ROLE_USER'] } }, 'ROLE_USER')
+        hasRole({ loggedIn: true, root: { rolesList: [] } }, "ROLE_USER"),
+      ).toBeFalsy();
+      expect(
+        hasRole(
+          { loggedIn: true, root: { rolesList: ["ROLE_USER"] } },
+          "ROLE_USER",
+        ),
       ).toBeTruthy();
       expect(
-        hasRole({ loggedIn: true, root: { rolesList: ['ROLE_USER', 'ROLE_ADMIN'] } }, 'ROLE_USER')
+        hasRole(
+          { loggedIn: true, root: { rolesList: ["ROLE_USER", "ROLE_ADMIN"] } },
+          "ROLE_USER",
+        ),
       ).toBeTruthy();
     });
   });

@@ -1,50 +1,50 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import SortCaret from 'main/components/Common/SortCaret';
+import { render, screen, waitFor } from "@testing-library/react";
+import SortCaret from "main/components/Common/SortCaret";
 
-describe('SortCaret tests', () => {
-  test('Up arrow when sorted asc', async () => {
+describe("SortCaret tests", () => {
+  test("Up arrow when sorted asc", async () => {
     const header = {
       column: {
-        id: 'testColumn',
+        id: "testColumn",
         getCanSort: () => true,
-        getIsSorted: () => 'asc',
+        getIsSorted: () => "asc",
       },
     };
     render(<SortCaret header={header} />);
-    const testid = 'testid';
+    const testid = "testid";
     const expectedTestId = `${testid}-header-${header.column.id}-sort-carets`;
     await waitFor(() => {
       expect(screen.getByTestId(expectedTestId)).toBeInTheDocument();
     });
-    expect(screen.getByTestId(expectedTestId)).toHaveTextContent('🔼');
+    expect(screen.getByTestId(expectedTestId)).toHaveTextContent("🔼");
   });
 
-  test('Can specify custom testid', async () => {
+  test("Can specify custom testid", async () => {
     const header = {
       column: {
-        id: 'testColumn',
+        id: "testColumn",
         getCanSort: () => true,
-        getIsSorted: () => 'asc',
+        getIsSorted: () => "asc",
       },
     };
-    const testid = 'customTestId';
+    const testid = "customTestId";
 
     render(<SortCaret header={header} testId={testid} />);
     const expectedTestId = `${testid}-header-${header.column.id}-sort-carets`;
     await waitFor(() => {
       expect(screen.getByTestId(expectedTestId)).toBeInTheDocument();
     });
-    expect(screen.getByTestId(expectedTestId)).toHaveTextContent('🔼');
+    expect(screen.getByTestId(expectedTestId)).toHaveTextContent("🔼");
   });
 
-  test('Empty when cannot sort', async () => {
+  test("Empty when cannot sort", async () => {
     const header = {
       column: {
-        id: 'testColumn',
+        id: "testColumn",
         getCanSort: () => false,
       },
     };
-    const testid = 'customTestId';
+    const testid = "customTestId";
 
     render(<SortCaret header={header} testId={testid} />);
     const expectedTestId = `${testid}-header-${header.column.id}-sort-carets`;
@@ -54,15 +54,15 @@ describe('SortCaret tests', () => {
     expect(screen.getByTestId(expectedTestId)).toBeEmptyDOMElement();
   });
 
-  test('Empty when is not sorted', async () => {
+  test("Empty when is not sorted", async () => {
     const header = {
       column: {
-        id: 'testColumn',
+        id: "testColumn",
         getCanSort: () => true,
         getIsSorted: () => false,
       },
     };
-    const testid = 'customTestId';
+    const testid = "customTestId";
 
     render(<SortCaret header={header} testId={testid} />);
     const expectedTestId = `${testid}-header-${header.column.id}-sort-carets`;
@@ -72,21 +72,21 @@ describe('SortCaret tests', () => {
     expect(screen.getByTestId(expectedTestId)).toBeEmptyDOMElement();
   });
 
-  test('Down arrow when desc', async () => {
+  test("Down arrow when desc", async () => {
     const header = {
       column: {
-        id: 'testColumn',
+        id: "testColumn",
         getCanSort: () => true,
-        getIsSorted: () => 'desc',
+        getIsSorted: () => "desc",
       },
     };
-    const testid = 'customTestId';
+    const testid = "customTestId";
 
     render(<SortCaret header={header} testId={testid} />);
     const expectedTestId = `${testid}-header-${header.column.id}-sort-carets`;
     await waitFor(() => {
       expect(screen.getByTestId(expectedTestId)).toBeInTheDocument();
     });
-    expect(screen.getByTestId(expectedTestId)).toHaveTextContent('🔽');
+    expect(screen.getByTestId(expectedTestId)).toHaveTextContent("🔽");
   });
 });

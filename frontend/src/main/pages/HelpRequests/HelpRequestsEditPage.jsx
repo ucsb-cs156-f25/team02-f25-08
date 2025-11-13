@@ -1,9 +1,9 @@
-import BasicLayout from 'main/layouts/BasicLayout/BasicLayout';
-import { useParams } from 'react-router';
-import HelpRequestForm from 'main/components/HelpRequests/HelpRequestForm';
-import { Navigate } from 'react-router';
-import { useBackend, useBackendMutation } from 'main/utils/useBackend';
-import { toast } from 'react-toastify';
+import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
+import { useParams } from "react-router";
+import HelpRequestForm from "main/components/HelpRequests/HelpRequestForm";
+import { Navigate } from "react-router";
+import { useBackend, useBackendMutation } from "main/utils/useBackend";
+import { toast } from "react-toastify";
 
 export default function HelpRequestsEditPage({ storybook = false }) {
   let { id } = useParams();
@@ -17,17 +17,17 @@ export default function HelpRequestsEditPage({ storybook = false }) {
     [`/api/helprequests?id=${id}`],
     {
       // Stryker disable next-line all : GET is the default, so mutating this to "" doesn't introduce a bug
-      method: 'GET',
+      method: "GET",
       url: `/api/helprequests`,
       params: {
         id,
       },
-    }
+    },
   );
 
   const objectToAxiosPutParams = (helpRequest) => ({
-    url: '/api/helprequests',
-    method: 'PUT',
+    url: "/api/helprequests",
+    method: "PUT",
     params: {
       id: helpRequest.id,
     },
@@ -43,7 +43,7 @@ export default function HelpRequestsEditPage({ storybook = false }) {
 
   const onSuccess = (helpRequest) => {
     toast(
-      `HelpRequest Updated - id: ${helpRequest.id} requester email: ${helpRequest.requesterEmail}`
+      `HelpRequest Updated - id: ${helpRequest.id} requester email: ${helpRequest.requesterEmail}`,
     );
   };
 
@@ -51,7 +51,7 @@ export default function HelpRequestsEditPage({ storybook = false }) {
     objectToAxiosPutParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
-    [`/api/helprequests?id=${id}`]
+    [`/api/helprequests?id=${id}`],
   );
 
   const { isSuccess } = mutation;
@@ -71,7 +71,7 @@ export default function HelpRequestsEditPage({ storybook = false }) {
         {helpRequest && (
           <HelpRequestForm
             submitAction={onSubmit}
-            buttonLabel={'Update'}
+            buttonLabel={"Update"}
             initialContents={helpRequest}
           />
         )}
