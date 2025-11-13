@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 
 // Stryker disable Regex
 const isodate_regex =
-  /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
+  /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
 // Stryker restore Regex
 
 function MenuItemReviewForm({
@@ -43,7 +43,6 @@ function MenuItemReviewForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="itemId">Item Id</Form.Label>
         <Form.Control
-
           id="itemId"
           type="text"
           isInvalid={Boolean(errors.itemId)}
@@ -59,7 +58,6 @@ function MenuItemReviewForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="reviewerEmail">Reviewer Email</Form.Label>
         <Form.Control
-
           id="reviewerEmail"
           type="text"
           isInvalid={Boolean(errors.reviewerEmail)}
@@ -75,7 +73,6 @@ function MenuItemReviewForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="stars">Stars</Form.Label>
         <Form.Control
-
           id="stars"
           type="text"
           isInvalid={Boolean(errors.stars)}
@@ -93,9 +90,9 @@ function MenuItemReviewForm({
           Date Reviewed (iso format)
         </Form.Label>
         <Form.Control
-
           id="dateReviewed"
           type="datetime-local"
+          step="1"
           isInvalid={Boolean(errors.dateReviewed)}
           {...register("dateReviewed", {
             required: true,
@@ -127,9 +124,7 @@ function MenuItemReviewForm({
         </Form.Control.Feedback>
       </Form.Group>
 
-      <Button type="submit" >
-        {buttonLabel}
-      </Button>
+      <Button type="submit">{buttonLabel}</Button>
       <Button
         variant="Secondary"
         onClick={() => navigate(-1)}
