@@ -159,9 +159,6 @@ function RecommendationRequestForm({
               type="checkbox"
               {...register("done")}
             />
-            <Form.Control.Feedback type="invalid">
-              {errors.done?.message}
-            </Form.Control.Feedback>
           </Form.Group>
         </Col>
       </Row>
