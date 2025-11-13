@@ -5,19 +5,19 @@ import { useBackendMutation } from "main/utils/useBackend";
 import {
   cellToAxiosParamsDelete,
   onDeleteSuccess,
-} from "main/utils/articlesUtils";
+} from "main/utils/UCSBDiningCommonsMenuItemsUtils";
 import { useNavigate } from "react-router";
 import { hasRole } from "main/utils/useCurrentUser";
 
-export default function ArticlesTable({
-  articles,
+export default function UCSBDiningCommonsMenuItemsTable({
+  ucsbDiningCommonsMenuItemss,
   currentUser,
-  testIdPrefix = "ArticlesTable",
+  testIdPrefix = "UCSBDiningCommonsMenuItemsTable",
 }) {
   const navigate = useNavigate();
 
   const editCallback = (cell) => {
-    navigate(`/articles/edit/${cell.row.original.id}`);
+    navigate(`/ucsbDiningCommonsMenuItemss/edit/${cell.row.original.id}`);
   };
 
   // Stryker disable all : hard to test for query caching
@@ -25,7 +25,7 @@ export default function ArticlesTable({
   const deleteMutation = useBackendMutation(
     cellToAxiosParamsDelete,
     { onSuccess: onDeleteSuccess },
-    ["/api/articles/all"],
+    ["/api/ucsbDiningCommonsMenuItemss/all"],
   );
   // Stryker restore all
 
@@ -41,24 +41,16 @@ export default function ArticlesTable({
     },
 
     {
-      header: "Title",
-      accessorKey: "title",
+      header: "Dining Commons Code",
+      accessorKey: "diningCommonsCode",
     },
     {
-      header: "Url",
-      accessorKey: "url",
+      header: "Name",
+      accessorKey: "name",
     },
     {
-      header: "Explanation",
-      accessorKey: "explanation",
-    },
-    {
-      header: "Email",
-      accessorKey: "email",
-    },
-    {
-      header: "Date Added",
-      accessorKey: "dateAdded",
+      header: "Station",
+      accessorKey: "station",
     },
   ];
 
@@ -69,5 +61,7 @@ export default function ArticlesTable({
     );
   }
 
-  return <OurTable data={articles} columns={columns} testid={testIdPrefix} />;
+  return (
+    <OurTable data={ucsbDiningCommonsMenuItemss} columns={columns} testid={testIdPrefix} />
+  );
 }

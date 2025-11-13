@@ -1,6 +1,6 @@
 import { fireEvent, render, waitFor, screen } from "@testing-library/react";
-import { articlesFixtures } from "fixtures/articlesFixtures";
-import ArticlesTable from "main/components/Articles/ArticlesTable";
+import { ucsbDiningCommonsMenuItemsFixtures } from "fixtures/ucsbDiningCommonsMenuItemsFixtures";
+import UCSBDiningCommonsMenuItemsTable from "main/components/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsTable";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
@@ -16,26 +16,12 @@ vi.mock("react-router", async () => {
   };
 });
 
-describe("ArticlesTable tests", () => {
+describe("UCSBDiningCommonsMenuItemsTable tests", () => {
   const queryClient = new QueryClient();
 
-  const expectedHeaders = [
-    "id",
-    "Title",
-    "Url",
-    "Explanation",
-    "Email",
-    "Date Added",
-  ];
-  const expectedFields = [
-    "id",
-    "title",
-    "url",
-    "explanation",
-    "email",
-    "dateAdded",
-  ];
-  const testId = "ArticlesTable";
+  const expectedHeaders = ["id", "Dining Commons Code", "Name", "Station"];
+  const expectedFields = ["id", "diningCommonsCode", "name", "station"];
+  const testId = "UCSBDiningCommonsMenuItemsTable";
 
   test("renders empty table correctly", () => {
     // arrange
@@ -45,7 +31,7 @@ describe("ArticlesTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesTable articles={[]} currentUser={currentUser} />
+          <UCSBDiningCommonsMenuItemsTable ucsbDiningCommonsMenuItemss={[]} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>,
     );
@@ -72,8 +58,8 @@ describe("ArticlesTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesTable
-            articles={articlesFixtures.threeArticles}
+          <UCSBDiningCommonsMenuItemsTable
+            ucsbDiningCommonsMenuItemss={ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -91,20 +77,19 @@ describe("ArticlesTable tests", () => {
       expect(header).toBeInTheDocument();
     });
 
-    // ✅ Article 1 (row-0)
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
       "1",
     );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-diningCommonsCode`),
+    ).toHaveTextContent("Portola");
 
-    // ✅ Article 2 (row-1)
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
       "2",
     );
-
-    // ✅ Article 3 (row-2)
-    expect(screen.getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent(
-      "3",
-    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-1-col-name`),
+    ).toHaveTextContent("Tacos");
 
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
@@ -127,8 +112,8 @@ describe("ArticlesTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesTable
-            articles={articlesFixtures.threeArticles}
+          <UCSBDiningCommonsMenuItemsTable
+            ucsbDiningCommonsMenuItemss={ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -146,26 +131,25 @@ describe("ArticlesTable tests", () => {
       expect(header).toBeInTheDocument();
     });
 
-    // ✅ Article 1 (row-0)
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
       "1",
     );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-name`),
+    ).toHaveTextContent("Sushi");
 
-    // ✅ Article 2 (row-1)
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
       "2",
     );
-
-    // ✅ Article 3 (row-2)
-    expect(screen.getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent(
-      "3",
-    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-1-col-diningCommonsCode`),
+    ).toHaveTextContent("De La Guerra");
 
     expect(screen.queryByText("Delete")).not.toBeInTheDocument();
     expect(screen.queryByText("Edit")).not.toBeInTheDocument();
   });
 
-  test("Edit button navigates to the edit page for admin user", async () => {
+  test("Edit button navigates to the edit page", async () => {
     // arrange
     const currentUser = currentUserFixtures.adminUser;
 
@@ -173,8 +157,8 @@ describe("ArticlesTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesTable
-            articles={articlesFixtures.threeArticles}
+          <UCSBDiningCommonsMenuItemsTable
+            ucsbDiningCommonsMenuItemss={ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -185,9 +169,9 @@ describe("ArticlesTable tests", () => {
     expect(
       await screen.findByTestId(`${testId}-cell-row-0-col-id`),
     ).toHaveTextContent("1");
-    // expect(
-    //     screen.getByTestId(`${testId}-cell-row-0-col-name`),
-    // ).toHaveTextContent("Article 1");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-diningCommonsCode`),
+    ).toHaveTextContent("Portola");
 
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
@@ -199,7 +183,7 @@ describe("ArticlesTable tests", () => {
 
     // assert - check that the navigate function was called with the expected path
     await waitFor(() =>
-      expect(mockedNavigate).toHaveBeenCalledWith("/articles/edit/1"),
+      expect(mockedNavigate).toHaveBeenCalledWith("/ucsbDiningCommonsMenuItemss/edit/1"),
     );
   });
 
@@ -209,15 +193,15 @@ describe("ArticlesTable tests", () => {
 
     const axiosMock = new AxiosMockAdapter(axios);
     axiosMock
-      .onDelete("/api/articles")
-      .reply(200, { message: "Article deleted" });
+      .onDelete("/api/ucsbDiningCommonsMenuItemss")
+      .reply(200, { message: "DiningCommonsMenuItem deleted" });
 
     // act - render the component
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesTable
-            articles={articlesFixtures.threeArticles}
+          <UCSBDiningCommonsMenuItemsTable
+            ucsbDiningCommonsMenuItemss={ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -226,14 +210,14 @@ describe("ArticlesTable tests", () => {
 
     // assert - check that the expected content is rendered
     expect(
-      await screen.findByTestId(`${testId}-cell-row-0-col-id`),
-    ).toHaveTextContent("1");
-    // expect(
-    //     screen.getByTestId(`${testId}-cell-row-0-col-name`),
-    // ).toHaveTextContent("Cristino's Bakery");
+      await screen.findByTestId(`${testId}-cell-row-2-col-id`),
+    ).toHaveTextContent("3");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-2-col-station`),
+    ).toHaveTextContent("Brunch");
 
     const deleteButton = screen.getByTestId(
-      `${testId}-cell-row-0-col-Delete-button`,
+      `${testId}-cell-row-2-col-Delete-button`,
     );
     expect(deleteButton).toBeInTheDocument();
 
@@ -243,6 +227,6 @@ describe("ArticlesTable tests", () => {
     // assert - check that the delete endpoint was called
 
     await waitFor(() => expect(axiosMock.history.delete.length).toBe(1));
-    expect(axiosMock.history.delete[0].params).toEqual({ id: 1 });
+    expect(axiosMock.history.delete[0].params).toEqual({ id: 3 });
   });
 });

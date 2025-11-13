@@ -1,6 +1,6 @@
 import { fireEvent, render, waitFor, screen } from "@testing-library/react";
-import { articlesFixtures } from "fixtures/articlesFixtures";
-import ArticlesTable from "main/components/Articles/ArticlesTable";
+import { menuItemReviewFixtures } from "fixtures/menuItemReviewFixtures";
+import MenuItemReviewTable from "main/components/MenuItemReviews/MenuItemReviewTable";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
@@ -16,26 +16,26 @@ vi.mock("react-router", async () => {
   };
 });
 
-describe("ArticlesTable tests", () => {
+describe("MenuItemReviewTable tests", () => {
   const queryClient = new QueryClient();
 
   const expectedHeaders = [
     "id",
-    "Title",
-    "Url",
-    "Explanation",
-    "Email",
-    "Date Added",
+    "Item Id",
+    "Reviewer Email",
+    "Stars",
+    "Date Reviewed",
+    "Comments",
   ];
   const expectedFields = [
     "id",
-    "title",
-    "url",
-    "explanation",
-    "email",
-    "dateAdded",
+    "itemId",
+    "reviewerEmail",
+    "stars",
+    "dateReviewed",
+    "comments",
   ];
-  const testId = "ArticlesTable";
+  const testId = "MenuItemReviewTable";
 
   test("renders empty table correctly", () => {
     // arrange
@@ -45,7 +45,7 @@ describe("ArticlesTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesTable articles={[]} currentUser={currentUser} />
+          <MenuItemReviewTable menuitemreviews={[]} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>,
     );
@@ -72,8 +72,8 @@ describe("ArticlesTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesTable
-            articles={articlesFixtures.threeArticles}
+          <MenuItemReviewTable
+            menuitemreviews={menuItemReviewFixtures.threeMenuItemReview}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -91,20 +91,24 @@ describe("ArticlesTable tests", () => {
       expect(header).toBeInTheDocument();
     });
 
-    // ✅ Article 1 (row-0)
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
       "1",
     );
-
-    // ✅ Article 2 (row-1)
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
-      "2",
-    );
-
-    // ✅ Article 3 (row-2)
-    expect(screen.getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent(
-      "3",
-    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-itemId`),
+    ).toHaveTextContent("1");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-reviewerEmail`),
+    ).toHaveTextContent("krystellebaluyot@ucsb.edu");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-stars`),
+    ).toHaveTextContent("3");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-dateReviewed`),
+    ).toHaveTextContent("2025-10-30T20:49RE:03.874");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-comments`),
+    ).toHaveTextContent("yummy");
 
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
@@ -127,8 +131,8 @@ describe("ArticlesTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesTable
-            articles={articlesFixtures.threeArticles}
+          <MenuItemReviewTable
+            menuitemreviews={menuItemReviewFixtures.threeMenuItemReview}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -146,26 +150,30 @@ describe("ArticlesTable tests", () => {
       expect(header).toBeInTheDocument();
     });
 
-    // ✅ Article 1 (row-0)
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
       "1",
     );
-
-    // ✅ Article 2 (row-1)
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
-      "2",
-    );
-
-    // ✅ Article 3 (row-2)
-    expect(screen.getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent(
-      "3",
-    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-itemId`),
+    ).toHaveTextContent("1");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-reviewerEmail`),
+    ).toHaveTextContent("krystellebaluyot@ucsb.edu");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-stars`),
+    ).toHaveTextContent("3");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-dateReviewed`),
+    ).toHaveTextContent("2025-10-30T20:49RE:03.874");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-comments`),
+    ).toHaveTextContent("yummy");
 
     expect(screen.queryByText("Delete")).not.toBeInTheDocument();
     expect(screen.queryByText("Edit")).not.toBeInTheDocument();
   });
 
-  test("Edit button navigates to the edit page for admin user", async () => {
+  test("Edit button navigates to the edit page", async () => {
     // arrange
     const currentUser = currentUserFixtures.adminUser;
 
@@ -173,8 +181,8 @@ describe("ArticlesTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesTable
-            articles={articlesFixtures.threeArticles}
+          <MenuItemReviewTable
+            menuitemreviews={menuItemReviewFixtures.threeMenuItemReview}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -182,12 +190,24 @@ describe("ArticlesTable tests", () => {
     );
 
     // assert - check that the expected content is rendered
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
     expect(
-      await screen.findByTestId(`${testId}-cell-row-0-col-id`),
+      screen.getByTestId(`${testId}-cell-row-0-col-itemId`),
     ).toHaveTextContent("1");
-    // expect(
-    //     screen.getByTestId(`${testId}-cell-row-0-col-name`),
-    // ).toHaveTextContent("Article 1");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-reviewerEmail`),
+    ).toHaveTextContent("krystellebaluyot@ucsb.edu");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-stars`),
+    ).toHaveTextContent("3");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-dateReviewed`),
+    ).toHaveTextContent("2025-10-30T20:49RE:03.874");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-comments`),
+    ).toHaveTextContent("yummy");
 
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
@@ -199,7 +219,7 @@ describe("ArticlesTable tests", () => {
 
     // assert - check that the navigate function was called with the expected path
     await waitFor(() =>
-      expect(mockedNavigate).toHaveBeenCalledWith("/articles/edit/1"),
+      expect(mockedNavigate).toHaveBeenCalledWith("/menuitemreviews/edit/1"),
     );
   });
 
@@ -209,15 +229,15 @@ describe("ArticlesTable tests", () => {
 
     const axiosMock = new AxiosMockAdapter(axios);
     axiosMock
-      .onDelete("/api/articles")
-      .reply(200, { message: "Article deleted" });
+      .onDelete("/api/menuitemreviews")
+      .reply(200, { message: "Menu Item Review deleted" });
 
     // act - render the component
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesTable
-            articles={articlesFixtures.threeArticles}
+          <MenuItemReviewTable
+            menuitemreviews={menuItemReviewFixtures.threeMenuItemReview}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -225,12 +245,24 @@ describe("ArticlesTable tests", () => {
     );
 
     // assert - check that the expected content is rendered
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
     expect(
-      await screen.findByTestId(`${testId}-cell-row-0-col-id`),
+      screen.getByTestId(`${testId}-cell-row-0-col-itemId`),
     ).toHaveTextContent("1");
-    // expect(
-    //     screen.getByTestId(`${testId}-cell-row-0-col-name`),
-    // ).toHaveTextContent("Cristino's Bakery");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-reviewerEmail`),
+    ).toHaveTextContent("krystellebaluyot@ucsb.edu");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-stars`),
+    ).toHaveTextContent("3");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-dateReviewed`),
+    ).toHaveTextContent("2025-10-30T20:49RE:03.874");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-comments`),
+    ).toHaveTextContent("yummy");
 
     const deleteButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Delete-button`,
