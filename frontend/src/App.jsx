@@ -12,9 +12,22 @@ import RestaurantCreatePage from 'main/pages/Restaurants/RestaurantCreatePage';
 import RestaurantEditPage from 'main/pages/Restaurants/RestaurantEditPage';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import RecommendationRequestIndexPage from "main/pages/RecommendationRequest/RecommendationRequestIndexPage";
 import RecommendationRequestCreatePage from "main/pages/RecommendationRequest/RecommendationRequestCreatePage";
 import RecommendationRequestEditPage from "main/pages/RecommendationRequest/RecommendationRequestEditPage";
+=======
+import RecommendationRequestIndexPage from "main/pages/RecommendationRequest/RecommendationRequestIndexPage";
+import RecommendationRequestCreatePage from "main/pages/RecommendationRequest/RecommendationRequestCreatePage";
+import RecommendationRequestEditPage from "main/pages/RecommendationRequest/RecommendationRequestEditPage";
+import MenuItemReviewsIndexPage from "main/pages/MenuItemReviews/MenuItemReviewsIndexPage";
+import MenuItemReviewsCreatePage from "main/pages/MenuItemReviews/MenuItemReviewsCreatePage";
+import MenuItemReviewsEditPage from "main/pages/MenuItemReviews/MenuItemReviewsEditPage";
+
+import HelpRequestsIndexPage from "main/pages/HelpRequests/HelpRequestsIndexPage";
+import HelpRequestsCreatePage from "main/pages/HelpRequests/HelpRequestsCreatePage";
+import HelpRequestsEditPage from "main/pages/HelpRequests/HelpRequestsEditPage";
+>>>>>>> f142c0c22b61839001ff2498c7ee5c23adccb1e3
 
 import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
 import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
@@ -120,6 +133,11 @@ function App() {
         <>
           <Route
             exact
+<<<<<<< HEAD
+=======
+            path="/recommendationrequest"
+            element={<RecommendationRequestIndexPage />}
+>>>>>>> f142c0c22b61839001ff2498c7ee5c23adccb1e3
             path="/helprequests"
             element={<HelpRequestsIndexPage />}
           />
@@ -129,6 +147,16 @@ function App() {
         <>
           <Route
             exact
+<<<<<<< HEAD
+=======
+            path="/recommendationrequest/edit/:id"
+            element={<RecommendationRequestEditPage />}
+          />
+          <Route
+            exact
+            path="/recommendationrequest/create"
+            element={<RecommendationRequestCreatePage />}
+>>>>>>> f142c0c22b61839001ff2498c7ee5c23adccb1e3
             path="/helprequests/edit/:id"
             element={<HelpRequestsEditPage />}
           />
@@ -136,6 +164,7 @@ function App() {
             exact
             path="/helprequests/create"
             element={<HelpRequestsCreatePage />}
+<<<<<<< HEAD
           />
         </>
       )}
@@ -170,6 +199,8 @@ function App() {
             exact
             path="/recommendationrequest/create"
             element={<RecommendationRequestCreatePage />}
+=======
+>>>>>>> f142c0c22b61839001ff2498c7ee5c23adccb1e3
           />
         </>
       )}
