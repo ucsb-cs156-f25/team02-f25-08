@@ -1,13 +1,13 @@
-import BasicLayout from 'main/layouts/BasicLayout/BasicLayout';
-import HelpRequestForm from 'main/components/HelpRequests/HelpRequestForm';
-import { Navigate } from 'react-router';
-import { useBackendMutation } from 'main/utils/useBackend';
-import { toast } from 'react-toastify';
+import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
+import HelpRequestForm from "main/components/HelpRequests/HelpRequestForm";
+import { Navigate } from "react-router";
+import { useBackendMutation } from "main/utils/useBackend";
+import { toast } from "react-toastify";
 
 export default function HelpRequestsCreatePage({ storybook = false }) {
   const objectToAxiosParams = (helpRequest) => ({
-    url: '/api/helprequests/post',
-    method: 'POST',
+    url: "/api/helprequests/post",
+    method: "POST",
     params: {
       requesterEmail: helpRequest.requesterEmail,
       teamId: helpRequest.teamId,
@@ -20,7 +20,7 @@ export default function HelpRequestsCreatePage({ storybook = false }) {
 
   const onSuccess = (helpRequest) => {
     toast(
-      `New Help Request Created - id: ${helpRequest.id} requester email: ${helpRequest.requesterEmail}`
+      `New Help Request Created - id: ${helpRequest.id} requester email: ${helpRequest.requesterEmail}`,
     );
   };
 
@@ -28,7 +28,7 @@ export default function HelpRequestsCreatePage({ storybook = false }) {
     objectToAxiosParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
-    ['/api/helprequests/all'] // mutation makes this key stale so that pages relying on it reload
+    ["/api/helprequests/all"], // mutation makes this key stale so that pages relying on it reload
   );
 
   const { isSuccess } = mutation;

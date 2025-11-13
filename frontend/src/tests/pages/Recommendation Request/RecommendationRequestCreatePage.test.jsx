@@ -69,10 +69,12 @@ describe("RecommendationRequestCreatePage tests", () => {
       explanation: "rara",
       dateRequested: "2022-02-02T00:00",
       dateNeeded: "2022-02-02T00:00",
-      done: true
+      done: true,
     };
 
-    axiosMock.onPost("/api/recommendationrequest/post").reply(202, recommendationRequest);
+    axiosMock
+      .onPost("/api/recommendationrequest/post")
+      .reply(202, recommendationRequest);
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -88,21 +90,39 @@ describe("RecommendationRequestCreatePage tests", () => {
       ).toBeInTheDocument();
     });
 
-    const requesterEmailField = screen.getByTestId("RecommendationRequestForm-requesterEmail");
-    const professorEmailField = screen.getByTestId("RecommendationRequestForm-professorEmail");
-    const explanationField = screen.getByTestId("RecommendationRequestForm-explanation");
-    const dateRequestedField = screen.getByTestId("RecommendationRequestForm-dateRequested");
-    const dateNeededField = screen.getByTestId("RecommendationRequestForm-dateNeeded");
+    const requesterEmailField = screen.getByTestId(
+      "RecommendationRequestForm-requesterEmail",
+    );
+    const professorEmailField = screen.getByTestId(
+      "RecommendationRequestForm-professorEmail",
+    );
+    const explanationField = screen.getByTestId(
+      "RecommendationRequestForm-explanation",
+    );
+    const dateRequestedField = screen.getByTestId(
+      "RecommendationRequestForm-dateRequested",
+    );
+    const dateNeededField = screen.getByTestId(
+      "RecommendationRequestForm-dateNeeded",
+    );
     const doneField = screen.getByTestId("RecommendationRequestForm-done");
     const submitButton = screen.getByTestId("RecommendationRequestForm-submit");
 
-    fireEvent.change(requesterEmailField, { target: { value: "sriya.vollala@gmail.com" } });
-    fireEvent.change(professorEmailField, { target: { value: "pconrad@ucsb.edu" } });
+    fireEvent.change(requesterEmailField, {
+      target: { value: "sriya.vollala@gmail.com" },
+    });
+    fireEvent.change(professorEmailField, {
+      target: { value: "pconrad@ucsb.edu" },
+    });
     fireEvent.change(explanationField, {
       target: { value: "rara" },
     });
-    fireEvent.change(dateRequestedField, { target: { value: "2022-02-02T00:00" } });
-    fireEvent.change(dateNeededField, { target: { value: "2022-02-02T00:00" } });
+    fireEvent.change(dateRequestedField, {
+      target: { value: "2022-02-02T00:00" },
+    });
+    fireEvent.change(dateNeededField, {
+      target: { value: "2022-02-02T00:00" },
+    });
     fireEvent.click(doneField);
 
     expect(submitButton).toBeInTheDocument();
@@ -117,12 +137,10 @@ describe("RecommendationRequestCreatePage tests", () => {
       explanation: "rara",
       dateRequested: "2022-02-02T00:00",
       dateNeeded: "2022-02-02T00:00",
-      done: true
+      done: true,
     });
 
-    expect(mockToast).toBeCalledWith(
-      "New request Created - id: 17",
-    );
+    expect(mockToast).toBeCalledWith("New request Created - id: 17");
     expect(mockNavigate).toBeCalledWith({ to: "/recommendationrequest" });
   });
 });

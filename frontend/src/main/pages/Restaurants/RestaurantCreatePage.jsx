@@ -1,13 +1,13 @@
-import BasicLayout from 'main/layouts/BasicLayout/BasicLayout';
-import RestaurantForm from 'main/components/Restaurants/RestaurantForm';
-import { Navigate } from 'react-router';
-import { useBackendMutation } from 'main/utils/useBackend';
-import { toast } from 'react-toastify';
+import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
+import RestaurantForm from "main/components/Restaurants/RestaurantForm";
+import { Navigate } from "react-router";
+import { useBackendMutation } from "main/utils/useBackend";
+import { toast } from "react-toastify";
 
 export default function RestaurantCreatePage({ storybook = false }) {
   const objectToAxiosParams = (restaurant) => ({
-    url: '/api/restaurants/post',
-    method: 'POST',
+    url: "/api/restaurants/post",
+    method: "POST",
     params: {
       name: restaurant.name,
       description: restaurant.description,
@@ -15,14 +15,16 @@ export default function RestaurantCreatePage({ storybook = false }) {
   });
 
   const onSuccess = (restaurant) => {
-    toast(`New restaurant Created - id: ${restaurant.id} name: ${restaurant.name}`);
+    toast(
+      `New restaurant Created - id: ${restaurant.id} name: ${restaurant.name}`,
+    );
   };
 
   const mutation = useBackendMutation(
     objectToAxiosParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
-    ['/api/restaurants/all'] // mutation makes this key stale so that pages relying on it reload
+    ["/api/restaurants/all"], // mutation makes this key stale so that pages relying on it reload
   );
 
   const { isSuccess } = mutation;

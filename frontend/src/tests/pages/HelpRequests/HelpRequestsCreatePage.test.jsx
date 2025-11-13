@@ -1,16 +1,16 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import HelpRequestsCreatePage from 'main/pages/HelpRequests/HelpRequestsCreatePage';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { MemoryRouter } from 'react-router';
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import HelpRequestsCreatePage from "main/pages/HelpRequests/HelpRequestsCreatePage";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { MemoryRouter } from "react-router";
 
-import { apiCurrentUserFixtures } from 'fixtures/currentUserFixtures';
-import { systemInfoFixtures } from 'fixtures/systemInfoFixtures';
+import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
+import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 
-import axios from 'axios';
-import AxiosMockAdapter from 'axios-mock-adapter';
+import axios from "axios";
+import AxiosMockAdapter from "axios-mock-adapter";
 
 const mockToast = vi.fn();
-vi.mock('react-toastify', async (importOriginal) => {
+vi.mock("react-toastify", async (importOriginal) => {
   const originalModule = await importOriginal();
   return {
     ...originalModule,
@@ -19,7 +19,7 @@ vi.mock('react-toastify', async (importOriginal) => {
 });
 
 const mockNavigate = vi.fn();
-vi.mock('react-router', async (importOriginal) => {
+vi.mock("react-router", async (importOriginal) => {
   const originalModule = await importOriginal();
   return {
     ...originalModule,
@@ -30,85 +30,95 @@ vi.mock('react-router', async (importOriginal) => {
   };
 });
 
-describe('HelpRequestsCreatePage tests', () => {
+describe("HelpRequestsCreatePage tests", () => {
   const axiosMock = new AxiosMockAdapter(axios);
 
   beforeEach(() => {
     vi.clearAllMocks();
     axiosMock.reset();
     axiosMock.resetHistory();
-    axiosMock.onGet('/api/currentUser').reply(200, apiCurrentUserFixtures.userOnly);
-    axiosMock.onGet('/api/systemInfo').reply(200, systemInfoFixtures.showingNeither);
+    axiosMock
+      .onGet("/api/currentUser")
+      .reply(200, apiCurrentUserFixtures.userOnly);
+    axiosMock
+      .onGet("/api/systemInfo")
+      .reply(200, systemInfoFixtures.showingNeither);
   });
 
   const queryClient = new QueryClient();
-  test('renders without crashing', async () => {
+  test("renders without crashing", async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <HelpRequestsCreatePage />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     await waitFor(() => {
-      expect(screen.getByLabelText('Requester Email')).toBeInTheDocument();
+      expect(screen.getByLabelText("Requester Email")).toBeInTheDocument();
     });
   });
 
-  test('on submit, makes request to backend, and redirects to /helprequests', async () => {
+  test("on submit, makes request to backend, and redirects to /helprequests", async () => {
     const queryClient = new QueryClient();
 
     const helpRequest = {
       id: 7,
-      requesterEmail: 'vnarasiman@ucsb.edu',
-      teamId: 'f25-08',
-      tableOrBreakoutRoom: '8',
-      requestTime: '2025-10-28T02:36',
+      requesterEmail: "vnarasiman@ucsb.edu",
+      teamId: "f25-08",
+      tableOrBreakoutRoom: "8",
+      requestTime: "2025-10-28T02:36",
       explanation:
         "f25-08: please note mvn test is not working and there's an error with the surefire plugin.",
       solved: true,
     };
 
-    axiosMock.onPost('/api/helprequests/post').reply(202, helpRequest);
+    axiosMock.onPost("/api/helprequests/post").reply(202, helpRequest);
 
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <HelpRequestsCreatePage />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     await waitFor(() => {
-      expect(screen.getByLabelText('Requester Email')).toBeInTheDocument();
+      expect(screen.getByLabelText("Requester Email")).toBeInTheDocument();
     });
 
-    const requesterEmailInput = screen.getByLabelText('Requester Email');
+    const requesterEmailInput = screen.getByLabelText("Requester Email");
     expect(requesterEmailInput).toBeInTheDocument();
 
-    const teamIdInput = screen.getByLabelText('Team ID');
+    const teamIdInput = screen.getByLabelText("Team ID");
     expect(teamIdInput).toBeInTheDocument();
 
-    const tableOrBreakoutRoomInput = screen.getByLabelText('Table or Breakout Room');
+    const tableOrBreakoutRoomInput = screen.getByLabelText(
+      "Table or Breakout Room",
+    );
     expect(tableOrBreakoutRoomInput).toBeInTheDocument();
 
-    const requestTimeInput = screen.getByLabelText('Request Time (in UTC)');
+    const requestTimeInput = screen.getByLabelText("Request Time (in UTC)");
     expect(requestTimeInput).toBeInTheDocument();
 
-    const explanationInput = screen.getByLabelText('Explanation');
+    const explanationInput = screen.getByLabelText("Explanation");
     expect(explanationInput).toBeInTheDocument();
 
-    const solvedInput = screen.getByLabelText('Solved');
+    const solvedInput = screen.getByLabelText("Solved");
     expect(solvedInput).toBeInTheDocument();
 
-    const createButton = screen.getByText('Create');
+    const createButton = screen.getByText("Create");
     expect(createButton).toBeInTheDocument();
 
-    fireEvent.change(requesterEmailInput, { target: { value: 'vnarasiman@ucsb.edu' } });
-    fireEvent.change(teamIdInput, { target: { value: 'f25-08' } });
-    fireEvent.change(tableOrBreakoutRoomInput, { target: { value: '8' } });
-    fireEvent.change(requestTimeInput, { target: { value: '2025-10-28T02:36' } });
+    fireEvent.change(requesterEmailInput, {
+      target: { value: "vnarasiman@ucsb.edu" },
+    });
+    fireEvent.change(teamIdInput, { target: { value: "f25-08" } });
+    fireEvent.change(tableOrBreakoutRoomInput, { target: { value: "8" } });
+    fireEvent.change(requestTimeInput, {
+      target: { value: "2025-10-28T02:36" },
+    });
     fireEvent.change(explanationInput, {
       target: {
         value:
@@ -122,10 +132,10 @@ describe('HelpRequestsCreatePage tests', () => {
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
 
     expect(axiosMock.history.post[0].params).toEqual({
-      requesterEmail: 'vnarasiman@ucsb.edu',
-      teamId: 'f25-08',
-      tableOrBreakoutRoom: '8',
-      requestTime: '2025-10-28T02:36',
+      requesterEmail: "vnarasiman@ucsb.edu",
+      teamId: "f25-08",
+      tableOrBreakoutRoom: "8",
+      requestTime: "2025-10-28T02:36",
       explanation:
         "f25-08: please note mvn test is not working and there's an error with the surefire plugin.",
       solved: true,
@@ -133,8 +143,8 @@ describe('HelpRequestsCreatePage tests', () => {
 
     // assert - check that the toast was called with the expected message
     expect(mockToast).toBeCalledWith(
-      'New Help Request Created - id: 7 requester email: vnarasiman@ucsb.edu'
+      "New Help Request Created - id: 7 requester email: vnarasiman@ucsb.edu",
     );
-    expect(mockNavigate).toBeCalledWith({ to: '/helprequests' });
+    expect(mockNavigate).toBeCalledWith({ to: "/helprequests" });
   });
 });

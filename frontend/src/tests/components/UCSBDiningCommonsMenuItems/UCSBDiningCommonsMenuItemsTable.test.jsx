@@ -31,7 +31,10 @@ describe("UCSBDiningCommonsMenuItemsTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBDiningCommonsMenuItemsTable ucsbDiningCommonsMenuItemss={[]} currentUser={currentUser} />
+          <UCSBDiningCommonsMenuItemsTable
+            ucsbDiningCommonsMenuItemss={[]}
+            currentUser={currentUser}
+          />
         </MemoryRouter>
       </QueryClientProvider>,
     );
@@ -59,7 +62,9 @@ describe("UCSBDiningCommonsMenuItemsTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBDiningCommonsMenuItemsTable
-            ucsbDiningCommonsMenuItemss={ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems}
+            ucsbDiningCommonsMenuItemss={
+              ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems
+            }
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -113,7 +118,9 @@ describe("UCSBDiningCommonsMenuItemsTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBDiningCommonsMenuItemsTable
-            ucsbDiningCommonsMenuItemss={ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems}
+            ucsbDiningCommonsMenuItemss={
+              ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems
+            }
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -158,7 +165,9 @@ describe("UCSBDiningCommonsMenuItemsTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBDiningCommonsMenuItemsTable
-            ucsbDiningCommonsMenuItemss={ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems}
+            ucsbDiningCommonsMenuItemss={
+              ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems
+            }
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -183,7 +192,9 @@ describe("UCSBDiningCommonsMenuItemsTable tests", () => {
 
     // assert - check that the navigate function was called with the expected path
     await waitFor(() =>
-      expect(mockedNavigate).toHaveBeenCalledWith("/ucsbDiningCommonsMenuItemss/edit/1"),
+      expect(mockedNavigate).toHaveBeenCalledWith(
+        "/ucsbDiningCommonsMenuItemss/edit/1",
+      ),
     );
   });
 
@@ -201,7 +212,9 @@ describe("UCSBDiningCommonsMenuItemsTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBDiningCommonsMenuItemsTable
-            ucsbDiningCommonsMenuItemss={ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems}
+            ucsbDiningCommonsMenuItemss={
+              ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems
+            }
             currentUser={currentUser}
           />
         </MemoryRouter>
