@@ -61,10 +61,15 @@ describe("UCSBDiningCommonsMenuItemsIndexPage tests", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText(/Create UCSBDiningCommonsMenuItem/)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Create UCSBDiningCommonsMenuItem/),
+      ).toBeInTheDocument();
     });
     const button = screen.getByText(/Create UCSBDiningCommonsMenuItem/);
-    expect(button).toHaveAttribute("href", "/ucsbdiningcommonsmenuitems/create");
+    expect(button).toHaveAttribute(
+      "href",
+      "/ucsbdiningcommonsmenuitems/create",
+    );
     expect(button).toHaveAttribute("style", "float: right;");
   });
 
@@ -72,7 +77,10 @@ describe("UCSBDiningCommonsMenuItemsIndexPage tests", () => {
     setupUserOnly();
     axiosMock
       .onGet("/api/ucsbdiningcommonsmenuitems/all")
-      .reply(200, ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems);
+      .reply(
+        200,
+        ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems,
+      );
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -94,7 +102,9 @@ describe("UCSBDiningCommonsMenuItemsIndexPage tests", () => {
       "3",
     );
 
-    const createUCSBDiningCommonsMenuItemsButton = screen.queryByText("Create UCSBDiningCommonsMenuItem");
+    const createUCSBDiningCommonsMenuItemsButton = screen.queryByText(
+      "Create UCSBDiningCommonsMenuItem",
+    );
     expect(createUCSBDiningCommonsMenuItemsButton).not.toBeInTheDocument();
 
     const diningCommonsCode = screen.getByText("Portola");
@@ -108,10 +118,14 @@ describe("UCSBDiningCommonsMenuItemsIndexPage tests", () => {
 
     // for non-admin users, details button is visible, but the edit and delete buttons should not be visible
     expect(
-      screen.queryByTestId("UCSBDiningCommonsMenuItemsTable-cell-row-0-col-Delete-button"),
+      screen.queryByTestId(
+        "UCSBDiningCommonsMenuItemsTable-cell-row-0-col-Delete-button",
+      ),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByTestId("UCSBDiningCommonsMenuItemsTable-cell-row-0-col-Edit-button"),
+      screen.queryByTestId(
+        "UCSBDiningCommonsMenuItemsTable-cell-row-0-col-Edit-button",
+      ),
     ).not.toBeInTheDocument();
   });
 
@@ -146,7 +160,10 @@ describe("UCSBDiningCommonsMenuItemsIndexPage tests", () => {
 
     axiosMock
       .onGet("/api/ucsbdiningcommonsmenuitems/all")
-      .reply(200, ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems);
+      .reply(
+        200,
+        ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems,
+      );
     axiosMock
       .onDelete("/api/ucsbdiningcommonsmenuitems")
       .reply(200, "UCSBDiningCommonsMenuItem with id 1 was deleted");
@@ -177,13 +194,17 @@ describe("UCSBDiningCommonsMenuItemsIndexPage tests", () => {
     fireEvent.click(deleteButton);
 
     await waitFor(() => {
-      expect(mockToast).toHaveBeenCalledWith("UCSBDiningCommonsMenuItem with id 1 was deleted");
+      expect(mockToast).toHaveBeenCalledWith(
+        "UCSBDiningCommonsMenuItem with id 1 was deleted",
+      );
     });
 
     await waitFor(() => {
       expect(axiosMock.history.delete.length).toBe(1);
     });
-    expect(axiosMock.history.delete[0].url).toBe("/api/ucsbdiningcommonsmenuitems");
+    expect(axiosMock.history.delete[0].url).toBe(
+      "/api/ucsbdiningcommonsmenuitems",
+    );
     expect(axiosMock.history.delete[0].params).toEqual({ id: 1 });
   });
 });
