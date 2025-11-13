@@ -101,6 +101,7 @@ describe("RecommendationRequestForm tests", () => {
     expect(screen.getByText(/Explanation is required/)).toBeInTheDocument();
     expect(screen.getByText(/Date requested is required/)).toBeInTheDocument();
     expect(screen.getByText(/Date needed is required/)).toBeInTheDocument();
+    expect(screen.getByText(/Done is required/)).toBeInTheDocument();
 
     const requesterEmailInput = screen.getByTestId(`${testId}-requesterEmail`);
     fireEvent.change(requesterEmailInput, {

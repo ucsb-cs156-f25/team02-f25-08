@@ -153,12 +153,18 @@ function RecommendationRequestForm({
         <Col>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="done">Done</Form.Label>
-            <Form.Check
+            <Form.Control
               data-testid="RecommendationRequestForm-done"
               id="done"
               type="checkbox"
-              {...register("done")}
+              isInvalid={Boolean(errors.done)}
+              {...register("done", {
+                required: "Done is required.",
+              })}
             />
+            <Form.Control.Feedback type="invalid">
+              {errors.done?.message}
+            </Form.Control.Feedback>
           </Form.Group>
         </Col>
       </Row>
