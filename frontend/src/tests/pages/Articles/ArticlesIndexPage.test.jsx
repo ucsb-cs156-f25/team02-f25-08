@@ -195,4 +195,58 @@ describe("ArticlesIndexPage tests", () => {
         // expect(axiosMock.history.delete[0].url).toBe("/api/articles");
         // expect(axiosMock.history.delete[0].params).toEqual({ id: 2 });
     });
+
+    const errorMessage = console.error.mock.calls[0][0];
+    expect(errorMessage).toMatch(
+      "Error communicating with backend via GET on /api/articles/all",
+    );
+    restoreConsole();
+  });
+
+  test("what happens when you click delete, admin", async () => {
+    setupAdminUser();
+
+    axiosMock
+      .onGet("/api/articles/all")
+      .reply(200, articlesFixtures.threeArticles);
+    axiosMock
+      .onDelete("/api/articles")
+      .reply(200, "Articles with id 1 was deleted");
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <ArticlesIndexPage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.getByTestId(`${testId}-cell-row-0-col-id`),
+      ).toBeInTheDocument();
+    });
+
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
+
+    const deleteButton = await screen.findByTestId(
+      `${testId}-cell-row-0-col-Delete-button`,
+    );
+    expect(deleteButton).toBeInTheDocument();
+
+    fireEvent.click(deleteButton);
+
+    await waitFor(() => {
+      expect(mockToast).toBeCalledWith("Articles with id 1 was deleted");
+    });
+
+    // await waitFor(() => {
+    //     expect(axiosMock.history.delete.length).toBe(1);
+    // });
+    // expect(axiosMock.history.delete[0].url).toBe("/api/articles");
+    // expect(axiosMock.history.delete[0].url).toBe("/api/articles");
+    // expect(axiosMock.history.delete[0].params).toEqual({ id: 2 });
+  });
 });
