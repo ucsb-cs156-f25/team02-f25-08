@@ -131,6 +131,6 @@ describe("MenuItemReviewsCreatePage tests", () => {
     expect(mockToast).toHaveBeenCalledWith(
       "New Menu Item Review Created - id: 1 Reviewer Email: krystellebaluyot@ucsb.edu",
     );
-    expect(mockNavigate).toHaveBeenCalledWith({ to: "/menuitemreviews" });
+    expect(mockNavigate).toHaveBeenCalledWith({ to: "/menuitemreview" });
   });
 });
