@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import MenuItemReviewsIndexPage from "main/pages/MenuItemReviews/MenuItemReviewsIndexPage";
+import HelpRequestsEditPage from "main/pages/HelpRequests/HelpRequestsEditPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
 
@@ -7,8 +7,9 @@ import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
+import { expect } from "vitest";
 
-describe("MenuItemReviewsIndexPage tests", () => {
+describe("HelpRequestsEditPage tests", () => {
   const axiosMock = new AxiosMockAdapter(axios);
 
   const setupUserOnly = () => {
@@ -29,22 +30,18 @@ describe("MenuItemReviewsIndexPage tests", () => {
     setupUserOnly();
 
     // act
-
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <MenuItemReviewsIndexPage />
+          <HelpRequestsEditPage />
         </MemoryRouter>
       </QueryClientProvider>,
     );
 
-    await screen.findByText("Index page not yet implemented");
-
     // assert
+    await screen.findByText("Edit page not yet implemented");
     expect(
-      screen.getByText("Index page not yet implemented"),
+      screen.getByText("Edit page not yet implemented"),
     ).toBeInTheDocument();
-    expect(screen.getByText("Create")).toBeInTheDocument();
-    expect(screen.getByText("Edit")).toBeInTheDocument();
   });
 });

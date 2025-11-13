@@ -19,6 +19,10 @@ import MenuItemReviewsIndexPage from "main/pages/MenuItemReviews/MenuItemReviews
 import MenuItemReviewsCreatePage from "main/pages/MenuItemReviews/MenuItemReviewsCreatePage";
 import MenuItemReviewsEditPage from "main/pages/MenuItemReviews/MenuItemReviewsEditPage";
 
+import HelpRequestsIndexPage from "main/pages/HelpRequests/HelpRequestsIndexPage";
+import HelpRequestsCreatePage from "main/pages/HelpRequests/HelpRequestsCreatePage";
+import HelpRequestsEditPage from "main/pages/HelpRequests/HelpRequestsEditPage";
+
 import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
 import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
 import PlaceholderEditPage from "main/pages/Placeholder/PlaceholderEditPage";
@@ -109,20 +113,24 @@ function App() {
       )}
       {hasRole(currentUser, "ROLE_USER") && (
         <>
-          <Route exact path="/ucsbDiningCommonsMenuItems" element={<UCSBDiningCommonsMenuItemsIndexPage />} />
+          <Route
+            exact
+            path="/helprequests"
+            element={<HelpRequestsIndexPage />}
+          />
         </>
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
           <Route
             exact
-            path="/ucsbDiningCommonsMenuItems/edit/:id"
-            element={<UCSBDiningCommonsMenuItemsEditPage />}
+            path="/helprequests/edit/:id"
+            element={<HelpRequestsEditPage />}
           />
           <Route
             exact
-            path="/ucsbDiningCommonsMenuItems/create"
-            element={<UCSBDiningCommonsMenuItemsCreatePage />}
+            path="/helprequests/create"
+            element={<HelpRequestsCreatePage />}
           />
         </>
       )}

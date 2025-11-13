@@ -1,6 +1,6 @@
 import { fireEvent, render, waitFor, screen } from "@testing-library/react";
-import { articlesFixtures } from "fixtures/articlesFixtures";
-import ArticlesTable from "main/components/Articles/ArticlesTable";
+import { helpRequestsFixtures } from "fixtures/helpRequestsFixtures";
+import HelpRequestTable from "main/components/HelpRequests/HelpRequestTable";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
@@ -16,26 +16,28 @@ vi.mock("react-router", async () => {
   };
 });
 
-describe("ArticlesTable tests", () => {
+describe("HelpRequestTable tests", () => {
   const queryClient = new QueryClient();
 
   const expectedHeaders = [
     "id",
-    "Title",
-    "Url",
+    "Requester Email",
+    "Team ID",
+    "Table or Breakout Room",
+    "Request Time (in UTC)",
     "Explanation",
-    "Email",
-    "Date Added",
+    "Solved",
   ];
   const expectedFields = [
     "id",
-    "title",
-    "url",
+    "requesterEmail",
+    "teamId",
+    "tableOrBreakoutRoom",
+    "requestTime",
     "explanation",
-    "email",
-    "dateAdded",
+    "solved",
   ];
-  const testId = "ArticlesTable";
+  const testId = "HelpRequestTable";
 
   test("renders empty table correctly", () => {
     // arrange
@@ -45,7 +47,7 @@ describe("ArticlesTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesTable articles={[]} currentUser={currentUser} />
+          <HelpRequestTable helpRequests={[]} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>,
     );
@@ -72,8 +74,8 @@ describe("ArticlesTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesTable
-            articles={articlesFixtures.threeArticles}
+          <HelpRequestTable
+            helpRequests={helpRequestsFixtures.threeHelpRequests}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -91,20 +93,29 @@ describe("ArticlesTable tests", () => {
       expect(header).toBeInTheDocument();
     });
 
-    // ✅ Article 1 (row-0)
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
       "1",
     );
-
-    // ✅ Article 2 (row-1)
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
-      "2",
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`),
+    ).toHaveTextContent("vnarasiman@ucsb.edu");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-teamId`),
+    ).toHaveTextContent("f25-08");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-tableOrBreakoutRoom`),
+    ).toHaveTextContent("8");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-requestTime`),
+    ).toHaveTextContent("2025-10-28T02:36");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-explanation`),
+    ).toHaveTextContent(
+      "f25-08: please note mvn test is not working and there's an error with the surefire plugin.",
     );
-
-    // ✅ Article 3 (row-2)
-    expect(screen.getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent(
-      "3",
-    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-solved`),
+    ).toHaveTextContent("true");
 
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
@@ -127,8 +138,8 @@ describe("ArticlesTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesTable
-            articles={articlesFixtures.threeArticles}
+          <HelpRequestTable
+            helpRequests={helpRequestsFixtures.threeHelpRequests}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -146,26 +157,35 @@ describe("ArticlesTable tests", () => {
       expect(header).toBeInTheDocument();
     });
 
-    // ✅ Article 1 (row-0)
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
       "1",
     );
-
-    // ✅ Article 2 (row-1)
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
-      "2",
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`),
+    ).toHaveTextContent("vnarasiman@ucsb.edu");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-teamId`),
+    ).toHaveTextContent("f25-08");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-tableOrBreakoutRoom`),
+    ).toHaveTextContent("8");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-requestTime`),
+    ).toHaveTextContent("2025-10-28T02:36");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-explanation`),
+    ).toHaveTextContent(
+      "f25-08: please note mvn test is not working and there's an error with the surefire plugin.",
     );
-
-    // ✅ Article 3 (row-2)
-    expect(screen.getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent(
-      "3",
-    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-solved`),
+    ).toHaveTextContent("true");
 
     expect(screen.queryByText("Delete")).not.toBeInTheDocument();
     expect(screen.queryByText("Edit")).not.toBeInTheDocument();
   });
 
-  test("Edit button navigates to the edit page for admin user", async () => {
+  test("Edit button navigates to the edit page", async () => {
     // arrange
     const currentUser = currentUserFixtures.adminUser;
 
@@ -173,8 +193,8 @@ describe("ArticlesTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesTable
-            articles={articlesFixtures.threeArticles}
+          <HelpRequestTable
+            helpRequests={helpRequestsFixtures.threeHelpRequests}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -185,9 +205,6 @@ describe("ArticlesTable tests", () => {
     expect(
       await screen.findByTestId(`${testId}-cell-row-0-col-id`),
     ).toHaveTextContent("1");
-    // expect(
-    //     screen.getByTestId(`${testId}-cell-row-0-col-name`),
-    // ).toHaveTextContent("Article 1");
 
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
@@ -199,7 +216,7 @@ describe("ArticlesTable tests", () => {
 
     // assert - check that the navigate function was called with the expected path
     await waitFor(() =>
-      expect(mockedNavigate).toHaveBeenCalledWith("/articles/edit/1"),
+      expect(mockedNavigate).toHaveBeenCalledWith("/helprequests/edit/1"),
     );
   });
 
@@ -209,15 +226,15 @@ describe("ArticlesTable tests", () => {
 
     const axiosMock = new AxiosMockAdapter(axios);
     axiosMock
-      .onDelete("/api/articles")
-      .reply(200, { message: "Article deleted" });
+      .onDelete("/api/helprequests")
+      .reply(200, { message: "HelpRequest deleted" });
 
     // act - render the component
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesTable
-            articles={articlesFixtures.threeArticles}
+          <HelpRequestTable
+            helpRequests={helpRequestsFixtures.threeHelpRequests}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -228,9 +245,6 @@ describe("ArticlesTable tests", () => {
     expect(
       await screen.findByTestId(`${testId}-cell-row-0-col-id`),
     ).toHaveTextContent("1");
-    // expect(
-    //     screen.getByTestId(`${testId}-cell-row-0-col-name`),
-    // ).toHaveTextContent("Cristino's Bakery");
 
     const deleteButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Delete-button`,
