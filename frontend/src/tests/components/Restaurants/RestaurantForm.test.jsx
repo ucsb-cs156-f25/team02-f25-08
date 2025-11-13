@@ -1,33 +1,33 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { BrowserRouter as Router } from "react-router";
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router';
 
-import RestaurantForm from "main/components/Restaurants/RestaurantForm";
-import { restaurantFixtures } from "fixtures/restaurantFixtures";
+import RestaurantForm from 'main/components/Restaurants/RestaurantForm';
+import { restaurantFixtures } from 'fixtures/restaurantFixtures';
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const mockedNavigate = vi.fn();
-vi.mock("react-router", async () => {
-  const originalModule = await vi.importActual("react-router");
+vi.mock('react-router', async () => {
+  const originalModule = await vi.importActual('react-router');
   return {
     ...originalModule,
     useNavigate: () => mockedNavigate,
   };
 });
 
-describe("RestaurantForm tests", () => {
+describe('RestaurantForm tests', () => {
   const queryClient = new QueryClient();
 
-  const expectedHeaders = ["Name", "Description"];
-  const testId = "RestaurantForm";
+  const expectedHeaders = ['Name', 'Description'];
+  const testId = 'RestaurantForm';
 
-  test("renders correctly with no initialContents", async () => {
+  test('renders correctly with no initialContents', async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
           <RestaurantForm />
         </Router>
-      </QueryClientProvider>,
+      </QueryClientProvider>
     );
 
     expect(await screen.findByText(/Create/)).toBeInTheDocument();
@@ -38,13 +38,13 @@ describe("RestaurantForm tests", () => {
     });
   });
 
-  test("renders correctly when passing in initialContents", async () => {
+  test('renders correctly when passing in initialContents', async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
           <RestaurantForm initialContents={restaurantFixtures.oneRestaurant} />
         </Router>
-      </QueryClientProvider>,
+      </QueryClientProvider>
     );
 
     expect(await screen.findByText(/Create/)).toBeInTheDocument();
@@ -58,13 +58,13 @@ describe("RestaurantForm tests", () => {
     expect(screen.getByText(`Id`)).toBeInTheDocument();
   });
 
-  test("that navigate(-1) is called when Cancel is clicked", async () => {
+  test('that navigate(-1) is called when Cancel is clicked', async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
           <RestaurantForm />
         </Router>
-      </QueryClientProvider>,
+      </QueryClientProvider>
     );
     expect(await screen.findByTestId(`${testId}-cancel`)).toBeInTheDocument();
     const cancelButton = screen.getByTestId(`${testId}-cancel`);
@@ -74,13 +74,13 @@ describe("RestaurantForm tests", () => {
     await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith(-1));
   });
 
-  test("that the correct validations are performed", async () => {
+  test('that the correct validations are performed', async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
           <RestaurantForm />
         </Router>
-      </QueryClientProvider>,
+      </QueryClientProvider>
     );
 
     expect(await screen.findByText(/Create/)).toBeInTheDocument();
@@ -91,7 +91,7 @@ describe("RestaurantForm tests", () => {
     expect(screen.getByText(/Description is required/)).toBeInTheDocument();
 
     const nameInput = screen.getByTestId(`${testId}-name`);
-    fireEvent.change(nameInput, { target: { value: "a".repeat(31) } });
+    fireEvent.change(nameInput, { target: { value: 'a'.repeat(31) } });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
