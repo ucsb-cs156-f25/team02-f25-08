@@ -2,21 +2,21 @@ import React from "react";
 import { useBackend } from "main/utils/useBackend";
 
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import UCSBDiningCommonsMenuItemsTable from "main/components/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsTable";
+import UCSBOrganizationTable from "main/components/UCSBOrganizations/UCSBOrganizationTable";
 import { useCurrentUser, hasRole } from "main/utils/useCurrentUser";
 import { Button } from "react-bootstrap";
 
-export default function UCSBDiningCommonsMenuItemsIndexPage() {
+export default function UCSBOrganizationIndexPage() {
   const currentUser = useCurrentUser();
 
   const {
-    data: ucsbdiningcommonsmenuitems,
+    data: ucsborganizations,
     error: _error,
     status: _status,
   } = useBackend(
     // Stryker disable next-line all : don't test internal caching of React Query
-    ["/api/ucsbdiningcommonsmenuitems/all"],
-    { method: "GET", url: "/api/ucsbdiningcommonsmenuitems/all" },
+    ["/api/ucsborganization/all"],
+    { method: "GET", url: "/api/ucsborganization/all" },
     // Stryker disable next-line all : don't test default value of empty list
     [],
   );
@@ -26,10 +26,10 @@ export default function UCSBDiningCommonsMenuItemsIndexPage() {
       return (
         <Button
           variant="primary"
-          href="/ucsbdiningcommonsmenuitems/create"
+          href="/ucsborganizations/create"
           style={{ float: "right" }}
         >
-          Create UCSBDiningCommonsMenuItem
+          Create UCSBOrganization
         </Button>
       );
     }
@@ -39,9 +39,9 @@ export default function UCSBDiningCommonsMenuItemsIndexPage() {
     <BasicLayout>
       <div className="pt-2">
         {createButton()}
-        <h1>UCSBDiningCommonsMenuItems</h1>
-        <UCSBDiningCommonsMenuItemsTable
-          ucsbDiningCommonsMenuItemss={ucsbdiningcommonsmenuitems}
+        <h1>UCSBOrganizations</h1>
+        <UCSBOrganizationTable
+          ucsborganizations={ucsborganizations}
           currentUser={currentUser}
         />
       </div>

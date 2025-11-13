@@ -1,17 +1,17 @@
 import React from "react";
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-import { ucsbDiningCommonsMenuItemsFixtures } from "fixtures/ucsbDiningCommonsMenuItemsFixtures";
+import { UCSBOrganizationFixtures } from "fixtures/UCSBOrganizationFixtures";
 import { http, HttpResponse } from "msw";
 
-import UCSBDiningCommonsMenuItemsIndexPage from "main/pages/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsIndexPage";
+import UCSBOrganizationIndexPage from "main/pages/UCSBOrganizations/UCSBOrganizationIndexPage";
 
 export default {
-  title: "pages/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsIndexPage",
-  component: UCSBDiningCommonsMenuItemsIndexPage,
+  title: "pages/UCSBOrganizations/UCSBOrganizationIndexPage",
+  component: UCSBOrganizationIndexPage,
 };
 
-const Template = () => <UCSBDiningCommonsMenuItemsIndexPage storybook={true} />;
+const Template = () => <UCSBOrganizationIndexPage storybook={true} />;
 
 export const Empty = Template.bind({});
 Empty.parameters = {
@@ -26,7 +26,7 @@ Empty.parameters = {
         status: 200,
       });
     }),
-    http.get("/api/ucsbdiningcommonsmenuitems/all", () => {
+    http.get("/api/ucsborganization/all", () => {
       return HttpResponse.json([], { status: 200 });
     }),
   ],
@@ -42,10 +42,8 @@ ThreeItemsOrdinaryUser.parameters = {
     http.get("/api/systemInfo", () => {
       return HttpResponse.json(systemInfoFixtures.showingNeither);
     }),
-    http.get("/api/ucsbdiningcommonsmenuitems/all", () => {
-      return HttpResponse.json(
-        ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems,
-      );
+    http.get("/api/ucsborganization/all", () => {
+      return HttpResponse.json(UCSBOrganizationFixtures.threeUCSBOrganizations);
     }),
   ],
 };
@@ -60,14 +58,12 @@ ThreeItemsAdminUser.parameters = {
     http.get("/api/systemInfo", () => {
       return HttpResponse.json(systemInfoFixtures.showingNeither);
     }),
-    http.get("/api/ucsbdiningcommonsmenuitems/all", () => {
-      return HttpResponse.json(
-        ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems,
-      );
+    http.get("/api/ucsborganization/all", () => {
+      return HttpResponse.json(UCSBOrganizationFixtures.threeUCSBOrganizations);
     }),
-    http.delete("/api/ucsbdiningcommonsmenuitems", () => {
+    http.delete("/api/ucsborganization", () => {
       return HttpResponse.json(
-        { message: "UCSBDiningCommonsMenuItem deleted successfully" },
+        { message: "UCSBOrganization deleted successfully" },
         { status: 200 },
       );
     }),

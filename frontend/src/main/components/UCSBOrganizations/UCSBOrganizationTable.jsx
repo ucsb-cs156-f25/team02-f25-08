@@ -5,19 +5,19 @@ import { useBackendMutation } from "main/utils/useBackend";
 import {
   cellToAxiosParamsDelete,
   onDeleteSuccess,
-} from "main/utils/UCSBDiningCommonsMenuItemsUtils";
+} from "main/utils/UCSBOrganizationUtils";
 import { useNavigate } from "react-router";
 import { hasRole } from "main/utils/useCurrentUser";
 
-export default function UCSBDiningCommonsMenuItemsTable({
-  ucsbDiningCommonsMenuItemss,
+export default function UCSBOrganizationTable({
+  ucsborganizations,
   currentUser,
-  testIdPrefix = "UCSBDiningCommonsMenuItemsTable",
+  testIdPrefix = "UCSBOrganizationTable",
 }) {
   const navigate = useNavigate();
 
   const editCallback = (cell) => {
-    navigate(`/ucsbdiningcommonsmenuitems/edit/${cell.row.original.id}`);
+    navigate(`/ucsborganizations/edit/${cell.row.original.id}`);
   };
 
   // Stryker disable all : hard to test for query caching
@@ -25,7 +25,7 @@ export default function UCSBDiningCommonsMenuItemsTable({
   const deleteMutation = useBackendMutation(
     cellToAxiosParamsDelete,
     { onSuccess: onDeleteSuccess },
-    ["/api/ucsbdiningcommonsmenuitems/all"],
+    ["/api/ucsborganization/all"],
   );
   // Stryker restore all
 
@@ -41,16 +41,20 @@ export default function UCSBDiningCommonsMenuItemsTable({
     },
 
     {
-      header: "Dining Commons Code",
-      accessorKey: "diningCommonsCode",
+      header: "OrgCode",
+      accessorKey: "orgCode",
     },
     {
-      header: "Name",
-      accessorKey: "name",
+      header: "OrgTranslationShort",
+      accessorKey: "orgTranslationShort",
     },
     {
-      header: "Station",
-      accessorKey: "station",
+      header: "OrgTranslation",
+      accessorKey: "orgTranslation",
+    },
+    {
+      header: "Inactive",
+      accessorKey: "inactive",
     },
   ];
 
@@ -63,7 +67,7 @@ export default function UCSBDiningCommonsMenuItemsTable({
 
   return (
     <OurTable
-      data={ucsbDiningCommonsMenuItemss}
+      data={ucsborganizations}
       columns={columns}
       testid={testIdPrefix}
     />

@@ -3,19 +3,15 @@ import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import { http, HttpResponse } from "msw";
 
-import UCSBDiningCommonsMenuItemsCreatePage from "main/pages/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsCreatePage";
-
-import { ucsbDiningCommonsMenuItemsFixtures } from "fixtures/ucsbDiningCommonsMenuItemsFixtures";
+import UCSBOrganizationCreatePage from "main/pages/UCSBOrganizations/UCSBOrganizationCreatePage";
+import { UCSBOrganizationFixtures } from "fixtures/UCSBOrganizationFixtures";
 
 export default {
-  title:
-    "pages/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsCreatePage",
-  component: UCSBDiningCommonsMenuItemsCreatePage,
+  title: "pages/UCSBOrganizations/UCSBOrganizationCreatePage",
+  component: UCSBOrganizationCreatePage,
 };
 
-const Template = () => (
-  <UCSBDiningCommonsMenuItemsCreatePage storybook={true} />
-);
+const Template = () => <UCSBOrganizationCreatePage storybook={true} />;
 
 export const Default = Template.bind({});
 Default.parameters = {
@@ -30,9 +26,9 @@ Default.parameters = {
         status: 200,
       });
     }),
-    http.post("/api/ucsbdiningcommonsmenuitems/post", () => {
+    http.post("/api/ucsborganization/post", () => {
       return HttpResponse.json(
-        ucsbDiningCommonsMenuItemsFixtures.oneDiningCommonsMenuItems,
+        UCSBOrganizationFixtures.oneUCSBOrganization_allstring,
         { status: 200 },
       );
     }),
