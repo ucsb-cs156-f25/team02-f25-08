@@ -1,43 +1,43 @@
 import React from "react";
-import ArticlesTable from "main/components/Articles/ArticlesTable";
-import { articlesFixtures } from "fixtures/articlesFixtures";
+import HelpRequestTable from "main/components/HelpRequests/HelpRequestTable";
+import { helpRequestsFixtures } from "fixtures/helpRequestsFixtures";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
 import { http, HttpResponse } from "msw";
 
 export default {
-  title: "components/Articles/ArticlesTable",
-  component: ArticlesTable,
+  title: "components/HelpRequests/HelpRequestTable",
+  component: HelpRequestTable,
 };
 
 const Template = (args) => {
-  return <ArticlesTable {...args} />;
+  return <HelpRequestTable {...args} />;
 };
 
 export const Empty = Template.bind({});
 
 Empty.args = {
-  articles: [],
+  helpRequests: [],
   currentUser: currentUserFixtures.userOnly,
 };
 
 export const ThreeItemsOrdinaryUser = Template.bind({});
 
 ThreeItemsOrdinaryUser.args = {
-  articles: articlesFixtures.threeArticles,
+  helpRequests: helpRequestsFixtures.threeHelpRequests,
   currentUser: currentUserFixtures.userOnly,
 };
 
 export const ThreeItemsAdminUser = Template.bind({});
 ThreeItemsAdminUser.args = {
-  articles: articlesFixtures.threeArticles,
+  helpRequests: helpRequestsFixtures.threeHelpRequests,
   currentUser: currentUserFixtures.adminUser,
 };
 
 ThreeItemsAdminUser.parameters = {
   msw: [
-    http.delete("/api/articles", () => {
+    http.delete("/api/helprequests", () => {
       return HttpResponse.json(
-        { message: "Article deleted successfully" },
+        { message: "Help Request deleted successfully" },
         { status: 200 },
       );
     }),

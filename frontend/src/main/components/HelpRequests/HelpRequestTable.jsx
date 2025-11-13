@@ -5,19 +5,19 @@ import { useBackendMutation } from "main/utils/useBackend";
 import {
   cellToAxiosParamsDelete,
   onDeleteSuccess,
-} from "main/utils/articlesUtils";
+} from "main/utils/helpRequestUtils";
 import { useNavigate } from "react-router";
 import { hasRole } from "main/utils/useCurrentUser";
 
-export default function ArticlesTable({
-  articles,
+export default function HelpRequestTable({
+  helpRequests,
   currentUser,
-  testIdPrefix = "ArticlesTable",
+  testIdPrefix = "HelpRequestTable",
 }) {
   const navigate = useNavigate();
 
   const editCallback = (cell) => {
-    navigate(`/articles/edit/${cell.row.original.id}`);
+    navigate(`/helprequests/edit/${cell.row.original.id}`);
   };
 
   // Stryker disable all : hard to test for query caching
@@ -25,7 +25,7 @@ export default function ArticlesTable({
   const deleteMutation = useBackendMutation(
     cellToAxiosParamsDelete,
     { onSuccess: onDeleteSuccess },
-    ["/api/articles/all"],
+    ["/api/helprequests/all"],
   );
   // Stryker restore all
 
@@ -39,26 +39,29 @@ export default function ArticlesTable({
       header: "id",
       accessorKey: "id", // accessor is the "key" in the data
     },
-
     {
-      header: "Title",
-      accessorKey: "title",
+      header: "Requester Email",
+      accessorKey: "requesterEmail",
     },
     {
-      header: "Url",
-      accessorKey: "url",
+      header: "Team ID",
+      accessorKey: "teamId",
+    },
+    {
+      header: "Table or Breakout Room",
+      accessorKey: "tableOrBreakoutRoom",
+    },
+    {
+      header: "Request Time (in UTC)",
+      accessorKey: "requestTime",
     },
     {
       header: "Explanation",
       accessorKey: "explanation",
     },
     {
-      header: "Email",
-      accessorKey: "email",
-    },
-    {
-      header: "Date Added",
-      accessorKey: "dateAdded",
+      header: "Solved",
+      accessorKey: "solved",
     },
   ];
 
@@ -69,5 +72,7 @@ export default function ArticlesTable({
     );
   }
 
-  return <OurTable data={articles} columns={columns} testid={testIdPrefix} />;
+  return (
+    <OurTable data={helpRequests} columns={columns} testid={testIdPrefix} />
+  );
 }
