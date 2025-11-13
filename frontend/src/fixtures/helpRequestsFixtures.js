@@ -6,7 +6,7 @@ const helpRequestsFixtures = {
     tableOrBreakoutRoom: "8",
     requestTime: "2025-10-28T02:36",
     explanation:
-      "f25-08: please note mvn test is not working and there's an error with the surefire plugin. ",
+      "f25-08: please note mvn test is not working and there's an error with the surefire plugin.",
     solved: true,
   },
   threeHelpRequests: [
@@ -17,7 +17,7 @@ const helpRequestsFixtures = {
       tableOrBreakoutRoom: "8",
       requestTime: "2025-10-28T02:36",
       explanation:
-        "f25-08: please note mvn test is not working and there's an error with the surefire plugin. ",
+        "f25-08: please note mvn test is not working and there's an error with the surefire plugin.",
       solved: true,
     },
     {
