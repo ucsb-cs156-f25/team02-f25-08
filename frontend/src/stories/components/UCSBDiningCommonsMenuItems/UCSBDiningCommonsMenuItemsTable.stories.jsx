@@ -5,8 +5,7 @@ import { currentUserFixtures } from "fixtures/currentUserFixtures";
 import { http, HttpResponse } from "msw";
 
 export default {
-  title:
-    "components/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsTable",
+  title: "components/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsTable",
   component: UCSBDiningCommonsMenuItemsTable,
 };
 
@@ -24,15 +23,13 @@ Empty.args = {
 export const ThreeItemsOrdinaryUser = Template.bind({});
 
 ThreeItemsOrdinaryUser.args = {
-  ucsbDiningCommonsMenuItemss:
-    ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems,
+  ucsbDiningCommonsMenuItemss: ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems,
   currentUser: currentUserFixtures.userOnly,
 };
 
 export const ThreeItemsAdminUser = Template.bind({});
 ThreeItemsAdminUser.args = {
-  ucsbDiningCommonsMenuItemss:
-    ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems,
+  ucsbDiningCommonsMenuItemss: ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems,
   currentUser: currentUserFixtures.adminUser,
 };
 

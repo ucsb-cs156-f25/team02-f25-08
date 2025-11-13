@@ -115,6 +115,7 @@ function App() {
           />
         </>
       )}
+      
       {hasRole(currentUser, "ROLE_USER") && (
         <>
           <Route
@@ -140,6 +141,25 @@ function App() {
       )}
       {hasRole(currentUser, "ROLE_USER") && (
         <>
+          <Route exact path="/ucsbdiningcommonsmenuitems" element={<UCSBDiningCommonsMenuItemsIndexPage />} />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_ADMIN") && (
+        <>
+          <Route
+            exact
+            path="/ucsbdiningcommonsmenuitems/edit/:id"
+            element={<UCSBDiningCommonsMenuItemsEditPage />}
+          />
+          <Route
+            exact
+            path="/ucsbdiningcommonsmenuitems/create"
+            element={<UCSBDiningCommonsMenuItemsCreatePage />}
+          />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_USER") && (
+        <>
           <Route
             exact
             path="/recommendationrequest"
@@ -158,6 +178,25 @@ function App() {
             exact
             path="/recommendationrequest/create"
             element={<RecommendationRequestCreatePage />}
+          />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_USER") && (
+        <>
+          <Route exact path="/ucsbdiningcommonsmenuitems" element={<UCSBDiningCommonsMenuItemsIndexPage />} />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_ADMIN") && (
+        <>
+          <Route
+            exact
+            path="/ucsbdiningcommonsmenuitems/edit/:id"
+            element={<UCSBDiningCommonsMenuItemsEditPage />}
+          />
+          <Route
+            exact
+            path="/ucsbdiningcommonsmenuitems/create"
+            element={<UCSBDiningCommonsMenuItemsCreatePage />}
           />
         </>
       )}
