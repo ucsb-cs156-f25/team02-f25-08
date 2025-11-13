@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>87/87</span>
+                <span class='fraction'>93/93</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>87/87</span>
+                <span class='fraction'>93/93</span>
             </div>
         
             
@@ -184,7 +184,14 @@
 <a name='L119'></a><a href='#L119'>119</a>
 <a name='L120'></a><a href='#L120'>120</a>
 <a name='L121'></a><a href='#L121'>121</a>
-<a name='L122'></a><a href='#L122'>122</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -196,6 +203,10 @@
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -283,6 +294,8 @@
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -292,6 +305,7 @@
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
@@ -305,11 +319,15 @@
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Button, Form, Row, Col } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Button, Form, Row, Col } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 &nbsp;
-function UCSBDateForm({ initialContents, submitAction, buttonLabel = 'Create' }) {
+function UCSBDateForm({
+  initialContents,
+  submitAction,
+  buttonLabel = "Create",
+}) {
   // Stryker disable all
   const {
     register,
@@ -342,7 +360,7 @@ function UCSBDateForm({ initialContents, submitAction, buttonLabel = 'Create' })
                 data-testid="UCSBDateForm-id"
                 id="id"
                 type="text"
-                {...register('id')}
+                {...register("id")}
                 value={initialContents.id}
                 disabled
               /&gt;
@@ -358,15 +376,15 @@ function UCSBDateForm({ initialContents, submitAction, buttonLabel = 'Create' })
               id="quarterYYYYQ"
               type="text"
               isInvalid={Boolean(errors.quarterYYYYQ)}
-              {...register('quarterYYYYQ', {
+              {...register("quarterYYYYQ", {
                 required: true,
                 pattern: yyyyq_regex,
               })}
             /&gt;
             &lt;Form.Control.Feedback type="invalid"&gt;
-              {errors.quarterYYYYQ &amp;&amp; 'QuarterYYYYQ is required. '}
-              {errors.quarterYYYYQ?.type === 'pattern' &amp;&amp;
-                'QuarterYYYYQ must be in the format YYYYQ, e.g. 20224 for Fall 2022'}
+              {errors.quarterYYYYQ &amp;&amp; "QuarterYYYYQ is required. "}
+              {errors.quarterYYYYQ?.type === "pattern" &amp;&amp;
+                "QuarterYYYYQ must be in the format YYYYQ, e.g. 20224 for Fall 2022"}
             &lt;/Form.Control.Feedback&gt;
           &lt;/Form.Group&gt;
         &lt;/Col&gt;
@@ -378,13 +396,13 @@ function UCSBDateForm({ initialContents, submitAction, buttonLabel = 'Create' })
               id="localDateTime"
               type="datetime-local"
               isInvalid={Boolean(errors.localDateTime)}
-              {...register('localDateTime', {
+              {...register("localDateTime", {
                 required: true,
                 pattern: isodate_regex,
               })}
             /&gt;
             &lt;Form.Control.Feedback type="invalid"&gt;
-              {errors.localDateTime &amp;&amp; 'LocalDateTime is required. '}
+              {errors.localDateTime &amp;&amp; "LocalDateTime is required. "}
             &lt;/Form.Control.Feedback&gt;
           &lt;/Form.Group&gt;
         &lt;/Col&gt;
@@ -399,11 +417,13 @@ function UCSBDateForm({ initialContents, submitAction, buttonLabel = 'Create' })
               id="name"
               type="text"
               isInvalid={Boolean(errors.name)}
-              {...register('name', {
-                required: 'Name is required.',
+              {...register("name", {
+                required: "Name is required.",
               })}
             /&gt;
-            &lt;Form.Control.Feedback type="invalid"&gt;{errors.name?.message}&lt;/Form.Control.Feedback&gt;
+            &lt;Form.Control.Feedback type="invalid"&gt;
+              {errors.name?.message}
+            &lt;/Form.Control.Feedback&gt;
           &lt;/Form.Group&gt;
         &lt;/Col&gt;
       &lt;/Row&gt;
@@ -416,7 +436,8 @@ function UCSBDateForm({ initialContents, submitAction, buttonLabel = 'Create' })
           &lt;Button
             variant="Secondary"
             onClick={() =&gt; navigate(-1)}
-            data-testid="UCSBDateForm-cancel"&gt;
+            data-testid="UCSBDateForm-cancel"
+          &gt;
             Cancel
           &lt;/Button&gt;
         &lt;/Col&gt;
@@ -433,7 +454,7 @@ export default UCSBDateForm;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-11-13T02:44:45.286Z
+                at 2025-11-13T02:54:07.518Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
