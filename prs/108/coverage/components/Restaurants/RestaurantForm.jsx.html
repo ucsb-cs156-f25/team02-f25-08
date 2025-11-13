@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>66/66</span>
+                <span class='fraction'>59/59</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>66/66</span>
+                <span class='fraction'>59/59</span>
             </div>
         
             
@@ -142,16 +142,7 @@
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
 <a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a>
-<a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L80'></a><a href='#L80'>80</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,10 +154,6 @@
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -204,8 +191,6 @@
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
@@ -220,14 +205,11 @@
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
@@ -239,15 +221,11 @@
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Button, Form } from "react-bootstrap";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Button, Form } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 &nbsp;
-function RestaurantForm({
-  initialContents,
-  submitAction,
-  buttonLabel = "Create",
-}) {
+function RestaurantForm({ initialContents, submitAction, buttonLabel = 'Create' }) {
   // Stryker disable all
   const {
     register,
@@ -258,7 +236,7 @@ function RestaurantForm({
 &nbsp;
   const navigate = useNavigate();
 &nbsp;
-  const testIdPrefix = "RestaurantForm";
+  const testIdPrefix = 'RestaurantForm';
 &nbsp;
   return (
     &lt;Form onSubmit={handleSubmit(submitAction)}&gt;
@@ -266,10 +244,10 @@ function RestaurantForm({
         &lt;Form.Group className="mb-3"&gt;
           &lt;Form.Label htmlFor="id"&gt;Id&lt;/Form.Label&gt;
           &lt;Form.Control
-            data-testid={testIdPrefix + "-id"}
+            data-testid={testIdPrefix + '-id'}
             id="id"
             type="text"
-            {...register("id")}
+            {...register('id')}
             value={initialContents.id}
             disabled
           /&gt;
@@ -279,47 +257,42 @@ function RestaurantForm({
       &lt;Form.Group className="mb-3"&gt;
         &lt;Form.Label htmlFor="name"&gt;Name&lt;/Form.Label&gt;
         &lt;Form.Control
-          data-testid={testIdPrefix + "-name"}
+          data-testid={testIdPrefix + '-name'}
           id="name"
           type="text"
           isInvalid={Boolean(errors.name)}
-          {...register("name", {
-            required: "Name is required.",
+          {...register('name', {
+            required: 'Name is required.',
             maxLength: {
               value: 30,
-              message: "Max length 30 characters",
+              message: 'Max length 30 characters',
             },
           })}
         /&gt;
-        &lt;Form.Control.Feedback type="invalid"&gt;
-          {errors.name?.message}
-        &lt;/Form.Control.Feedback&gt;
+        &lt;Form.Control.Feedback type="invalid"&gt;{errors.name?.message}&lt;/Form.Control.Feedback&gt;
       &lt;/Form.Group&gt;
 &nbsp;
       &lt;Form.Group className="mb-3"&gt;
         &lt;Form.Label htmlFor="description"&gt;Description&lt;/Form.Label&gt;
         &lt;Form.Control
-          data-testid={testIdPrefix + "-description"}
+          data-testid={testIdPrefix + '-description'}
           id="description"
           type="text"
           isInvalid={Boolean(errors.description)}
-          {...register("description", {
-            required: "Description is required.",
+          {...register('description', {
+            required: 'Description is required.',
           })}
         /&gt;
-        &lt;Form.Control.Feedback type="invalid"&gt;
-          {errors.description?.message}
-        &lt;/Form.Control.Feedback&gt;
+        &lt;Form.Control.Feedback type="invalid"&gt;{errors.description?.message}&lt;/Form.Control.Feedback&gt;
       &lt;/Form.Group&gt;
 &nbsp;
-      &lt;Button type="submit" data-testid={testIdPrefix + "-submit"}&gt;
+      &lt;Button type="submit" data-testid={testIdPrefix + '-submit'}&gt;
         {buttonLabel}
       &lt;/Button&gt;
       &lt;Button
         variant="Secondary"
         onClick={() =&gt; navigate(-1)}
-        data-testid={testIdPrefix + "-cancel"}
-      &gt;
+        data-testid={testIdPrefix + '-cancel'}&gt;
         Cancel
       &lt;/Button&gt;
     &lt;/Form&gt;
@@ -334,7 +307,7 @@ export default RestaurantForm;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-11-12T19:08:02.125Z
+                at 2025-11-13T02:30:16.992Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
