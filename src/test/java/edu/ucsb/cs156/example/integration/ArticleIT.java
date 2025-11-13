@@ -6,12 +6,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.ucsb.cs156.example.entities.UCSBOrganization;
-import edu.ucsb.cs156.example.repositories.UCSBOrganizationRepository;
+import edu.ucsb.cs156.example.entities.Articles;
+import edu.ucsb.cs156.example.repositories.ArticlesRepository;
 import edu.ucsb.cs156.example.repositories.UserRepository;
 import edu.ucsb.cs156.example.services.CurrentUserService;
 import edu.ucsb.cs156.example.services.GrantedAuthoritiesService;
 import edu.ucsb.cs156.example.testconfig.TestConfig;
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +34,12 @@ import org.springframework.test.web.servlet.MvcResult;
 @ActiveProfiles("integration")
 @Import(TestConfig.class)
 @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
-public class UCSBOrganizationIT {
+public class ArticleIT {
   @Autowired public CurrentUserService currentUserService;
 
   @Autowired public GrantedAuthoritiesService grantedAuthoritiesService;
 
-  @Autowired UCSBOrganizationRepository ucsborganizationRepository;
+  @Autowired ArticlesRepository articlesRepository;
 
   @Autowired public MockMvc mockMvc;
 
@@ -51,51 +52,54 @@ public class UCSBOrganizationIT {
   public void test_that_logged_in_user_can_get_by_id_when_the_id_exists() throws Exception {
     // arrange
 
-    UCSBOrganization ucsborganization =
-        UCSBOrganization.builder()
-            .orgCode("ZPR")
-            .orgTranslation("ZETA PHI RHO")
-            .orgTranslationShort("ZETA PHI RHO")
-            .inactive(false)
+    LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+    Articles articles =
+        Articles.builder()
+            .title("Article1Title")
+            .url("https://article1.com")
+            .explanation("Article1Explanation")
+            .email("daliasebat1@gmail.com")
+            .dateAdded(ldt1)
             .build();
 
-    ucsborganizationRepository.save(ucsborganization);
+    articlesRepository.save(articles);
 
     // act
     MvcResult response =
-        mockMvc.perform(get("/api/ucsborganization?id=1")).andExpect(status().isOk()).andReturn();
+        mockMvc.perform(get("/api/articles?id=1")).andExpect(status().isOk()).andReturn();
 
     // assert
-    String expectedJson = mapper.writeValueAsString(ucsborganization);
+    String expectedJson = mapper.writeValueAsString(articles);
     String responseString = response.getResponse().getContentAsString();
     assertEquals(expectedJson, responseString);
   }
 
   @WithMockUser(roles = {"ADMIN", "USER"})
   @Test
-  public void an_admin_user_can_post_a_new_ucsborganization() throws Exception {
+  public void an_admin_user_can_post_a_new_article() throws Exception {
     // arrange
-
-    UCSBOrganization ucsborganization1 =
-        UCSBOrganization.builder()
-            .id(1L)
-            .orgCode("ZPR")
-            .orgTranslation("ZETA PHI RHO")
-            .orgTranslationShort("ZETA PHI RHO")
-            .inactive(false)
+    LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+    Articles articles1 =
+        Articles.builder()
+            .title("Article1Title")
+            .url("https://article1.com")
+            .explanation("Article1Explanation")
+            .email("daliasebat1@gmail.com")
+            .dateAdded(ldt1)
             .build();
 
     // act
     MvcResult response =
         mockMvc
             .perform(
-                post("/api/ucsborganization/post?orgCode=ZPR&orgTranslation=ZETA PHI RHO&orgTranslationShort=ZETA PHI RHO&inactive=false")
+                post("/api/articles/post?title=Article1Title&url=https://article1.com&explanation=Article1Explanation&email=daliasebat1@gmail.com&dateAdded=2022-01-03T00:00:00")
                     .with(csrf()))
             .andExpect(status().isOk())
             .andReturn();
 
     // assert
-    String expectedJson = mapper.writeValueAsString(ucsborganization1);
+    articles1.setId(1L);
+    String expectedJson = mapper.writeValueAsString(articles1);
     String responseString = response.getResponse().getContentAsString();
     assertEquals(expectedJson, responseString);
   }

@@ -1,43 +1,43 @@
 import React from "react";
-import MenuItemReviewTable from "main/components/MenuItemReviews/MenuItemReviewTable";
-import { menuItemReviewFixtures } from "fixtures/menuItemReviewFixtures";
+import HelpRequestTable from "main/components/HelpRequests/HelpRequestTable";
+import { helpRequestsFixtures } from "fixtures/helpRequestsFixtures";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
 import { http, HttpResponse } from "msw";
 
 export default {
-  title: "components/MenuItemReviews/MenuItemReviewTable",
-  component: MenuItemReviewTable,
+  title: "components/HelpRequests/HelpRequestTable",
+  component: HelpRequestTable,
 };
 
 const Template = (args) => {
-  return <MenuItemReviewTable {...args} />;
+  return <HelpRequestTable {...args} />;
 };
 
 export const Empty = Template.bind({});
 
 Empty.args = {
-  menuitemreviews: [],
+  helpRequests: [],
   currentUser: currentUserFixtures.userOnly,
 };
 
 export const ThreeItemsOrdinaryUser = Template.bind({});
 
 ThreeItemsOrdinaryUser.args = {
-  menuitemreviews: menuItemReviewFixtures.threeMenuItemReview,
+  helpRequests: helpRequestsFixtures.threeHelpRequests,
   currentUser: currentUserFixtures.userOnly,
 };
 
 export const ThreeItemsAdminUser = Template.bind({});
 ThreeItemsAdminUser.args = {
-  menuitemreviews: menuItemReviewFixtures.threeMenuItemReview,
+  helpRequests: helpRequestsFixtures.threeHelpRequests,
   currentUser: currentUserFixtures.adminUser,
 };
 
 ThreeItemsAdminUser.parameters = {
   msw: [
-    http.delete("/api/menuitemreviews", () => {
+    http.delete("/api/helprequests", () => {
       return HttpResponse.json(
-        { message: "Menu Item Review deleted successfully" },
+        { message: "Help Request deleted successfully" },
         { status: 200 },
       );
     }),
