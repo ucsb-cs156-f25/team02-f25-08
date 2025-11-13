@@ -146,6 +146,26 @@ function App() {
             path="/ucsbdiningcommonsmenuitems"
             element={<UCSBDiningCommonsMenuItemsIndexPage />}
           />
+          <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_ADMIN") && (
+        <>
+          <Route
+            exact
+            path="/helprequests/edit/:id"
+            element={<HelpRequestsEditPage />}
+          />
+          <Route
+            exact
+            path="/helprequests/create"
+            element={<HelpRequestsCreatePage />}
+          />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_USER") && (
+        <>
+          <Route exact path="/ucsbdiningcommonsmenuitems" element={<UCSBDiningCommonsMenuItemsIndexPage />} />
         </>
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (

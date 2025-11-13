@@ -100,12 +100,8 @@ describe("ArticlesCreatePage tests", () => {
 
     fireEvent.change(titleInput, { target: { value: "Article 4" } });
     fireEvent.change(urlInput, { target: { value: "https://article4.com" } });
-    fireEvent.change(explanationInput, {
-      target: { value: "Article about article 4" },
-    });
-    fireEvent.change(emailInput, {
-      target: { value: "daliasebat4@gmail.com" },
-    });
+    fireEvent.change(explanationInput, { target: { value: "Article about article 4" } });
+    fireEvent.change(emailInput, { target: { value: "daliasebat4@gmail.com" } });
     fireEvent.change(dateAddedInput, {
       target: { value: "2022-04-02T12:00" },
     });
