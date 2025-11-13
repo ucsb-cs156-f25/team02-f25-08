@@ -14,10 +14,21 @@ import RestaurantEditPage from "main/pages/Restaurants/RestaurantEditPage";
 import RecommendationRequestIndexPage from "main/pages/RecommendationRequest/RecommendationRequestIndexPage";
 import RecommendationRequestCreatePage from "main/pages/RecommendationRequest/RecommendationRequestCreatePage";
 import RecommendationRequestEditPage from "main/pages/RecommendationRequest/RecommendationRequestEditPage";
+import MenuItemReviewsIndexPage from "main/pages/MenuItemReviews/MenuItemReviewsIndexPage";
+import MenuItemReviewsCreatePage from "main/pages/MenuItemReviews/MenuItemReviewsCreatePage";
+import MenuItemReviewsEditPage from "main/pages/MenuItemReviews/MenuItemReviewsEditPage";
+
+import HelpRequestsIndexPage from "main/pages/HelpRequests/HelpRequestsIndexPage";
+import HelpRequestsCreatePage from "main/pages/HelpRequests/HelpRequestsCreatePage";
+import HelpRequestsEditPage from "main/pages/HelpRequests/HelpRequestsEditPage";
 
 import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
 import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
 import PlaceholderEditPage from "main/pages/Placeholder/PlaceholderEditPage";
+
+import ArticlesIndexPage from "main/pages/Articles/ArticlesIndexPage";
+import ArticlesCreatePage from "main/pages/Articles/ArticlesCreatePage";
+import ArticlesEditPage from "main/pages/Articles/ArticlesEditPage";
 
 import { hasRole, useCurrentUser } from "main/utils/useCurrentUser";
 
@@ -55,6 +66,29 @@ function App() {
       )}
       {hasRole(currentUser, "ROLE_USER") && (
         <>
+          <Route
+            exact
+            path="/menuitemreviews"
+            element={<MenuItemReviewsIndexPage />}
+          />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_ADMIN") && (
+        <>
+          <Route
+            exact
+            path="/menuitemreviews/edit/:id"
+            element={<MenuItemReviewsEditPage />}
+          />
+          <Route
+            exact
+            path="/menuitemreviews/create"
+            element={<MenuItemReviewsCreatePage />}
+          />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_USER") && (
+        <>
           <Route exact path="/restaurants" element={<RestaurantIndexPage />} />
         </>
       )}
@@ -78,6 +112,8 @@ function App() {
             exact
             path="/recommendationrequest"
             element={<RecommendationRequestIndexPage />}
+            path="/helprequests"
+            element={<HelpRequestsIndexPage />}
           />
         </>
       )}
@@ -92,6 +128,13 @@ function App() {
             exact
             path="/recommendationrequest/create"
             element={<RecommendationRequestCreatePage />}
+            path="/helprequests/edit/:id"
+            element={<HelpRequestsEditPage />}
+          />
+          <Route
+            exact
+            path="/helprequests/create"
+            element={<HelpRequestsCreatePage />}
           />
         </>
       )}
@@ -111,6 +154,25 @@ function App() {
             exact
             path="/placeholder/create"
             element={<PlaceholderCreatePage />}
+          />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_USER") && (
+        <>
+          <Route exact path="/articles" element={<ArticlesIndexPage />} />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_ADMIN") && (
+        <>
+          <Route
+            exact
+            path="/articles/edit/:id"
+            element={<ArticlesEditPage />}
+          />
+          <Route
+            exact
+            path="/articles/create"
+            element={<ArticlesCreatePage />}
           />
         </>
       )}
