@@ -1,18 +1,22 @@
-import React from 'react';
-import { useBackend } from 'main/utils/useBackend';
+import React from "react";
+import { useBackend } from "main/utils/useBackend";
 
-import BasicLayout from 'main/layouts/BasicLayout/BasicLayout';
-import UCSBDatesTable from 'main/components/UCSBDates/UCSBDatesTable';
-import { Button } from 'react-bootstrap';
-import { useCurrentUser, hasRole } from 'main/utils/useCurrentUser';
+import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
+import UCSBDatesTable from "main/components/UCSBDates/UCSBDatesTable";
+import { Button } from "react-bootstrap";
+import { useCurrentUser, hasRole } from "main/utils/useCurrentUser";
 
 export default function UCSBDatesIndexPage() {
   const currentUser = useCurrentUser();
 
   const createButton = () => {
-    if (hasRole(currentUser, 'ROLE_ADMIN')) {
+    if (hasRole(currentUser, "ROLE_ADMIN")) {
       return (
-        <Button variant="primary" href="/ucsbdates/create" style={{ float: 'right' }}>
+        <Button
+          variant="primary"
+          href="/ucsbdates/create"
+          style={{ float: "right" }}
+        >
           Create UCSBDate
         </Button>
       );
@@ -25,9 +29,9 @@ export default function UCSBDatesIndexPage() {
     status: _status,
   } = useBackend(
     // Stryker disable next-line all : don't test internal caching of React Query
-    ['/api/ucsbdates/all'],
-    { method: 'GET', url: '/api/ucsbdates/all' },
-    []
+    ["/api/ucsbdates/all"],
+    { method: "GET", url: "/api/ucsbdates/all" },
+    [],
   );
 
   return (

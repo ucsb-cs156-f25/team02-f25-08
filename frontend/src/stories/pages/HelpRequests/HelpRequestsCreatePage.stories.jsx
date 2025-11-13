@@ -1,13 +1,13 @@
-import React from 'react';
-import { apiCurrentUserFixtures } from 'fixtures/currentUserFixtures';
-import { systemInfoFixtures } from 'fixtures/systemInfoFixtures';
-import { http, HttpResponse } from 'msw';
+import React from "react";
+import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
+import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
+import { http, HttpResponse } from "msw";
 
-import { helpRequestsFixtures } from 'fixtures/helpRequestsFixtures';
-import HelpRequestsCreatePage from 'main/pages/HelpRequests/HelpRequestsCreatePage';
+import { helpRequestsFixtures } from "fixtures/helpRequestsFixtures";
+import HelpRequestsCreatePage from "main/pages/HelpRequests/HelpRequestsCreatePage";
 
 export default {
-  title: 'pages/HelpRequests/HelpRequestsCreatePage',
+  title: "pages/HelpRequests/HelpRequestsCreatePage",
   component: HelpRequestsCreatePage,
 };
 
@@ -16,18 +16,20 @@ const Template = () => <HelpRequestsCreatePage storybook={true} />;
 export const Default = Template.bind({});
 Default.parameters = {
   msw: [
-    http.get('/api/currentUser', () => {
+    http.get("/api/currentUser", () => {
       return HttpResponse.json(apiCurrentUserFixtures.userOnly, {
         status: 200,
       });
     }),
-    http.get('/api/systemInfo', () => {
+    http.get("/api/systemInfo", () => {
       return HttpResponse.json(systemInfoFixtures.showingNeither, {
         status: 200,
       });
     }),
-    http.post('/api/helprequests/post', () => {
-      return HttpResponse.json(helpRequestsFixtures.oneHelpRequest, { status: 200 });
+    http.post("/api/helprequests/post", () => {
+      return HttpResponse.json(helpRequestsFixtures.oneHelpRequest, {
+        status: 200,
+      });
     }),
   ],
 };

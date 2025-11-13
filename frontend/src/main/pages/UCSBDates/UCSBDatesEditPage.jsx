@@ -1,9 +1,9 @@
-import BasicLayout from 'main/layouts/BasicLayout/BasicLayout';
-import { useParams } from 'react-router';
-import UCSBDateForm from 'main/components/UCSBDates/UCSBDateForm';
-import { Navigate } from 'react-router';
-import { useBackend, useBackendMutation } from 'main/utils/useBackend';
-import { toast } from 'react-toastify';
+import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
+import { useParams } from "react-router";
+import UCSBDateForm from "main/components/UCSBDates/UCSBDateForm";
+import { Navigate } from "react-router";
+import { useBackend, useBackendMutation } from "main/utils/useBackend";
+import { toast } from "react-toastify";
 
 export default function UCSBDatesEditPage({ storybook = false }) {
   let { id } = useParams();
@@ -17,17 +17,17 @@ export default function UCSBDatesEditPage({ storybook = false }) {
     [`/api/ucsbdates?id=${id}`],
     {
       // Stryker disable next-line all : GET is the default, so changing this to "" doesn't introduce a bug
-      method: 'GET',
+      method: "GET",
       url: `/api/ucsbdates`,
       params: {
         id,
       },
-    }
+    },
   );
 
   const objectToAxiosPutParams = (ucsbDate) => ({
-    url: '/api/ucsbdates',
-    method: 'PUT',
+    url: "/api/ucsbdates",
+    method: "PUT",
     params: {
       id: ucsbDate.id,
     },
@@ -46,7 +46,7 @@ export default function UCSBDatesEditPage({ storybook = false }) {
     objectToAxiosPutParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
-    [`/api/ucsbdates?id=${id}`]
+    [`/api/ucsbdates?id=${id}`],
   );
 
   const { isSuccess } = mutation;
@@ -64,7 +64,11 @@ export default function UCSBDatesEditPage({ storybook = false }) {
       <div className="pt-2">
         <h1>Edit UCSBDate</h1>
         {ucsbDate && (
-          <UCSBDateForm initialContents={ucsbDate} submitAction={onSubmit} buttonLabel="Update" />
+          <UCSBDateForm
+            initialContents={ucsbDate}
+            submitAction={onSubmit}
+            buttonLabel="Update"
+          />
         )}
       </div>
     </BasicLayout>
