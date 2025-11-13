@@ -105,7 +105,7 @@ describe("MenuItemReviewTable tests", () => {
     ).toHaveTextContent("3");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-dateReviewed`),
-    ).toHaveTextContent("2025-10-30T20:49:03");
+    ).toHaveTextContent("2025-10-30T20:49");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-comments`),
     ).toHaveTextContent("yummy");
@@ -164,7 +164,7 @@ describe("MenuItemReviewTable tests", () => {
     ).toHaveTextContent("3");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-dateReviewed`),
-    ).toHaveTextContent("2025-10-30T20:49:03");
+    ).toHaveTextContent("2025-10-30T20:49");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-comments`),
     ).toHaveTextContent("yummy");
@@ -204,7 +204,7 @@ describe("MenuItemReviewTable tests", () => {
     ).toHaveTextContent("3");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-dateReviewed`),
-    ).toHaveTextContent("2025-10-30T20:49:03");
+    ).toHaveTextContent("2025-10-30T20:49");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-comments`),
     ).toHaveTextContent("yummy");
@@ -259,7 +259,7 @@ describe("MenuItemReviewTable tests", () => {
     ).toHaveTextContent("3");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-dateReviewed`),
-    ).toHaveTextContent("2025-10-30T20:49:03");
+    ).toHaveTextContent("2025-10-30T20:49");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-comments`),
     ).toHaveTextContent("yummy");
