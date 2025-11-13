@@ -21,7 +21,7 @@ function OurTable({ data, columns, testid = "testid" }) {
   });
 
   return (
-    <table className="table table-striped table-bordered" data-testid={testid}>
+    <table className="table-striped table-bordered table" data-testid={testid}>
       <thead>
         {table.getHeaderGroups().map((headerGroup, i) => (
           <tr
