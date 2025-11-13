@@ -115,73 +115,46 @@ function App() {
           />
         </>
       )}
+      
+      {hasRole(currentUser, "ROLE_USER") && (
+        <>
+          <Route
+            exact
+            path="/helprequests"
+            element={<HelpRequestsIndexPage />}
+          />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_ADMIN") && (
+        <>
+          <Route
+            exact
+            path="/helprequests/edit/:id"
+            element={<HelpRequestsEditPage />}
+          />
+          <Route
+            exact
+            path="/helprequests/create"
+            element={<HelpRequestsCreatePage />}
+          />
+        </>
+      )}
       {hasRole(currentUser, "ROLE_USER") && (
         <>
           <Route exact path="/ucsbdiningcommonsmenuitems" element={<UCSBDiningCommonsMenuItemsIndexPage />} />
-          <Route
-            exact
-            path="/helprequests"
-            element={<HelpRequestsIndexPage />}
-          />
         </>
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
           <Route
             exact
-            path="/helprequests/edit/:id"
-            element={<HelpRequestsEditPage />}
+            path="/ucsbdiningcommonsmenuitems/edit/:id"
+            element={<UCSBDiningCommonsMenuItemsEditPage />}
           />
           <Route
             exact
-            path="/helprequests/create"
-            element={<HelpRequestsCreatePage />}
-          />
-        </>
-      )}
-      {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route
-            exact
-            path="/helprequests"
-            element={<HelpRequestsIndexPage />}
-          />
-        </>
-      )}
-      {hasRole(currentUser, "ROLE_ADMIN") && (
-        <>
-          <Route
-            exact
-            path="/helprequests/edit/:id"
-            element={<HelpRequestsEditPage />}
-          />
-          <Route
-            exact
-            path="/helprequests/create"
-            element={<HelpRequestsCreatePage />}
-          />
-        </>
-      )}
-      {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route
-            exact
-            path="/helprequests"
-            element={<HelpRequestsIndexPage />}
-          />
-        </>
-      )}
-      {hasRole(currentUser, "ROLE_ADMIN") && (
-        <>
-          <Route
-            exact
-            path="/helprequests/edit/:id"
-            element={<HelpRequestsEditPage />}
-          />
-          <Route
-            exact
-            path="/helprequests/create"
-            element={<HelpRequestsCreatePage />}
+            path="/ucsbdiningcommonsmenuitems/create"
+            element={<UCSBDiningCommonsMenuItemsCreatePage />}
           />
         </>
       )}
@@ -198,13 +171,6 @@ function App() {
         <>
           <Route
             exact
-            path="/ucsbdiningcommonsmenuitems/edit/:id"
-            element={<UCSBDiningCommonsMenuItemsEditPage />}
-          />
-          <Route
-            exact
-            path="/ucsbdiningcommonsmenuitems/create"
-            element={<UCSBDiningCommonsMenuItemsCreatePage />}
             path="/recommendationrequest/edit/:id"
             element={<RecommendationRequestEditPage />}
           />
