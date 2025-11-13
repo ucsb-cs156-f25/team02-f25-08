@@ -35,6 +35,7 @@ describe("UCSBDiningCommonsMenuItemsCreatePage tests", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+  const setupUserOnly = () => {
     axiosMock.reset();
     axiosMock.resetHistory();
     axiosMock
@@ -71,6 +72,15 @@ describe("UCSBDiningCommonsMenuItemsCreatePage tests", () => {
 
     axiosMock.onPost("/api/ucsbdiningcommonsmenuitems/post").reply(202, ucsbdiningcommonsmenuitems);
 
+  };
+
+  const queryClient = new QueryClient();
+  test("Renders expected content", async () => {
+    // arrange
+
+    setupUserOnly();
+
+    // act
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
