@@ -15,14 +15,14 @@ const ucsbDiningCommonsMenuItemsFixtures = {
     {
       id: 2,
       diningCommonsCode: "De La Guerra",
-    name: "Tacos",
-    station: "Western",
+      name: "Tacos",
+      station: "Western",
     },
     {
       id: 3,
       diningCommonsCode: "Carillo",
-    name: "Granola",
-    station: "Brunch",
+      name: "Granola",
+      station: "Brunch",
     },
   ],
 };
