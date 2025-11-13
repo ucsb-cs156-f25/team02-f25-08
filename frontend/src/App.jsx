@@ -115,7 +115,7 @@ function App() {
           />
         </>
       )}
-      
+
       {hasRole(currentUser, "ROLE_USER") && (
         <>
           <Route
@@ -141,6 +141,11 @@ function App() {
       )}
       {hasRole(currentUser, "ROLE_USER") && (
         <>
+          <Route
+            exact
+            path="/ucsbdiningcommonsmenuitems"
+            element={<UCSBDiningCommonsMenuItemsIndexPage />}
+          />
           <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
         </>
       )}
@@ -160,7 +165,11 @@ function App() {
       )}
       {hasRole(currentUser, "ROLE_USER") && (
         <>
-          <Route exact path="/ucsbdiningcommonsmenuitems" element={<UCSBDiningCommonsMenuItemsIndexPage />} />
+          <Route
+            exact
+            path="/ucsbdiningcommonsmenuitems"
+            element={<UCSBDiningCommonsMenuItemsIndexPage />}
+          />
         </>
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
@@ -202,7 +211,11 @@ function App() {
       )}
       {hasRole(currentUser, "ROLE_USER") && (
         <>
-          <Route exact path="/ucsbdiningcommonsmenuitems" element={<UCSBDiningCommonsMenuItemsIndexPage />} />
+          <Route
+            exact
+            path="/ucsbdiningcommonsmenuitems"
+            element={<UCSBDiningCommonsMenuItemsIndexPage />}
+          />
         </>
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
