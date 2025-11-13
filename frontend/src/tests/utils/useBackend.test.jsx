@@ -215,7 +215,9 @@ describe("utils/useBackend tests", () => {
 
       const { result } = renderHook(
         () => useBackendMutation(objectToAxiosParams, { onSuccess }),
-        { wrapper },
+        {
+          wrapper,
+        },
       );
 
       const mutation = result.current;
