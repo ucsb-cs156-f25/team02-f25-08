@@ -117,6 +117,7 @@ function App() {
       )}
       {hasRole(currentUser, "ROLE_USER") && (
         <>
+          <Route exact path="/ucsbdiningcommonsmenuitems" element={<UCSBDiningCommonsMenuItemsIndexPage />} />
           <Route
             exact
             path="/helprequests"
@@ -197,6 +198,13 @@ function App() {
         <>
           <Route
             exact
+            path="/ucsbdiningcommonsmenuitems/edit/:id"
+            element={<UCSBDiningCommonsMenuItemsEditPage />}
+          />
+          <Route
+            exact
+            path="/ucsbdiningcommonsmenuitems/create"
+            element={<UCSBDiningCommonsMenuItemsCreatePage />}
             path="/recommendationrequest/edit/:id"
             element={<RecommendationRequestEditPage />}
           />
