@@ -6,13 +6,6 @@ const UCSBOrganizationFixtures = {
     orgTranslation: "ZETA PHI RHO",
     inactive: false,
   },
-  oneUCSBOrganization_allstring: {
-    id: 1,
-    orgCode: "ZPR",
-    orgTranslationShort: "ZETA PHI RHO",
-    orgTranslation: "ZETA PHI RHO",
-    inactive: "false",
-  },
   threeUCSBOrganizations: [
     {
       id: 1,
@@ -34,30 +27,6 @@ const UCSBOrganizationFixtures = {
       orgTranslationShort: "KOREAN RADIO CL",
       orgTranslation: "KOREAN RADIO CLUB",
       inactive: false,
-    },
-  ],
-
-  threeUCSBOrganizations_allstring: [
-    {
-      id: 1,
-      orgCode: "ZPR",
-      orgTranslationShort: "ZETA PHI RHO",
-      orgTranslation: "ZETA PHI RHO",
-      inactive: "false",
-    },
-    {
-      id: 2,
-      orgCode: "SKY",
-      orgTranslationShort: "SKYDIVING CLUB",
-      orgTranslation: "SKYDIVING CLUB AT UCSB",
-      inactive: "false",
-    },
-    {
-      id: 3,
-      orgCode: "KRC",
-      orgTranslationShort: "KOREAN RADIO CL",
-      orgTranslation: "KOREAN RADIO CLUB",
-      inactive: "false",
     },
   ],
 };

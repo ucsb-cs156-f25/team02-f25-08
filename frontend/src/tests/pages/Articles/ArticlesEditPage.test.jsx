@@ -183,7 +183,6 @@ describe("ArticlesEditPage tests", () => {
     });
 
     test("Changes when you click Update", async () => {
-
       axiosMock.onGet("/api/articles").reply(200, {
         id: 1,
         title: "Article 1",
@@ -192,7 +191,6 @@ describe("ArticlesEditPage tests", () => {
         email: "daliasebat1@gmail.com",
         dateAdded: "2022-01-02T12:00",
       });
-
 
       render(
         <QueryClientProvider client={queryClient}>
