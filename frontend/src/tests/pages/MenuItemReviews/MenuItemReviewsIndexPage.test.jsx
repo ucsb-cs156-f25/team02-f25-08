@@ -191,4 +191,79 @@ describe("MenuItemReviewIndexPage tests", () => {
     expect(axiosMock.history.delete[0].url).toBe("/api/menuitemreview");
     expect(axiosMock.history.delete[0].params).toEqual({ id: 1 });
   });
+
+  test("renders empty table when backend unavailable, user only", async () => {
+    setupUserOnly();
+
+    axiosMock.onGet("/api/menuitemreview/all").timeout();
+
+    const restoreConsole = mockConsole();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <MenuItemReviewIndexPage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() => {
+      expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1);
+    });
+
+    const errorMessage = console.error.mock.calls[0][0];
+    expect(errorMessage).toMatch(
+      "Error communicating with backend via GET on /api/menuitemreview/all",
+    );
+    restoreConsole();
+  });
+
+  test("what happens when you click delete, admin", async () => {
+    setupAdminUser();
+
+    axiosMock
+      .onGet("/api/menuitemreview/all")
+      .reply(200, menuItemReviewFixtures.threeMenuItemReview);
+    axiosMock
+      .onDelete("/api/menuitemreview")
+      .reply(200, "Menu Item Review with id 1 was deleted");
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <MenuItemReviewIndexPage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.getByTestId(`${testId}-cell-row-0-col-id`),
+      ).toBeInTheDocument();
+    });
+
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
+
+    const deleteButton = await screen.findByTestId(
+      `${testId}-cell-row-0-col-Delete-button`,
+    );
+    expect(deleteButton).toBeInTheDocument();
+
+    fireEvent.click(deleteButton);
+
+    await waitFor(() => {
+      expect(mockToast).toHaveBeenCalledWith(
+        "Menu Item Review with id 1 was deleted",
+      );
+    });
+
+    await waitFor(() => {
+      expect(axiosMock.history.delete.length).toBe(1);
+    });
+    expect(axiosMock.history.delete[0].url).toBe("/api/menuitemreview");
+    expect(axiosMock.history.delete[0].url).toBe("/api/menuitemreview");
+    expect(axiosMock.history.delete[0].params).toEqual({ id: 1 });
+  });
 });
