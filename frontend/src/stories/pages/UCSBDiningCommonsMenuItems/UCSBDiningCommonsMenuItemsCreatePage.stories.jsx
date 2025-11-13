@@ -8,11 +8,14 @@ import UCSBDiningCommonsMenuItemsCreatePage from "main/pages/UCSBDiningCommonsMe
 import { ucsbDiningCommonsMenuItemsFixtures } from "fixtures/ucsbDiningCommonsMenuItemsFixtures";
 
 export default {
-  title: "pages/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsCreatePage",
+  title:
+    "pages/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsCreatePage",
   component: UCSBDiningCommonsMenuItemsCreatePage,
 };
 
-const Template = () => <UCSBDiningCommonsMenuItemsCreatePage storybook={true} />;
+const Template = () => (
+  <UCSBDiningCommonsMenuItemsCreatePage storybook={true} />
+);
 
 export const Default = Template.bind({});
 Default.parameters = {
@@ -28,7 +31,10 @@ Default.parameters = {
       });
     }),
     http.post("/api/ucsbdiningcommonsmenuitems/post", () => {
-      return HttpResponse.json(ucsbDiningCommonsMenuItemsFixtures.oneDiningCommonsMenuItems, { status: 200 });
+      return HttpResponse.json(
+        ucsbDiningCommonsMenuItemsFixtures.oneDiningCommonsMenuItems,
+        { status: 200 },
+      );
     }),
   ],
 };

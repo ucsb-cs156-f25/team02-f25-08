@@ -43,7 +43,9 @@ ThreeItemsOrdinaryUser.parameters = {
       return HttpResponse.json(systemInfoFixtures.showingNeither);
     }),
     http.get("/api/ucsbdiningcommonsmenuitems/all", () => {
-      return HttpResponse.json(ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems);
+      return HttpResponse.json(
+        ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems,
+      );
     }),
   ],
 };
@@ -59,7 +61,9 @@ ThreeItemsAdminUser.parameters = {
       return HttpResponse.json(systemInfoFixtures.showingNeither);
     }),
     http.get("/api/ucsbdiningcommonsmenuitems/all", () => {
-      return HttpResponse.json(ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems);
+      return HttpResponse.json(
+        ucsbDiningCommonsMenuItemsFixtures.threeDiningCommonsMenuItems,
+      );
     }),
     http.delete("/api/ucsbdiningcommonsmenuitems", () => {
       return HttpResponse.json(

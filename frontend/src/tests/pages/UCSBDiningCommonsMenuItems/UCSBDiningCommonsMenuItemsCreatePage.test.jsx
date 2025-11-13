@@ -69,7 +69,9 @@ describe("UCSBDiningCommonsMenuItemsCreatePage tests", () => {
       station: "take out",
     };
 
-    axiosMock.onPost("/api/ucsbdiningcommonsmenuitems/post").reply(202, ucsbdiningcommonsmenuitems);
+    axiosMock
+      .onPost("/api/ucsbdiningcommonsmenuitems/post")
+      .reply(202, ucsbdiningcommonsmenuitems);
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -96,8 +98,8 @@ describe("UCSBDiningCommonsMenuItemsCreatePage tests", () => {
     expect(createButton).toBeInTheDocument();
 
     fireEvent.change(diningCommonsCodeInput, { target: { value: "Ortega" } });
-    fireEvent.change(nameInput, { target: { value: "pasta" },});
-    fireEvent.change(stationInput, { target: { value: "take out" },});
+    fireEvent.change(nameInput, { target: { value: "pasta" } });
+    fireEvent.change(stationInput, { target: { value: "take out" } });
     fireEvent.click(createButton);
 
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
